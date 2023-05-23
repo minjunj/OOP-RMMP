@@ -1,13 +1,12 @@
-﻿// RommateMatchingSystem.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
-//
+﻿// main.cpp
 
 #include <iostream>
 #include <string>
-#include "User.h"
-#include "DataBase.h"
-#include "student.h"
-#include "admin.h"
-#include "room.h"
+#include "./user/User.h"
+#include "./database/DataBase.h"
+#include "./student/student.h"
+#include "./admin/admin.h"
+#include "./room/room.h"
 
 using namespace std;
 
@@ -102,10 +101,11 @@ int main()
     db.insert(studentData, "student"); //db에 삽입
     db.insert(adminData, "admin");
     db.insert(roomData, "room");
+
     // db.inputData(2);
     // db.printData(2);
     // //db.outputData(5,"1234");
-    //start_menu();
+    // start_menu();    
 
     return 0;
 }

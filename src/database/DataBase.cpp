@@ -1,11 +1,10 @@
 // DataBase.cpp
 
 #include "DataBase.h"
-#include "student.h"
-#include "admin.h"
-#include "room.h"
+#include "../student/student.h"
+#include "../admin/admin.h"
+#include "../room/room.h"
 
-/*insert( _JSON으로 저장한 data, 저장위치 : admin, student, room)*/
 template <typename T>
 void DataBase::insert(const std::vector<T>& data, const char* type)
 {

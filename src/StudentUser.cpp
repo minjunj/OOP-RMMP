@@ -1,6 +1,26 @@
+/*
 #include "StudentUser.h"
 #include <string>
 #include <iostream>
+
+
+
+
+
+
+
+
+
+
+
+Student로 통합합시다. 공사중
+
+
+
+
+
+
+
 
 
 
@@ -59,3 +79,5 @@ void StudentUser::setRoommate(int rID)
 {
 	roommate = rID;
 }
+
+*/

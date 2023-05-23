@@ -1,8 +1,26 @@
+/*
 #ifndef STUDENTUSER_H
 #define STUDENTUSER_H
-#include "User.h"
+#include "./user/User.h"
 #include "StudentInfo.h"
 #include <string>
+
+
+
+
+
+
+
+
+
+
+    Student로 통합합시다. 공사중
+
+
+
+
+
+
 
 
 
@@ -37,3 +55,4 @@ public:
 };
 
 #endif
+*/
