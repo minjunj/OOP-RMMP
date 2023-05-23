@@ -25,5 +25,7 @@ public:
     void outputData(int num, string sen);
 
     void createFile(string fileName);
+
+    void print();
 };
 

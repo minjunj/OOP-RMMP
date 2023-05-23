@@ -7,10 +7,20 @@
 
 using namespace std;
 
+void DataBase::print()
+{
+    cout<<"Hello World"<<endl;
+    return;
+}
+
+
+
+
 void DataBase::inputData(int num)
 {
     stuInfoTable.clear();
     ifstream readFile;
+    
     if (num == 1)
     {
         readFile.open(stuFile);
@@ -47,7 +57,7 @@ void DataBase::inputData(int num)
         }
         readFile.close();
     }
-
+    
     return;
 }
 void DataBase::printData(int num)
