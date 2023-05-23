@@ -62,7 +62,7 @@ void start_menu()
     {
         cout << "Enter the number here (1~3) : ";
         cin >> st_num;
-        if (st_num != 1 and st_num != 2 and st_num != 3)
+        if (st_num != 1 && st_num != 2 && st_num != 3)
         {
             cout << "Wrong input, try again" << endl;
             continue;
