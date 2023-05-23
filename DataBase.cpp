@@ -1,174 +1,96 @@
+// DataBase.cpp
+
 #include "DataBase.h"
-#include <iostream>
-#include <vector>
-#include <string>
-#include <fstream>
-#include <sstream>
+#include "student.h"
+#include "admin.h"
+#include "room.h"
 
-using namespace std;
-
-void DataBase::inputData(int num)
+/*insert( _JSON으로 저장한 data, 저장위치 : admin, student, room)*/
+template <typename T>
+void DataBase::insert(const std::vector<T>& data, const char* type)
 {
-    stuInfoTable.clear();
-    ifstream readFile;
-    if (num == 1)
+    
+    
+    try
     {
-        readFile.open(stuFile);
-        stuInfoTable.clear();
-    }
-    else if (num == 2)
-    {
-        readFile.open(adminFile);
-        adminInfoTable.clear();
-    }
-    else if (num == 3)
-    {
-        readFile.open(dormFile);
-        dormInfoTable.clear();
-    }
-    else return;
-
-
-    if (readFile.is_open())
-    {
-        string line;
-        while (getline(readFile, line))
+        std::ofstream outFile;
+        if (std::string(type) == "student")
         {
-            istringstream ss(line);
-            vector <string> temp;
-            string word;
-            while (getline(ss, word, ' '))
+            outFile.open(stuFile, std::ios_base::app); // Append mode
+            if (!outFile)
             {
-                temp.push_back(word);
+                std::cout << "Failed to open the student file." << std::endl;
+                return;
             }
-            if (num == 1) stuInfoTable.push_back(temp);
-            if (num == 2) adminInfoTable.push_back(temp);
-            if (num == 3) dormInfoTable.push_back(temp);
-        }
-        readFile.close();
-    }
 
-    return;
-}
-void DataBase::printData(int num)
-{
-    if (num == 1)
-    {
-        for (const auto& row : stuInfoTable)
-        {
-            for (const auto& element : row)
+            for (const auto& student : data)
             {
-                cout << element << " ";
+                outFile << student.getFormattedData() << std::endl;
             }
-            cout << endl;
         }
-    }
-    else if (num == 2)
-    {
-        for (const auto& row : adminInfoTable)
+        else if (std::string(type) == "admin")
         {
-            for (const auto& element : row)
+            outFile.open(adminFile, std::ios_base::app); // Append mode
+            if (!outFile)
             {
-                cout << element << " ";
+                std::cout << "Failed to open the admin file." << std::endl;
+                return;
             }
-            cout << endl;
-        }
-    }
-    else if (num == 3)
-    {
-        for (const auto& row : dormInfoTable)
-        {
-            for (const auto& element : row)
+
+            for (const auto& admin : data)
             {
-                cout << element << " ";
+                outFile << admin.getFormattedData() << std::endl;
             }
-            cout << endl;
         }
-    }
-    else return;
-}
-
-void DataBase::outputData(int num, string sen)
-{
-    ofstream writeFile;
-    if (num == 1)
-    {
-        writeFile.open(stuFile, ios_base::out | ios_base::app);
-    }
-    else if (num == 2)
-    {
-        writeFile.open(adminFile, ios_base::out | ios_base::app);
-    }
-    else if (num == 3)
-    {
-        writeFile.open(dormFile, ios_base::out | ios_base::app);
-    }
-    else return;
-
-    for (int i = 0; i < 10; i++)
-    {
-        writeFile << i;
-    }
-
-
-    if (writeFile.is_open())
-    {
-        string line;
-
-        istringstream ss(line);
-        vector <string> temp;
-        string word;
-        while (getline(ss, word, ' '))
+        else if (std::string(type) == "room")
         {
-            writeFile << word << " ";
-            temp.push_back(word);
+            outFile.open(roomFile, std::ios_base::app); // Append mode
+            if (!outFile)
+            {
+                std::cout << "Failed to open the admin file." << std::endl;
+                return;
+            }
+
+            for (const auto& room : data)
+            {
+                outFile << room.getFormattedData() << std::endl;
+            }
         }
-        writeFile << endl;
-
-        if (num == 1) stuInfoTable.push_back(temp);
-        if (num == 2) adminInfoTable.push_back(temp);
-        if (num == 3) dormInfoTable.push_back(temp);
+        outFile.close();
     }
-
-    writeFile.close();
-}
-
-void DataBase::deleteData(int num, string ID)
-{
-    ifstream readFile;
-    ofstream tempFile;
-
-    string fileName;
-    string line;
-
-    if (num == 1) fileName = stuFile;
-    else if (num == 2) fileName = adminFile;
-    else if (num == 3) fileName = dormFile;
-    else return;
-    readFile.open(fileName);
-    tempFile.open("temp.txt");
-
-    while (getline(readFile, line))
+    catch(const std::exception& e)
     {
-        if (line.find(ID) != string::npos)
-        {
-            tempFile << line << endl;
-        }
+        std::cerr << e.what() << '\n';
     }
-    tempFile.close();
-    readFile.close();
-
-    const char* p = fileName.c_str();
-    remove(p);
-    rename("temp.txt", p);
-
-    return;
 }
 
-void DataBase::createFile(string fileName)
+template void DataBase::insert<Student>(const std::vector<Student>& data, const char* type);
+template void DataBase::insert<Admin>(const std::vector<Admin>& data, const char* type);
+template void DataBase::insert<Room>(const std::vector<Room>& data, const char* type);
+
+std::vector<Student> DataBase::student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw, const std::string& class_, int room)
 {
-    fstream newFile(fileName);
-    cout << fileName << "file is created!" << endl;
-    return;
+    std::vector<Student> studentData = {
+        Student(code, name, id, pw, class_, room)
+    };
+
+    return studentData;
 }
 
+std::vector<Admin> DataBase::admin_JSON(const std::string& name, const std::string& id, const std::string& pw)
+{
+    std::vector<Admin> adminData = {
+        Admin(name, id, pw)
+    };
+
+    return adminData;
+}
+
+std::vector<Room> DataBase::room_JSON(const std::string& roomID, const std::string& roomNumber, const bool is_empty)
+{
+    std::vector<Room> roomData = {
+        Room(roomID, roomNumber, is_empty)
+    };
+
+    return roomData;
+}

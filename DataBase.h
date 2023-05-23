@@ -1,30 +1,35 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <vector>
+// DataBase.h
 #ifndef DATABASE_H
 #define DATABASE_H
-using namespace std;
 
-class DataBase
-{
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+
+class Student;
+class Admin;
+class Room;
+
+class DataBase {
 private:
-	string stuFile = "studentFile.txt";
-	string adminFile = "adminFile.txt";
-    string dormFile = "dormFile.txt";
-    vector <vector <string>> stuInfoTable;
-    vector <vector <string>> adminInfoTable;
-    vector <vector <string>> dormInfoTable;
-
+    std::string stuFile = "student.txt";
+    std::string adminFile = "admin.txt";
+    std::string roomFile = "room.txt";
 public:
-    // Entering data from file to vector
-    void inputData(int num);
-    void printData(int num);
-    void deleteData(int num, string ID);
-    void outputData(int num, string sen);
+    template <typename T>
+    void insert(const std::vector<T>& data, const char* type); // type은 student, admin 등
 
-    void createFile(string fileName);
+    /*std::vector<Student> student_JSON(int code, string name, string id, string pw, string classOf, int roomID)*/
+    std::vector<Student> student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw,
+            const std::string& class_, int room);
+
+    /**/
+    std::vector<Admin> admin_JSON(const std::string& name, const std::string& id, const std::string& pw);
+
+    std::vector<Room> room_JSON(const std::string& roomID, const std::string& roomNumber, const bool is_empty);
 };
 
 #endif
+
+

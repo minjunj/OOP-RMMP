@@ -5,6 +5,9 @@
 #include <string>
 #include "User.h"
 #include "DataBase.h"
+#include "student.h"
+#include "admin.h"
+#include "room.h"
 
 using namespace std;
 
@@ -93,9 +96,15 @@ void start_menu()
 int main()
 {
     DataBase db;
-    db.inputData(2);
-    db.printData(2);
-    //db.outputData(5,"1234");
+    std::vector<Student> studentData = db.student_JSON(20225180, "민준", "m412", "pw12", "22", 214); // 데이터 셋팅
+    std::vector<Admin> adminData = db.admin_JSON("admin민준", "mw412", "pww12");
+    std::vector<Room> roomData = db.room_JSON("1", "T217", false);
+    db.insert(studentData, "student"); //db에 삽입
+    db.insert(adminData, "admin");
+    db.insert(roomData, "room");
+    // db.inputData(2);
+    // db.printData(2);
+    // //db.outputData(5,"1234");
     //start_menu();
 
     return 0;
