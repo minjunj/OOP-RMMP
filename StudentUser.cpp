@@ -3,7 +3,26 @@
 #include <iostream>
 
 
+/*
 
+
+
+
+
+
+
+
+Student로 통합합시다. 공사중
+
+
+
+
+
+
+
+
+
+*/
 void StudentUser::printInfo()
 {
 	return;

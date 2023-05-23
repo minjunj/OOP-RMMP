@@ -5,7 +5,26 @@
 #include <string>
 
 
+/*
 
+
+
+
+
+
+
+
+Student로 통합합시다. 공사중
+
+
+
+
+
+
+
+
+
+*/
 class StudentUser :
     public User
 {

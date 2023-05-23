@@ -4,7 +4,26 @@
 
 using namespace std;
 
+/*
 
+
+
+
+
+
+
+
+Student로 통합합시다. 공사중
+
+
+
+
+
+
+
+
+
+*/
 void StudentInfo::setSleepTime(int st)
 {
 	sleepTime = st;

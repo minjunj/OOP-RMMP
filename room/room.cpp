@@ -1,6 +1,6 @@
 // room.cpp
 
-#include "room.h"
+#include "../room/room.h"
 #include <vector>
 #include <string>
 Room::Room(const std::string& roomID, const std::string& roomNumber, const bool is_empty)

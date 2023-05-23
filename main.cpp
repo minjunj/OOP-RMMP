@@ -3,11 +3,11 @@
 
 #include <iostream>
 #include <string>
-#include "User.h"
-#include "DataBase.h"
-#include "student.h"
-#include "admin.h"
-#include "room.h"
+#include "./user/User.h"
+#include "./DB/DataBase.h"
+#include "./student/student.h"
+#include "./admin/admin.h"
+#include "./room/room.h"
 
 using namespace std;
 

@@ -3,7 +3,26 @@
 #ifndef ADMIN_H
 #define ADMIN_H
 
+/*
 
+
+
+
+
+
+
+
+admin 통합합시다. 공사중
+
+
+
+
+
+
+
+
+
+*/
 class AdminUser :
     public User
 {

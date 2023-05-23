@@ -1,5 +1,5 @@
 // student.cpp
-#include "student.h"
+#include "../student/student.h"
 
 Student::Student(int code, const std::string& name, const std::string& id, const std::string& pw,
                  const std::string& class_, int room)
