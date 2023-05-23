@@ -1,7 +1,7 @@
-#pragma once
 #include <string.h>
 #include "User.h"
-
+#ifndef ADMIN_H
+#define ADMIN_H
 
 
 class AdminUser :
@@ -16,3 +16,4 @@ public:
     void matchStudents();
 };
 
+#endif

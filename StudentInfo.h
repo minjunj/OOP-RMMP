@@ -1,4 +1,5 @@
-#pragma once
+#ifndef STUDENTINFO_H
+#define STUDENTINFO_H
 
 #include <string>
 #include <iostream>
@@ -56,3 +57,4 @@ public:
 	void evalGrade();
 };
 
+#endif

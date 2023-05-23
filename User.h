@@ -1,4 +1,5 @@
-#pragma once
+#ifndef USER_H
+#define USER_H
 #include <string>
 #include <iostream>
 
@@ -26,3 +27,5 @@ public:
 	virtual void printInfo();
 	virtual void changePW();
 };
+
+#endif
