@@ -1,10 +1,10 @@
-#pragma once
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
 #include <vector>
-
+#ifndef DATABASE_H
+#define DATABASE_H
 using namespace std;
 
 class DataBase
@@ -27,3 +27,4 @@ public:
     void createFile(string fileName);
 };
 
+#endif

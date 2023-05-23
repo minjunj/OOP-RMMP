@@ -1,4 +1,5 @@
-#pragma once
+#ifndef STUDENTUSER_H
+#define STUDENTUSER_H
 #include "User.h"
 #include "StudentInfo.h"
 #include <string>
@@ -35,3 +36,4 @@ public:
 
 };
 
+#endif
