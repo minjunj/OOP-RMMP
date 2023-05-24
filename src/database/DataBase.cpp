@@ -59,9 +59,7 @@ void DataBase::insert(const std::vector<std::shared_ptr<T>>& data, const char* t
     }
 }
 
-    template void DataBase::insert<Student>(const std::vector<std::shared_ptr<Student>>& data, const char* type);
-    template void DataBase::insert<Admin>(const std::vector<std::shared_ptr<Admin>>& data, const char* type);
-    template void DataBase::insert<Room>(const std::vector<std::shared_ptr<Room>>& data, const char* type);
+
 
 std::vector<std::shared_ptr<Student>> DataBase::student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw, const std::string& class_, int room)
 {
@@ -89,3 +87,7 @@ std::vector<std::shared_ptr<Room>> DataBase::room_JSON(const std::string& roomID
 
     return roomData;
 }
+
+template void DataBase::insert<Student>(const std::vector<std::shared_ptr<Student>>& data, const char* type);
+template void DataBase::insert<Admin>(const std::vector<std::shared_ptr<Admin>>& data, const char* type);
+template void DataBase::insert<Room>(const std::vector<std::shared_ptr<Room>>& data, const char* type);
