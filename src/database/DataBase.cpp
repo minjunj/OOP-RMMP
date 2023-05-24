@@ -4,7 +4,7 @@
 #include "../room/room.h"
 #include <memory.h>
 template <typename T>
-void DataBase::insert(const std::vector<std::shared_ptr<T>>& data, const char* type)
+void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const char* type)
 {
     try
     {
@@ -61,33 +61,30 @@ void DataBase::insert(const std::vector<std::shared_ptr<T>>& data, const char* t
 
 
 
-std::vector<std::shared_ptr<Student>> DataBase::student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw, const std::string& class_, int room)
+std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw, const std::string& class_, int room)
 {
-    std::vector<std::shared_ptr<Student>> studentData = {
-        std::make_shared<Student>(code, name, id, pw, class_, room)
-    };
+    std::vector<std::unique_ptr<Student>> studentData;
+    studentData.push_back(std::make_unique<Student>(code, name, id, pw, class_, room));
+
 
     return studentData;
 }
 
-std::vector<std::shared_ptr<Admin>> DataBase::admin_JSON(const std::string& name, const std::string& id, const std::string& pw)
+std::vector<std::unique_ptr<Admin>> DataBase::admin_JSON(const std::string& name, const std::string& id, const std::string& pw)
 {
-    std::vector<std::shared_ptr<Admin>> adminData = {
-        std::make_shared<Admin>(name, id, pw)
-    };
+    std::vector<std::unique_ptr<Admin>> adminData;
+    adminData.push_back(std::make_unique<Admin>(name, id, pw));
 
     return adminData;
 }
 
-std::vector<std::shared_ptr<Room>> DataBase::room_JSON(const std::string& roomID, const std::string& roomNumber, const bool is_empty)
+std::vector<std::unique_ptr<Room>> DataBase::room_JSON(const std::string& roomID, const std::string& roomNumber, const bool is_empty)
 {
-    std::vector<std::shared_ptr<Room>> roomData = {
-        std::make_shared<Room>(roomID, roomNumber, is_empty)
-    };
-
+    std::vector<std::unique_ptr<Room>> roomData;
+    roomData.push_back(std::make_unique<Room>(roomID, roomNumber, is_empty));
     return roomData;
 }
 
-template void DataBase::insert<Student>(const std::vector<std::shared_ptr<Student>>& data, const char* type);
-template void DataBase::insert<Admin>(const std::vector<std::shared_ptr<Admin>>& data, const char* type);
-template void DataBase::insert<Room>(const std::vector<std::shared_ptr<Room>>& data, const char* type);
+template void DataBase::insert<Student>(const std::vector<std::unique_ptr<Student>>& data, const char* type);
+template void DataBase::insert<Admin>(const std::vector<std::unique_ptr<Admin>>& data, const char* type);
+template void DataBase::insert<Room>(const std::vector<std::unique_ptr<Room>>& data, const char* type);
