@@ -95,9 +95,9 @@ void start_menu()
 int main()
 {
     DataBase db;
-    std::vector<Student> studentData = db.student_JSON(20225180, "민준", "m412", "pw12", "22", 214); // 데이터 셋팅
-    std::vector<Admin> adminData = db.admin_JSON("admin민준", "mw412", "pww12");
-    std::vector<Room> roomData = db.room_JSON("1", "T217", false);
+    std::vector<std::unique_ptr<Student>> studentData = db.student_JSON(20225180, "민준", "m412", "pw12", "22", 12); // 데이터 셋팅
+    std::vector<std::unique_ptr<Admin>> adminData = db.admin_JSON("is a unique", "mw412", "pww12");
+    std::vector<std::unique_ptr<Room>> roomData = db.room_JSON("1", "is a unique", false);
     db.insert(studentData, "student"); //db에 삽입
     db.insert(adminData, "admin");
     db.insert(roomData, "room");

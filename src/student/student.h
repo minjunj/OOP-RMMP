@@ -16,6 +16,7 @@ class DataBase; // Forward declaration of DataBase class
     string : PW,
     string : classOf,
     string : role = "user"
+    int : roomId
 */
 class Student {
 private:
