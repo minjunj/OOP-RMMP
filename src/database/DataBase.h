@@ -29,7 +29,7 @@ public:
     void insert(const std::vector<std::unique_ptr<T>>& data, const char* type); // Use std::shared_ptr
 
     /*
-        std::vector<std::shared_ptr<Student>> student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw,
+        std::vector<std::unique_ptr<Student>> student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw,
             const std::string& class_, int roomId)
         스튜던트 데이터 입력하는 함수
     */
