@@ -1,4 +1,3 @@
-// DataBase.h
 #ifndef DATABASE_H
 #define DATABASE_H
 
@@ -6,6 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <memory> // Include the <memory> header for smart pointers
 #include "../student/student.h"
 #include "../admin/admin.h"
 #include "../room/room.h"
@@ -25,21 +25,20 @@ public:
         insert( _JSON으로 저장한 data, 저장위치 : admin, student, room)
     */
     template <typename T>
-    void insert(const std::vector<T>& data, const char* type); // type은 student, admin 등
+    void insert(const std::vector<std::shared_ptr<T>>& data, const char* type); // Use std::shared_ptr
 
     /*
-        std::vector<Student> student_JSON(int code, string name, string id, string pw, string classOf, int roomID)
+        std::vector<std::shared_ptr<Student>> student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw,
+            const std::string& class_, int roomId)
         스튜던트 데이터 입력하는 함수
     */
-    std::vector<Student> student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw,
+    std::vector<std::shared_ptr<Student>> student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw,
             const std::string& class_, int room);
 
     /* 어드민 데이터 입력하는 함수*/
-    std::vector<Admin> admin_JSON(const std::string& name, const std::string& id, const std::string& pw);
+    std::vector<std::shared_ptr<Admin>> admin_JSON(const std::string& name, const std::string& id, const std::string& pw);
     /* 룸 데이터 입력하는 함수*/
-    std::vector<Room> room_JSON(const std::string& roomID, const std::string& roomNumber, const bool is_empty);
+    std::vector<std::shared_ptr<Room>> room_JSON(const std::string& roomID, const std::string& roomNumber, const bool is_empty);
 };
 
 #endif
-
-
