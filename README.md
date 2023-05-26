@@ -60,3 +60,7 @@ main에 DataBase db;가 있다는 가정하에 진행
 ### findAll DB
   (조회 위치, 찾을 정보)
   db.findAll("admin", "mw4121");
+ 
+### update DB
+ (조회 위치, 바꿀 정보, 바꿀 정보의 인덱스)
+  db.findOne("student", "m4121", 1)
