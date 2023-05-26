@@ -98,19 +98,19 @@ int main()
 {
     DataBase db;
 
-    // JsonStu studentData = db.student_JSON(20225180, "조민준", "m412", "pw12", "22", 12); // 데이터 셋팅
-    // JsonAdmin adminData = db.admin_JSON("조민준", "mw412", "pww12");
-    // JsonRoom roomData = db.room_JSON("g107", true);
-    // db.insert(studentData, "student"); //db에 삽입
-    // db.insert(adminData, "admin");
-    // db.insert(roomData, "room");
+    JsonStu studentData = db.student_JSON(20225180, "조민준", "m412", "pw12", "22", 12); // 데이터 셋팅
+    JsonAdmin adminData = db.admin_JSON("조민준", "mw412", "pww12");
+    JsonRoom roomData = db.room_JSON("g107", true);
+    db.insert(studentData, "student"); //db에 삽입
+    db.insert(adminData, "admin");
+    db.insert(roomData, "room");
 
-    // JsonStu studentData1 = db.student_JSON(20225180, "조민준1", "m4121", "pw121", "221", 121); // 데이터 셋팅
-    // JsonAdmin adminData1 = db.admin_JSON("조민준1", "mw4121", "pww121");
-    // JsonRoom roomData1 = db.room_JSON("g1071", true);
-    // db.insert(studentData1, "student"); //db에 삽입
-    // db.insert(adminData1, "admin");
-    // db.insert(roomData1, "room");
+    JsonStu studentData1 = db.student_JSON(20225180, "조민준1", "m4121", "pw121", "221", 121); // 데이터 셋팅
+    JsonAdmin adminData1 = db.admin_JSON("조민준1", "mw4121", "pww121");
+    JsonRoom roomData1 = db.room_JSON("g1071", true);
+    db.insert(studentData1, "student"); //db에 삽입
+    db.insert(adminData1, "admin");
+    db.insert(roomData1, "room");
 
     JsonStu studentData2 = db.student_JSON(); // 데이터 셋팅
     JsonAdmin adminData2 = db.admin_JSON();

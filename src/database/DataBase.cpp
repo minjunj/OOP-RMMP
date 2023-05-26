@@ -5,7 +5,9 @@
 #include "../room/room.h"
 #include <typeinfo>
 
-int count = 0;
+int count_room = 0;
+int count_student = 0;
+int count_admin = 0;
 template <typename T>
 void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const char* type)
 {
@@ -67,7 +69,10 @@ void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const char* t
 std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw, const std::string& class_, int room)
 {
     std::vector<std::unique_ptr<Student>> studentData;
-    studentData.push_back(std::make_unique<Student>(code, name, id, pw, class_, room));
+    count_student++;
+    std::string s = "s";
+    std::string studentId = std::to_string(count_student) + s;
+    studentData.push_back(std::make_unique<Student>(studentId, code, name, id, pw, class_, room));
 
 
     return studentData;
@@ -76,7 +81,10 @@ std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std
 std::vector<std::unique_ptr<Admin>> DataBase::admin_JSON(const std::string& name, const std::string& id, const std::string& pw)
 {
     std::vector<std::unique_ptr<Admin>> adminData;
-    adminData.push_back(std::make_unique<Admin>(name, id, pw));
+    count_admin++;
+    std::string a = "a";
+    std::string adminId = std::to_string(count_admin) + a;
+    adminData.push_back(std::make_unique<Admin>(adminId, name, id, pw));
 
     return adminData;
 }
@@ -84,10 +92,10 @@ std::vector<std::unique_ptr<Admin>> DataBase::admin_JSON(const std::string& name
 std::vector<std::unique_ptr<Room>> DataBase::room_JSON(const std::string& roomNumber, const bool is_empty)
 {
     std::vector<std::unique_ptr<Room>> roomData;
-    count++;
-    std::string a = "a";
-    std::string new_roomID = std::to_string(count) + a;
-    roomData.push_back(std::make_unique<Room>(new_roomID, roomNumber, is_empty));
+    count_room++;
+    std::string r = "r";
+    std::string roomId = std::to_string(count_room) + r;
+    roomData.push_back(std::make_unique<Room>(roomId, roomNumber, is_empty));
     return roomData;
 }
 
