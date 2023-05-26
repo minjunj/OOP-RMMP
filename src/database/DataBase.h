@@ -50,7 +50,7 @@ public:
     /* 어드민 데이터 입력하는 함수*/
     std::vector<std::unique_ptr<Admin>> admin_JSON(const std::string& name, const std::string& id, const std::string& pw);
     /* 룸 데이터 입력하는 함수*/
-    std::vector<std::unique_ptr<Room>> room_JSON(const std::string& roomID, const std::string& roomNumber, const bool is_empty);
+    std::vector<std::unique_ptr<Room>> room_JSON(const std::string& roomNumber, const bool is_empty);
 };
 
 #endif

@@ -2,3 +2,13 @@
 2a,T218,false
 3a,T219,false
 4a,T220,false
+1a,g107,true
+1a,1,true
+2a,2,true
+3a,3,true
+4a,4,true
+5a,5,true
+6a,6,true
+7a,7,true
+8a,8,true
+9a,9,true

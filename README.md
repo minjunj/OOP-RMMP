@@ -31,7 +31,7 @@ main에 DataBase db;가 있다는 가정하에 진행
 
   JsonAdmin adminData = db.admin_JSON("name", "mw412", "pww12");
 
-  JsonRoom roomData = db.room_JSON("id", "T217", false);
+  JsonRoom roomData = db.room_JSON("T217", false); // id가 자동으로 오름.
 
 ## insert DB
   (보낼 JSON, 목적지 테이블 명)
