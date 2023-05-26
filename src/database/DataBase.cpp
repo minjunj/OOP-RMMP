@@ -101,17 +101,17 @@ std::string DataBase::findOne(const char* type, std::string val, int index)
     if(std::string(type) == "student")
     {
         directory.clear();
-        directory = "student.txt";
+        directory = "DB/student.txt";
     }
     else if (std::string(type) == "admin")
     {
         directory.clear();
-        directory = "admin.txt";
+        directory = "DB/admin.txt";
     }
     else if (std::string(type) == "room")
     {
         directory.clear();
-        directory = "room.txt";
+        directory = "DB/room.txt";
 
     }
     else
@@ -157,3 +157,56 @@ std::string DataBase::findOne(const char* type, std::string val, int index)
     return "404 Not Founded : out of range";
 }
 // 뭐 만약에 유저 로긴해서 id pw 봄 id 있는지 볼 떄 저걸로 db.FindOne("student", "exid2", 2) 로 아이디 일치하고, db.FindOne("student", "expass", 3) 받아서 확인.
+
+std::string DataBase::findAll(const char* type, std::string val)
+{
+    std::string directory = "";
+
+    if(std::string(type) == "student")
+    {
+        directory.clear();
+        directory = "DB/student.txt";
+    }
+    else if (std::string(type) == "admin")
+    {
+        directory.clear();
+        directory = "DB/admin.txt";
+    }
+    else if (std::string(type) == "room")
+    {
+        directory.clear();
+        directory = "DB/room.txt";
+
+    }
+    else
+    {
+        throw std::out_of_range("해당하는 DB테이블을 찾을 수 없음");
+    }
+    std::ifstream fin(directory);
+    std::vector<std::string> lines;
+    std::string line;
+
+
+    while (std::getline(fin, line))
+    {
+        if(line.find(val) != std::string::npos)
+        {
+            lines.push_back(line);
+        }
+        
+    }
+
+    if(lines.empty())
+    {
+        std::cout << "404" << std::endl;
+    }
+
+    fin.close();
+
+    for (const auto& line : lines)
+    {
+        std::cout << line << std::endl;
+    }
+
+    return line;
+}
