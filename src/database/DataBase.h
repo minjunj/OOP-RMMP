@@ -36,6 +36,8 @@ public:
     */
     std::string findOne(const char* type, std::string val, int index);
 
+    std::string findAll(const char* type, std::string val);
+
 
     /*
         std::vector<std::unique_ptr<Student>> student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw,

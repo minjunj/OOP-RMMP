@@ -3,6 +3,7 @@
 #include "../student/student.h"
 #include "../admin/admin.h"
 #include "../room/room.h"
+#include <typeinfo>
 template <typename T>
 void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const char* type)
 {
@@ -106,6 +107,7 @@ std::string DataBase::findOne(const char* type, std::string val, int index)
     {
         directory.clear();
         directory = "room.txt";
+
     }
     else
     {
