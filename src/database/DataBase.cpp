@@ -274,7 +274,9 @@ void DataBase::update(const char* type, std::string primaryKey, std::string cont
                     throw NotFoundedException();
                 }
             }
-
+/*
+깃풀 테스트용 주석 코듬ㅁ나ㅐㅁ넞야
+*/
         }
         catch(const NotFoundedException& e)
         {
