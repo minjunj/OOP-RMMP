@@ -6,7 +6,8 @@
 #include <fstream>
 #include <vector>
 #include <string>
-#include <memory> // Include the <memory> header for smart pointers
+#include <memory>
+#include <sstream>
 #include "../student/student.h"
 #include "../admin/admin.h"
 #include "../room/room.h"
@@ -27,6 +28,14 @@ public:
     */
     template <typename T>
     void insert(const std::vector<std::unique_ptr<T>>& data, const char* type); // Use std::shared_ptr
+
+    /*
+    string FindOne(string val, int val, int index)
+    
+    {학번,성명,ID,PW,학번앞쪽,닉네임,방ID}
+    */
+    std::string findOne(const char* type, std::string val, int index);
+
 
     /*
         std::vector<std::unique_ptr<Student>> student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw,
