@@ -98,15 +98,15 @@ int main()
 {
     DataBase db;
 
-    JsonStu studentData = db.student_JSON(20225180, "new민준", "m412", "pw12", "22", 12); // 데이터 셋팅
-    JsonAdmin adminData = db.admin_JSON("new", "mw412", "pww12");
-    JsonRoom roomData = db.room_JSON("new", "is a unique", false);
-    db.insert(studentData, "student"); //db에 삽입
-    db.insert(adminData, "admin");
+    // JsonStu studentData = db.student_JSON(20225180, "new민준", "m412", "pw12", "22", 12); // 데이터 셋팅
+    // JsonAdmin adminData = db.admin_JSON("new", "mw412", "pww12");
+    JsonRoom roomData = db.room_JSON("g107", true);
+    // db.insert(studentData, "student"); //db에 삽입
+    // db.insert(adminData, "admin");
     db.insert(roomData, "room");
 
-    std::cout << db.findOne("student", "id123id", 2) << std::endl;
-    std::cout << db.findOne("student", "p123p", 3) << std::endl;
+    // std::cout << db.findOne("student", "id123id", 2) << std::endl;
+    // std::cout << db.findOne("room", "1a", 1) << std::endl;
 
     
     // db.inputData(2);

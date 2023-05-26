@@ -3,6 +3,9 @@
 #include "../student/student.h"
 #include "../admin/admin.h"
 #include "../room/room.h"
+#include <typeinfo>
+
+int count = 0;
 template <typename T>
 void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const char* type)
 {
@@ -78,10 +81,13 @@ std::vector<std::unique_ptr<Admin>> DataBase::admin_JSON(const std::string& name
     return adminData;
 }
 
-std::vector<std::unique_ptr<Room>> DataBase::room_JSON(const std::string& roomID, const std::string& roomNumber, const bool is_empty)
+std::vector<std::unique_ptr<Room>> DataBase::room_JSON(const std::string& roomNumber, const bool is_empty)
 {
     std::vector<std::unique_ptr<Room>> roomData;
-    roomData.push_back(std::make_unique<Room>(roomID, roomNumber, is_empty));
+    count++;
+    std::string a = "a";
+    std::string new_roomID = std::to_string(count) + a;
+    roomData.push_back(std::make_unique<Room>(new_roomID, roomNumber, is_empty));
     return roomData;
 }
 
@@ -106,6 +112,7 @@ std::string DataBase::findOne(const char* type, std::string val, int index)
     {
         directory.clear();
         directory = "room.txt";
+
     }
     else
     {
