@@ -95,7 +95,9 @@ std::vector<std::unique_ptr<Admin>> DataBase::admin_JSON(const std::string& name
 
     return adminData;
 }
-
+/*
+깃헙에서 작성한 코드 바로 마스터 올림.
+*/
 std::vector<std::unique_ptr<Room>> DataBase::room_JSON(const std::string& roomNumber, const bool is_empty)
 {
     std::vector<std::unique_ptr<Room>> roomData;
