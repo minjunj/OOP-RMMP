@@ -8,6 +8,15 @@
 int count_room = 0;
 int count_student = 0;
 int count_admin = 0;
+
+class NotFoundedDataBaseException {
+
+};
+
+class NotFoundedException {
+
+};
+
 template <typename T>
 void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const char* type)
 {
@@ -64,8 +73,6 @@ void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const char* t
     }
 }
 
-
-
 std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw, const std::string& class_, int room)
 {
     std::vector<std::unique_ptr<Student>> studentData;
@@ -105,116 +112,217 @@ template void DataBase::insert<Room>(const std::vector<std::unique_ptr<Room>>& d
 
 std::string DataBase::findOne(const char* type, std::string val, int index)
 {
-    std::string directory = "";
-    if(std::string(type) == "student")
-    {
-        directory.clear();
-        directory = "DB/student.txt";
-    }
-    else if (std::string(type) == "admin")
-    {
-        directory.clear();
-        directory = "DB/admin.txt";
-    }
-    else if (std::string(type) == "room")
-    {
-        directory.clear();
-        directory = "DB/room.txt";
-
-    }
-    else
-    {
-        throw std::out_of_range("해당하는 DB테이블을 찾을 수 없음");
-    }
-    std::ifstream fin(directory);
-    std::string line;
-    std::vector<std::string> words;
-    std::string word;
-
-
-    while (std::getline(fin, line))
-    {
-        if(line.find(val) != std::string::npos) // 원하는 row 찾기
-        {
-            std::stringstream result(line);
-            while (getline(result, word, ','))
-            words.push_back(word);
-        }
-        
-    }
-
-    if(words.empty())
-    {
-        std::cout << "404 Not Founded" << std::endl;
-    }
-
-    fin.close();
     try
     {
+        std::string directory = findDB(type);
+        std::ifstream fin(directory);
+        std::string line;
+        std::vector<std::string> words;
+        std::string word;
+
+
+        while (std::getline(fin, line))
+        {
+            if(line.find(val) != std::string::npos) // 원하는 row 찾기
+            {
+                std::stringstream result(line);
+                while (getline(result, word, ','))
+                words.push_back(word);
+            }
+            
+        }
+
+        if(words.empty())
+        {
+            throw NotFoundedException();
+        }
+
+        fin.close();
+
         if(words[index].size())
         {
             return words[index];
         }
-    }
-    catch(...)
-    {
-        throw std::out_of_range("404 Not Founded : out of range");
-    }
-    
+        else
+        {
+            return "404 Not Founded : out of range";
+        }
+        
 
-    return "404 Not Founded : out of range";
+        return "404 Not Founded : out of range";
+    }
+    catch(const NotFoundedException& e)
+    {
+        std::cout << "404 Not Founded" << std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
+    return "";
 }
 // 뭐 만약에 유저 로긴해서 id pw 봄 id 있는지 볼 떄 저걸로 db.FindOne("student", "exid2", 2) 로 아이디 일치하고, db.FindOne("student", "expass", 3) 받아서 확인.
 
 std::string DataBase::findAll(const char* type, std::string val)
 {
-    std::string directory = "";
-
-    if(std::string(type) == "student")
+    try
     {
-        directory.clear();
-        directory = "DB/student.txt";
-    }
-    else if (std::string(type) == "admin")
-    {
-        directory.clear();
-        directory = "DB/admin.txt";
-    }
-    else if (std::string(type) == "room")
-    {
-        directory.clear();
-        directory = "DB/room.txt";
-
-    }
-    else
-    {
-        throw std::out_of_range("해당하는 DB테이블을 찾을 수 없음");
-    }
-    std::ifstream fin(directory);
-    std::vector<std::string> lines;
-    std::string line;
+        std::string directory = findDB(type);
+        std::ifstream fin(directory);
+        std::vector<std::string> lines;
+        std::string line;
 
 
-    while (std::getline(fin, line))
-    {
-        if(line.find(val) != std::string::npos)
+        while (std::getline(fin, line))
         {
-            lines.push_back(line);
+            if(line.find(val) != std::string::npos)
+            {
+                lines.push_back(line);
+            }
+            
         }
-        
-    }
 
-    if(lines.empty())
+        if(lines.empty())
+        {
+            std::cout << "404" << std::endl;
+        }
+
+        fin.close();
+
+        for (const auto& line : lines)
+        {
+            std::cout << line << std::endl;
+        }
+
+        return line;
+    }
+    catch(const std::exception& e)
     {
-        std::cout << "404" << std::endl;
+        std::cerr << e.what() << '\n';
     }
 
-    fin.close();
+    return "";
+}
 
-    for (const auto& line : lines)
+void DataBase::update(const char* type, std::string primaryKey, std::string content, int index)
+{
+    try
     {
-        std::cout << line << std::endl;
+        std::string directory = findDB(type);
+        std::ifstream fin(directory);
+        std::ofstream fout("temp.txt");  // 일시저장용
+        std::cout << directory << std::endl;
+
+        try
+        {
+            if (fin.is_open() && fout.is_open())
+            {
+                std::string line;
+                bool updated = false;
+
+                while (std::getline(fin, line))
+                {
+                    std::istringstream result(line);
+                    std::string word;
+                    std::vector<std::string> words;
+
+                    while (std::getline(result, word, ','))
+                    {
+                        words.push_back(word);
+                    }
+            
+                    if (words[0] == primaryKey) // 이걸로 테이블 & row 구분
+                    {
+                        // string 제작
+                        int i;
+                        std::string newData = "";
+                        for(i = 0; i < index; i++)
+                        {
+                            newData = newData + words[i] + ',';
+                        }
+                        newData = newData + content + ',';
+                        for(i++; i < words.size(); i++)
+                        {
+                            newData = newData + words[i] + ',';
+                        }
+                        newData.pop_back();
+                        fout << newData << "\n";  // 덮어쓰기
+                        updated = true;
+                        std::cout << "out" <<std::endl;
+                    }
+                    else
+                    {
+                        fout << line << "\n";  // 실패시 원래 라인 넣기
+                    }
+
+                    words.clear();
+                }
+
+                fin.close();
+                fout.close();
+
+                if (updated)
+                {
+
+                    std::remove(directory.c_str());
+                    std::rename("temp.txt", directory.c_str());
+                }
+                else
+                {
+                    std::remove("temp.txt");
+                    throw NotFoundedException();
+                }
+            }
+
+        }
+        catch(const NotFoundedException& e)
+        {
+            std::cout << "404 Not Founded" << std::endl;
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+}
+
+std::string DataBase::findDB(const char* type)
+{
+    try
+    {
+        std::string directory = "";
+        if(std::string(type) == "student")
+        {
+            directory.clear();
+            directory = "DB/student.txt";
+        }
+        else if (std::string(type) == "admin")
+        {
+            directory.clear();
+            directory = "DB/admin.txt";
+        }
+        else if (std::string(type) == "room")
+        {
+            directory.clear();
+            directory = "DB/room.txt";
+
+        }
+        else
+        {
+            throw NotFoundedDataBaseException();
+        }
+
+        return directory;
+    }
+    catch(const NotFoundedDataBaseException& e)
+    {
+        std::cout << "NotFoundedDataBaseException '"<< type << "'" << std::endl;
     }
 
-    return line;
+    return "";
 }

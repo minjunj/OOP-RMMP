@@ -22,6 +22,8 @@ private:
     std::string adminFile = "DB/admin.txt";
     std::string roomFile = "DB/room.txt";
 public:
+    std::string findDB(const char* type);
+
     /*
         데이터 베이스에 삽입하는 함수
         insert( _JSON으로 저장한 data, 저장위치 : admin, student, room)
@@ -37,6 +39,8 @@ public:
     std::string findOne(const char* type, std::string val, int index);
 
     std::string findAll(const char* type, std::string val);
+
+    void update(const char* type, std::string primaryKey, std::string content, int index);
 
 
     /*
