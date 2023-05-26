@@ -1,7 +1,3 @@
-1a,g107,true
-2a,g1071,true
-3a,g10712,true
-1a,g107,true
-2a,g1071,true
-3a,g10712,true
-1a,NULL,false
+1r,g107,true
+2r,g1071,true
+3r,NULL,false

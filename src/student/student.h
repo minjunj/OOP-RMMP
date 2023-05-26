@@ -20,6 +20,7 @@ class DataBase; // Forward declaration of DataBase class
 */
 class Student {
 private:
+    std::string studentId;
     int studentCode;
     std::string studentName;
     std::string ID;
@@ -31,7 +32,7 @@ private:
     friend class DataBase;
 
 public:
-    Student(int code, const std::string& name, const std::string& id, const std::string& pw,
+    Student(const std::string& studentId, int code, const std::string& name, const std::string& id, const std::string& pw,
             const std::string& class_, int room);
 
     std::string getFormattedData() const; // DB용
