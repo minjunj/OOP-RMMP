@@ -18,9 +18,9 @@ class Room;
 
 class DataBase {
 private:
-    std::string stuFile = "student.txt";
-    std::string adminFile = "admin.txt";
-    std::string roomFile = "room.txt";
+    std::string stuFile = "DB/student.txt";
+    std::string adminFile = "DB/admin.txt";
+    std::string roomFile = "DB/room.txt";
 public:
     /*
         데이터 베이스에 삽입하는 함수

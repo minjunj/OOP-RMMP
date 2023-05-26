@@ -33,7 +33,7 @@ main에 DataBase db;가 있다는 가정하에 진행
 
   JsonRoom roomData = db.room_JSON("T217", false); // id가 자동으로 오름.
 
-## insert DB
+### insert DB
   (보낼 JSON, 목적지 테이블 명)
 
   db.insert(studentData, "student"); //db에 삽입
@@ -42,7 +42,7 @@ main에 DataBase db;가 있다는 가정하에 진행
 
   db.insert(roomData, "room");
 
-## find DB
+### findOne DB
   (조회할 테이블 명, 조회할 데이터, 보고 싶은 파트)
 
   db.findOne("student", "id123id", 2);
@@ -57,5 +57,6 @@ main에 DataBase db;가 있다는 가정하에 진행
     return "login success";
   }
 
-
-
+### findAll DB
+  (조회 위치, 찾을 정보)
+  db.findAll("admin", "mw4121");
