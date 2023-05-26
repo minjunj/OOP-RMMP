@@ -57,10 +57,11 @@ main에 DataBase db;가 있다는 가정하에 진행
     return "login success";
   }
 
+ 리턴값은 그냥 string 하나만 줌.
 ### findAll DB
   (조회 위치, 찾을 정보)
   db.findAll("admin", "mw4121");
- 
+ 리턴값은 2s,20225180,조민준1,content,pw121,221,user,121 이런식으로 string으로 줌
 ### update DB
  (조회 위치, 바꿀 정보, 바꿀 정보의 인덱스)
   db.findOne("student", "m4121", 1)
