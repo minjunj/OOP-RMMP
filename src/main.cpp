@@ -9,7 +9,9 @@
 #include "./room/room.h"
 
 using namespace std;
-
+using JsonStu = std::vector<std::unique_ptr<Student>>;
+using JsonAdmin = std::vector<std::unique_ptr<Admin>>;
+using JsonRoom = std::vector<std::unique_ptr<Room>>;
 void Login(string fileName)
 {
 
@@ -95,13 +97,18 @@ void start_menu()
 int main()
 {
     DataBase db;
-    std::vector<std::unique_ptr<Student>> studentData = db.student_JSON(20225180, "민준", "m412", "pw12", "22", 12); // 데이터 셋팅
-    std::vector<std::unique_ptr<Admin>> adminData = db.admin_JSON("is a unique", "mw412", "pww12");
-    std::vector<std::unique_ptr<Room>> roomData = db.room_JSON("1", "is a unique", false);
+
+    JsonStu studentData = db.student_JSON(20225180, "new민준", "m412", "pw12", "22", 12); // 데이터 셋팅
+    JsonAdmin adminData = db.admin_JSON("new", "mw412", "pww12");
+    JsonRoom roomData = db.room_JSON("new", "is a unique", false);
     db.insert(studentData, "student"); //db에 삽입
     db.insert(adminData, "admin");
     db.insert(roomData, "room");
 
+    std::cout << db.findOne("student", "id123id", 2) << std::endl;
+    std::cout << db.findOne("student", "p123p", 3) << std::endl;
+
+    
     // db.inputData(2);
     // db.printData(2);
     // //db.outputData(5,"1234");

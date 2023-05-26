@@ -3,7 +3,6 @@
 #include "../student/student.h"
 #include "../admin/admin.h"
 #include "../room/room.h"
-#include <memory.h>
 template <typename T>
 void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const char* type)
 {
@@ -89,3 +88,65 @@ std::vector<std::unique_ptr<Room>> DataBase::room_JSON(const std::string& roomID
 template void DataBase::insert<Student>(const std::vector<std::unique_ptr<Student>>& data, const char* type);
 template void DataBase::insert<Admin>(const std::vector<std::unique_ptr<Admin>>& data, const char* type);
 template void DataBase::insert<Room>(const std::vector<std::unique_ptr<Room>>& data, const char* type);
+
+std::string DataBase::findOne(const char* type, std::string val, int index)
+{
+    std::string directory = "";
+    if(std::string(type) == "student")
+    {
+        directory.clear();
+        directory = "student.txt";
+    }
+    else if (std::string(type) == "admin")
+    {
+        directory.clear();
+        directory = "admin.txt";
+    }
+    else if (std::string(type) == "room")
+    {
+        directory.clear();
+        directory = "room.txt";
+    }
+    else
+    {
+        throw std::out_of_range("해당하는 DB테이블을 찾을 수 없음");
+    }
+    std::ifstream fin(directory);
+    std::string line;
+    std::vector<std::string> words;
+    std::string word;
+
+
+    while (std::getline(fin, line))
+    {
+        if(line.find(val) != std::string::npos) // 원하는 row 찾기
+        {
+            std::stringstream result(line);
+            while (getline(result, word, ','))
+            words.push_back(word);
+        }
+        
+    }
+
+    if(words.empty())
+    {
+        std::cout << "404 Not Founded" << std::endl;
+    }
+
+    fin.close();
+    try
+    {
+        if(words[index].size())
+        {
+            return words[index];
+        }
+    }
+    catch(...)
+    {
+        throw std::out_of_range("404 Not Founded : out of range");
+    }
+    
+
+    return "404 Not Founded : out of range";
+}
+// 뭐 만약에 유저 로긴해서 id pw 봄 id 있는지 볼 떄 저걸로 db.FindOne("student", "exid2", 2) 로 아이디 일치하고, db.FindOne("student", "expass", 3) 받아서 확인.

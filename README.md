@@ -21,3 +21,41 @@
 또한, DataBase 클래스의 멤버 함수인 student_JSON, admin_JSON, room_JSON에서도 std::vector<std::unique_ptr<T>>를 사용하여 각각 Student, Admin, Room 객체를 동적으로 할당하고 관리합니다.
 
 따라서 주어진 코드에서 std::unique_ptr을 사용하여 포인터를 관리하는 것은 적합한 선택입니다.
+
+# DB API
+
+main에 DataBase db;가 있다는 가정하에 진행
+## Set Data
+
+  JsonStu studentData = db.student_JSON(20225180, "new민준", "m412", "pw12", "22", 12); // 데이터 셋팅
+
+  JsonAdmin adminData = db.admin_JSON("name", "mw412", "pww12");
+
+  JsonRoom roomData = db.room_JSON("id", "T217", false);
+
+## insert DB
+  (보낼 JSON, 목적지 테이블 명)
+
+  db.insert(studentData, "student"); //db에 삽입
+
+  db.insert(adminData, "admin");
+
+  db.insert(roomData, "room");
+
+## find DB
+  (조회할 테이블 명, 조회할 데이터, 보고 싶은 파트)
+
+  db.findOne("student", "id123id", 2);
+
+  db.findOne("student", "p123p", 3);
+
+
+  ex. 유저 로그인 확인
+
+  if (loginId == db.findOne("student", loginId, 2) &&  loginPw == db.findOne("student", loginId, 3))
+  {
+    return "login success";
+  }
+
+
+
