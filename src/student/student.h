@@ -1,4 +1,3 @@
-// student.h
 #ifndef STUDENT_H
 #define STUDENT_H
 
@@ -6,36 +5,31 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include "../user/User.h"
 
 class DataBase; // Forward declaration of DataBase class
 
-/*
-    int : studentCode,
-    string : studentName,
-    string : ID,
-    string : PW,
-    string : classOf,
-    string : role = "user"
-    int : roomId
-*/
-class Student {
+
+class Student : public User {
+
 private:
     std::string studentId;
     int studentCode;
-    std::string studentName;
-    std::string ID;
-    std::string PW;
-    std::string classOf;
-    std::string role = "user"; // role 고정
+    char Gender;
     int roomId;
-
+    int roommateID;
+    std::string classOf;
+    std::string role = "user"; // role fixed
+    
     friend class DataBase;
 
 public:
-    Student(const std::string& studentId, int code, const std::string& name, const std::string& id, const std::string& pw,
-            const std::string& class_, int room);
+    Student(std::string stuId, int code, std::string userName, std::string userID, std::string userPW,  
+             const std::string& class_, int room, 
+            char gender, int mateID);
 
-    std::string getFormattedData() const; // DB용
+
+    std::string getFormattedData() const; // For database purposes
 };
 
 #endif

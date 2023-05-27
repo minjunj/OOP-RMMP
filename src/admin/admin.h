@@ -1,5 +1,6 @@
 // admin.h
 
+
 #ifndef ADMIN_H
 #define ADMIN_H
 
@@ -7,23 +8,25 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include "../user/User.h"
 
 class DataBase; // Forward declaration of DataBase class
 
-class Admin {
+class Admin : public User {
 private:
-    std::string adminId;
-    std::string adminName;
-    std::string ID;
-    std::string PW;
-    std::string role = "admin"; // role 고정
+
+    string adminId;
+    string adminName;
+    std::string role = "admin"; // role fixed
+
 
     friend class DataBase;
 
 public:
-    Admin(const std::string& adminId, const std::string& name, const std::string& id, const std::string& pw);
 
-    std::string getFormattedData() const; // DB용
+    Admin(std::string adminID, string userName, string userID, string userPW);
+    std::string getFormattedData() const; // For database purposes
+
 };
 
 #endif
