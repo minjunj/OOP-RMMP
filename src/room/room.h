@@ -17,14 +17,14 @@ class DataBase; // Forward declaration of DataBase class
 */
 class Room {
 private:
-    std::string roomID; //auto increase
+    std::string roomId; //auto increase
     std::string roomNumber;
     bool is_empty;
 
     friend class DataBase;
 
 public:
-    Room(const std::string& roomID, const std::string& roomNumber, const bool is_empty);
+    Room(const std::string& roomId, const std::string& roomNumber, const bool is_empty);
 
     std::string getFormattedData() const; // DB용
 };

@@ -9,7 +9,9 @@
 #include "./room/room.h"
 
 using namespace std;
-
+using JsonStu = std::vector<std::unique_ptr<Student>>;
+using JsonAdmin = std::vector<std::unique_ptr<Admin>>;
+using JsonRoom = std::vector<std::unique_ptr<Room>>;
 void Login(string fileName)
 {
 
@@ -95,13 +97,38 @@ void start_menu()
 int main()
 {
     DataBase db;
-    std::vector<Student> studentData = db.student_JSON(20225180, "민준", "m412", "pw12", "22", 214); // 데이터 셋팅
-    std::vector<Admin> adminData = db.admin_JSON("admin민준", "mw412", "pww12");
-    std::vector<Room> roomData = db.room_JSON("1", "T217", false);
-    db.insert(studentData, "student"); //db에 삽입
-    db.insert(adminData, "admin");
-    db.insert(roomData, "room");
 
+    // JsonStu studentData = db.student_JSON(20225180, "조민준", "m412", "pw12", "22", 12); // 데이터 셋팅
+    // JsonAdmin adminData = db.admin_JSON("조민준", "mw412", "pww12");
+    // JsonRoom roomData = db.room_JSON("g107", true);
+    // db.insert(studentData, "student"); //db에 삽입
+    // db.insert(adminData, "admin");
+    // db.insert(roomData, "room");
+
+    // JsonStu studentData1 = db.student_JSON(20225180, "조민준1", "m4121", "pw121", "221", 121); // 데이터 셋팅
+    // JsonAdmin adminData1 = db.admin_JSON("조민준1", "mw4121", "pww121");
+    // JsonRoom roomData1 = db.room_JSON("g1071", true);
+    // db.insert(studentData1, "student"); //db에 삽입
+    // db.insert(adminData1, "admin");
+    // db.insert(roomData1, "room");
+
+    // JsonStu studentData2 = db.student_JSON(); // 데이터 셋팅
+    // JsonAdmin adminData2 = db.admin_JSON();
+    // JsonRoom roomData2 = db.room_JSON();
+    // db.insert(studentData2, "student"); //db에 삽입
+    // db.insert(adminData2, "admin");
+    // db.insert(roomData2, "room");
+
+    std::cout << db.findOne("student", "m4121", 21) << std::endl;
+
+    // std::cout << db.findAll("student", "조민준1") << std::endl;
+
+    // std::cout << db.findAll("room", "g1071") << std::endl;
+    
+    // std::cout << db.findAll("admin", "mw4121") << std::endl;
+
+    // db.update("student", "2s", "content", 3);
+    
     // db.inputData(2);
     // db.printData(2);
     // //db.outputData(5,"1234");
