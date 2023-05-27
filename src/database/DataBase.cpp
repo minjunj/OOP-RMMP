@@ -73,13 +73,13 @@ void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const char* t
     }
 }
 
-std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw, const std::string& class_, int room)
+std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw, const std::string& class_, int room,char gender, int mateID)
 {
     std::vector<std::unique_ptr<Student>> studentData;
     count_student++;
     std::string s = "s";
     std::string studentId = std::to_string(count_student) + s;
-    studentData.push_back(std::make_unique<Student>(studentId, code, name, id, pw, class_, room));
+    studentData.push_back(std::make_unique<Student>(studentId, code, name, id, pw, class_, room, gender, mateID));
 
 
     return studentData;

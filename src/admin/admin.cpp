@@ -2,11 +2,12 @@
 
 #include "admin.h"
 
-Admin::Admin(const std::string& adminId, const std::string& name, const std::string& id, const std::string& pw)
-    : adminId(adminId), adminName(name), ID(id), PW(pw)
+Admin::Admin(std::string adminID, string userName, string userID, string userPW)
+    : User(userID, userPW, userName), adminId(adminId)
 {
 }
 
 std::string Admin::getFormattedData() const {
-    return adminId + "," + adminName + "," + ID + "," + PW + "," + role;
+    return adminId + "," + adminName + "," + userID + "," + userPW + "," + role;
 }
+

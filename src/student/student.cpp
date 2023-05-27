@@ -1,13 +1,13 @@
-// student.cpp
 #include "student.h"
 
-Student::Student(const std::string& studentId, int code, const std::string& name, const std::string& id, const std::string& pw,
-                 const std::string& class_, int room)
-    : studentId(studentId), studentCode(code), studentName(name), ID(id), PW(pw), classOf(class_), roomId(room)
+Student::Student(std::string stuId, int code, std::string userName, std::string userID, std::string userPW,  
+             const std::string& class_, int room, 
+            char gender, int mateID): User(userID, userPW, userName), studentId(stuId),
+            studentCode(code),  Gender(gender), roommateID(mateID), classOf(class_), roomId(room)
 {
 }
 
 std::string Student::getFormattedData() const {
-    return studentId + "," + std::to_string(studentCode) + "," + studentName + "," + ID + ","
-        + PW + "," + classOf + "," + role + "," + std::to_string(roomId);
+    return studentId + "," + std::to_string(studentCode) + "," + userName + "," + userID + ","
+        + userPW + "," + classOf + "," + role + "," + std::to_string(roomId);
 }
