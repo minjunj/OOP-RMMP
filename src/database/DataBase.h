@@ -46,12 +46,14 @@ public:
     //std::make_unique<Student>(studentId, code, name, id, pw, class_, room)
 
     /*
+
         std::vector<std::unique_ptr<Student>> student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw,
             const std::string& class_, int roomId)
         스튜던트 데이터 입력하는 함수
     */
     std::vector<std::unique_ptr<Student>> student_JSON(int code = 0, const std::string& name = "NULL", const std::string& id = "NULL", const std::string& pw = "NULL",
             const std::string& class_ = "NULL", int room = 0, char gender = 'n', int mateID=0);
+
 
     // Admin(std::string adminID, string userName, string userID, string userPW);
     /* 어드민 데이터 입력하는 함수*/

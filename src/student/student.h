@@ -9,7 +9,9 @@
 
 class DataBase; // Forward declaration of DataBase class
 
+
 class Student : public User {
+
 private:
     std::string studentId;
     int studentCode;
@@ -25,6 +27,7 @@ public:
     Student(std::string stuId, int code, std::string userName, std::string userID, std::string userPW,  
              const std::string& class_, int room, 
             char gender, int mateID);
+
 
     std::string getFormattedData() const; // For database purposes
 };
