@@ -1,8 +1,3 @@
-1s,20225180,조민준,m412,pw12,22,user,12
-2s,20225180,조민준1,m4121,pw121,221,user,121
-3s,0,NULL,NULL,NULL,NULL,user,0
-1s,20225180,조민준,m412,pw12,22,user,2a
-1s,20225180,조민준,m412,pw12,22,user,2a
-1s,20225180,조민준,m412,pw12,22,user,2a
-1s,20225180,조민준,m412,pw12,22,user,2a
-1s,20225180,조민준,m412,pw12,22,user,2a,Male
+1s,20225180,조민준,m412,pw12,22,Male,user,2a,3s
+2s,20225181,조민준1,content,pw12,22,Female,user,2a,3s
+3s,0,NULL,NULL,NULL,NULL,Male,user,NULL,NULL

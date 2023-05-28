@@ -17,6 +17,12 @@ string userID; // user 상속
 string userPW; // user 상속
 string userName; // user 상속
 string role = "admin" //fixed
+
+[1] adminId : auto increased
+[2] userName
+[3] userId
+[4] userPw
+[5] role
 */
 class Admin : public User {
 private:

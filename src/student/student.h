@@ -10,16 +10,16 @@
 class DataBase; // Forward declaration of DataBase class
 
 /*
-	string userID; //user 상속
-	string userPW;
-	string userName;
-    std::string studentId; //auto increased
-    int studentCode;
-    char Gender;
-    int roomId;
-    int roommateID;
-    std::string classOf;
-    std::string role = "user"; // role fixed
+	[1] studentId : auto increased
+    [2] studentCode
+	[3] userName
+	[4] userId
+    [5] userPw
+    [6] userClass
+    [7] gender
+    [8] role
+    [9] roomId
+    [10] classMateId
 */
 class Student : public User {
 
@@ -28,7 +28,7 @@ private:
     int studentCode;
     bool gender;
     std::string roomId;
-    int roommateID;
+    std::string roommateID;
     std::string classOf;
     std::string role = "user"; // role fixed
     
@@ -37,7 +37,7 @@ private:
 public:
     Student(std::string stuId, int code, const std::string& userName, const std::string& userID, const std::string& userPW,  
              const std::string& class_, const std::string& room, 
-            const bool gender, int mateID);
+            const bool gender, const std::string& mateID);
 
 
     std::string getFormattedData() const; // For database purposes

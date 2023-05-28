@@ -11,13 +11,13 @@
 class DataBase; // Forward declaration of DataBase class
 
 /*
-    string : roomID,
-    string : roomNumber,
-    bool : is_empty
+    [1] roomID : auto increased
+    [2] roomNumber,
+    [3] is_empty
 */
 class Room {
 private:
-    std::string roomId; //auto increase
+    std::string roomId; //auto increased
     std::string roomNumber;
     bool is_empty;
 

@@ -74,7 +74,7 @@ void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const char* t
 }
 
 
-std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw, const std::string& class_, std::string room, const bool gender, int mateID)
+std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw, const std::string& class_, const std::string& room, const bool gender, const std::string& mateID)
 
 {
     std::vector<std::unique_ptr<Student>> studentData;
