@@ -7,7 +7,7 @@
 
 int count_room = 0;
 int count_student = 0;
-int count_admin = 0;
+
 
 class NotFoundedDataBaseException {
 
@@ -92,16 +92,10 @@ std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std
 std::vector<std::unique_ptr<Admin>> DataBase::admin_JSON(const std::string& name, const std::string& id, const std::string& pw)
 {
     std::vector<std::unique_ptr<Admin>> adminData;
-    count_admin++;
-    std::string a = "a";
-    std::string adminId = std::to_string(count_admin) + a;
-    adminData.push_back(std::make_unique<Admin>(adminId, name, id, pw));
-
+    adminData.push_back(std::make_unique<Admin>(name, id, pw));
     return adminData;
 }
-/*
-깃헙에서 작성한 코드 바로 마스터 올림.
-*/
+
 std::vector<std::unique_ptr<Room>> DataBase::room_JSON(const std::string& roomNumber, const bool is_empty)
 {
     std::vector<std::unique_ptr<Room>> roomData;
@@ -280,9 +274,6 @@ void DataBase::update(const char* type, std::string primaryKey, std::string cont
                     throw NotFoundedException();
                 }
             }
-/*
-깃풀 테스트용 주석 코듬ㅁ나ㅐㅁ넞야
-*/
         }
         catch(const NotFoundedException& e)
         {
