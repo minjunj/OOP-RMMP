@@ -26,6 +26,8 @@ string role = "admin" //fixed
 */
 class Admin : public User {
 private:
+
+
     std::string role = "admin"; // role fixed
 
 
