@@ -27,7 +27,7 @@
 main에 DataBase db;가 있다는 가정하에 진행
 ## Set Data
 
-  JsonStu studentData = db.student_JSON(20225180, "new민준", "m412", "pw12", "22", 12); // 데이터 셋팅
+  JsonStu studentData = db.student_JSON(20225180, "조민준", "m412", "pw12", "22", "2a", true, "3s"); // 남자는 ture 여자는 false임.
 
   JsonAdmin adminData = db.admin_JSON("name", "mw412", "pww12");
 
