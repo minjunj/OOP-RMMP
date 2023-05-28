@@ -65,3 +65,7 @@ main에 DataBase db;가 있다는 가정하에 진행
 ### update DB
  (조회 위치, 바꿀 정보, 바꿀 정보의 인덱스)
   db.findOne("student", "m4121", 1)
+
+### db.checkRoom(); 
+  DataBase에서 새로 들어줘야할 함수, 현재 기숙사의 전체적인 현황(비어있는지, 방에 몇명 있는지 등) 한 눈에 볼 수 있는 함수가 필요 필요함
+  main.cpp 173줄 참고
