@@ -12,33 +12,40 @@ using namespace std;
 using JsonStu = std::vector<std::unique_ptr<Student>>;
 using JsonAdmin = std::vector<std::unique_ptr<Admin>>;
 using JsonRoom = std::vector<std::unique_ptr<Room>>;
-void Login(string fileName)
+
+/*
+unique_ptr<User> Login(DataBase db, string userType)
 {
+    string file;
+    string userId, userPw;
 
-    return;
-
+    while(1)
+    {
+        cout << "Enter User ID : ";
+        cin  >> userId;
+        cout << "Enter the User Password : ";
+        cin  >> userPw;
+        /*
+        if(db.findUser(userType, userId, userPw))
+        {
+            unique_ptr<User> loginUser = db.getUser(userType, userId, userPw);
+            return loginUser;
+        }
+        else
+        {
+            cout << "Wrong ID or password, try again" << endl;
+        }
+        */
+    }
 }
-
-
-
-void AdminLogin()
-{
-
-
-    return;
-}
-
-void UserLogin()
-{
-
-
-    return;
-}
+*/
 
 void start_menu()
 {
     int st_num;
+    unique_ptr<User> curUser;
 
+    cout << endl;
     cout << "+------------------------------------------+" << endl;
     cout << "|                                          |" << endl;
     cout << "|                                          |" << endl;
@@ -75,11 +82,11 @@ void start_menu()
         {
             if (st_num == 1)
             {
-                AdminLogin();
+                //cur_User = Login(db, "admin");
             }
             else if (st_num == 2)
             {
-                UserLogin();
+                //cur_User = Login(db, "student");
             }
             else if (st_num == 3)
             {
@@ -88,51 +95,45 @@ void start_menu()
             }
         }
     }
-    
-
 }
-
 
 
 int main()
 {
     DataBase db;
 
-    // JsonStu studentData = db.student_JSON(20225180, "조민준", "m412", "pw12", "22", 12); // 데이터 셋팅
-    // JsonAdmin adminData = db.admin_JSON("조민준", "mw412", "pww12");
-    // JsonRoom roomData = db.room_JSON("g107", true);
-    // db.insert(studentData, "student"); //db에 삽입
-    // db.insert(adminData, "admin");
-    // db.insert(roomData, "room");
+    JsonStu studentData = db.student_JSON(20225180, "조민준", "m412", "pw12", "22", 12); // 데이터 셋팅
+    JsonAdmin adminData = db.admin_JSON("조민준", "mw412", "pww12");
+    JsonRoom roomData = db.room_JSON("g107", true);
+    db.insert(studentData, "student"); //db에 삽입
+    db.insert(adminData, "admin");
+    db.insert(roomData, "room");
 
-    // JsonStu studentData1 = db.student_JSON(20225180, "조민준1", "m4121", "pw121", "221", 121); // 데이터 셋팅
-    // JsonAdmin adminData1 = db.admin_JSON("조민준1", "mw4121", "pww121");
-    // JsonRoom roomData1 = db.room_JSON("g1071", true);
-    // db.insert(studentData1, "student"); //db에 삽입
-    // db.insert(adminData1, "admin");
-    // db.insert(roomData1, "room");
+    JsonStu studentData1 = db.student_JSON(20225180, "조민준1", "m4121", "pw121", "221", 121); // 데이터 셋팅
+    JsonAdmin adminData1 = db.admin_JSON("조민준1", "mw4121", "pww121");
+    JsonRoom roomData1 = db.room_JSON("g1071", true);
+    db.insert(studentData1, "student"); //db에 삽입
+    db.insert(adminData1, "admin");
+    db.insert(roomData1, "room");
 
-    // JsonStu studentData2 = db.student_JSON(); // 데이터 셋팅
-    // JsonAdmin adminData2 = db.admin_JSON();
-    // JsonRoom roomData2 = db.room_JSON();
-    // db.insert(studentData2, "student"); //db에 삽입
-    // db.insert(adminData2, "admin");
-    // db.insert(roomData2, "room");
+    JsonStu studentData2 = db.student_JSON(); // 데이터 셋팅
+    JsonAdmin adminData2 = db.admin_JSON();
+    JsonRoom roomData2 = db.room_JSON();
+    db.insert(studentData2, "student"); //db에 삽입
+    db.insert(adminData2, "admin");
+    db.insert(roomData2, "room");
 
-    std::cout << db.findOne("student", "m4121", 21) << std::endl;
+    std::cout << db.findOne("student", "m4121", 21) <<1<< std::endl;
 
-    // std::cout << db.findAll("student", "조민준1") << std::endl;
+    std::cout << db.findAll("student", "jominjun1") <<2<< std::endl;
 
-    // std::cout << db.findAll("room", "g1071") << std::endl;
+    std::cout << db.findAll("room", "g1071") <<3<< std::endl;
     
-    // std::cout << db.findAll("admin", "mw4121") << std::endl;
+    std::cout << db.findAll("admin", "mw4121") <<4<< std::endl;
 
-    // db.update("student", "2s", "content", 3);
+    db.update("student", "2s", "content", 3);
     
-    // db.inputData(2);
-    // db.printData(2);
-    // //db.outputData(5,"1234");
-    // start_menu();    
+    start_menu();    
 
     return 0;
 }

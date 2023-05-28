@@ -11,7 +11,7 @@ Admin::Admin(std::string adminID, string userName, string userID, string userPW)
 
 std::string Admin::getFormattedData() const {
 
-    return adminId + "," + adminName + "," + userID + "," + userPW + "," + role;
+    return adminId + "," + userName + "," + userID + "," + userPW + "," + role;
 
 }
 

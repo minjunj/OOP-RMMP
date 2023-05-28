@@ -16,7 +16,6 @@ class Admin : public User {
 private:
 
     string adminId;
-    string adminName;
     std::string role = "admin"; // role fixed
 
 
