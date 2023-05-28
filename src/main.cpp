@@ -102,14 +102,18 @@ int main()
 {
     DataBase db;
 
-    JsonStu studentData = db.student_JSON(20225180, "조민준", "m412", "pw12", "22", 12); // 데이터 셋팅
+
+    JsonStu studentData = db.student_JSON(20225180, "조민준", "m412", "pw12", "22", "2a", true, "3s"); // 데이터 셋팅 // gender ? male : female
+
     JsonAdmin adminData = db.admin_JSON("조민준", "mw412", "pww12");
     JsonRoom roomData = db.room_JSON("g107", true);
     db.insert(studentData, "student"); //db에 삽입
     db.insert(adminData, "admin");
     db.insert(roomData, "room");
 
-    JsonStu studentData1 = db.student_JSON(20225180, "조민준1", "m4121", "pw121", "221", 121); // 데이터 셋팅
+
+    JsonStu studentData1 = db.student_JSON(20225181, "조민준1", "m412", "pw12", "22", "2a", false, "3s"); // 데이터 셋팅
+
     JsonAdmin adminData1 = db.admin_JSON("조민준1", "mw4121", "pww121");
     JsonRoom roomData1 = db.room_JSON("g1071", true);
     db.insert(studentData1, "student"); //db에 삽입
@@ -125,15 +129,16 @@ int main()
 
     std::cout << db.findOne("student", "m4121", 21) <<1<< std::endl;
 
-    std::cout << db.findAll("student", "jominjun1") <<2<< std::endl;
 
-    std::cout << db.findAll("room", "g1071") <<3<< std::endl;
+    std::cout << db.findAll("student", "조민준1") << std::endl;
+
+    std::cout << db.findAll("room", "g1071") << std::endl;
     
-    std::cout << db.findAll("admin", "mw4121") <<4<< std::endl;
+    std::cout << db.findAll("admin", "mw4121") << std::endl;
 
     db.update("student", "2s", "content", 3);
-    
-    //start_menu();    
+
+    // start_menu();    
 
     return 0;
 }
