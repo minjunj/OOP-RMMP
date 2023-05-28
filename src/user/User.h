@@ -25,6 +25,9 @@ public:
 	void doLogout();
 	void changePW();
 
+
+	void testfunc();
+
 	virtual string getFormattedData();
 
 	virtual void registerRoommate();

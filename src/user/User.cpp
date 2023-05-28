@@ -36,7 +36,10 @@ void User::setuserName(string Name)
 	userName = Name;
 }
 
-
+void User::testfunc()
+{
+	return;
+}
 
 void User::doLogout()
 {
