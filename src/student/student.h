@@ -9,11 +9,22 @@
 
 class DataBase; // Forward declaration of DataBase class
 
-
+/*
+	string userID; //user 상속
+	string userPW;
+	string userName;
+    std::string studentId; //auto increased
+    int studentCode;
+    char Gender;
+    int roomId;
+    int roommateID;
+    std::string classOf;
+    std::string role = "user"; // role fixed
+*/
 class Student : public User {
 
 private:
-    std::string studentId;
+    std::string studentId; //auto increased
     int studentCode;
     char Gender;
     int roomId;

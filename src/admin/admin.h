@@ -16,13 +16,10 @@ class DataBase; // Forward declaration of DataBase class
 string userID; // user 상속
 string userPW; // user 상속
 string userName; // user 상속
-string adminId
 string role = "admin" //fixed
 */
 class Admin : public User {
 private:
-
-    //std::string adminId;
     std::string role = "admin"; // role fixed
 
 
