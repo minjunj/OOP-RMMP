@@ -165,16 +165,16 @@ void studentMenu(unique_ptr<User> student, DataBase db)
             switch (menuNum)
             {
             case 1:
-                student->registerRommate();
+                student->registerRoommate();
                 break;
             case 2:
-                student->findRommate();
+                student->findRoommate();
                 break;
             case 3:
                 db.checkRoom(); // DataBase에서 새로 들어줘야할 함수, 현재 기숙사의 전체적인 현황(비어있는지, 방에 몇명 있는지 등) 한 눈에 볼 수 있는 함수가 필요
                 break;
             case 4:
-                cout << student->registerRoom() << endl;
+                student->registerRoom();
                 break;
             case 5:
                 cout << student->getFormattedData() << endl;
