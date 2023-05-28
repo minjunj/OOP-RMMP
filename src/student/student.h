@@ -26,7 +26,7 @@ class Student : public User {
 private:
     std::string studentId; //auto increased
     int studentCode;
-    char Gender;
+    bool gender;
     std::string roomId;
     int roommateID;
     std::string classOf;
@@ -37,7 +37,7 @@ private:
 public:
     Student(std::string stuId, int code, const std::string& userName, const std::string& userID, const std::string& userPW,  
              const std::string& class_, const std::string& room, 
-            char gender, int mateID);
+            const bool gender, int mateID);
 
 
     std::string getFormattedData() const; // For database purposes
