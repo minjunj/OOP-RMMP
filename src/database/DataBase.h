@@ -127,6 +127,9 @@ public:
     */
     void update(const char* type, std::string primaryKey, std::string content, int index);
 
+    bool findUser(const string userType, const string userId, const string userPw); // 새로 필요한 함수
+
+    unique_ptr<User> getUser(const string userType, const string userId, const string userPw); // 새로 필요한 함수
 
     //std::make_unique<Student>(studentId, code, name, id, pw, class_, room)
 
