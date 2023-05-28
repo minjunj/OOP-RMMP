@@ -94,4 +94,48 @@ void User::changePW()
 	return;
 }
 
+virtual string User::getFormattedData()
+{
+	cout<<"Error : Invalid move"<<endl;
+}
 
+virtual void User::registerRoommate()
+{
+	cout<<"Error : Invalid move"<<endl;
+}
+virtual void User::findRoommate()
+{
+	cout<<"Error : Invalid move"<<endl;
+}
+virtual void User::registerRoom()
+{
+	cout<<"Error : Invalid move"<<endl;
+}
+virtual void User::insertInfo()
+{
+	cout<<"Error : Invalid move"<<endl;
+}
+virtual void User::checkRoom()
+{
+	cout<<"Error : Invalid move"<<endl;
+}
+virtual void User::addDelStudents()
+{
+	cout<<"Error : Invalid move"<<endl;
+}
+virtual void User::addDelRoom()
+{
+	cout<<"Error : Invalid move"<<endl;
+}
+virtual void User::matchRoommates()
+{
+	cout<<"Error : Invalid move"<<endl;
+}
+virtual void User::cleanRoom()
+{
+	cout<<"Error : Invalid move"<<endl;
+}
+virtual void User::logout()
+{
+	cout<<"Error : Invalid move"<<endl;
+}

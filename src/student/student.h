@@ -39,8 +39,13 @@ public:
              const std::string& class_, const std::string& room, 
             const bool gender, const std::string& mateID);
 
-
-    std::string getFormattedData() const; // For database purposes
+    ~Student();
+    std::string getFormattedData() override const; // For database purposes
+    void registerRoommate() override;
+    void findRoommate() override;
+    void registerRoom() override;
+    void insertInfo() override;
+    void logout() override;
 };
 
 #endif

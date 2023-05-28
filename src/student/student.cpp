@@ -9,9 +9,32 @@ Student::Student(std::string stuId, int code, const std::string& userName, const
 {
 }
 
+
+
 std::string Student::getFormattedData() const {
     std::string genderString = gender ? "Male" : "Female";
     return studentId + "," + std::to_string(studentCode) + "," + userName + "," + userID + ","
         + userPW + "," + classOf + "," + genderString + "," + role + "," + roomId + "," + roommateID;
 
+}
+
+void registerRoommate(DataBase db)
+{
+    return;
+}
+void findRoommate(Database db)
+{
+    return;
+}
+void registerRoom(DataBase db)
+{
+    return;
+}
+void insertInfo(DataBase db)
+{
+    return;
+}
+void logout()
+{
+    return;
 }

@@ -23,6 +23,7 @@ string role = "admin" //fixed
 [3] userId
 [4] userPw
 [5] role
+[6] isLogin
 */
 class Admin : public User {
 private:
@@ -36,8 +37,13 @@ private:
 public:
 
     Admin( const std::string& userName, const std::string& userID, const std::string& userPW);
-    std::string getFormattedData() const; // For database purposes
-
+    std::string getFormattedData() const override; // For database purposes
+    void checkRoom() override;
+    void addDelStudents() override;
+    void addDelRoom() override;
+    void matchRoommates() override;
+    void cleanRoom() override;
+    void logout() override;
 };
 
 #endif

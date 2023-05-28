@@ -20,3 +20,31 @@ std::string Admin::getFormattedData() const {
 
 }
 
+void checkRoom()
+{
+
+    return;
+}
+void addDelStudents()
+{
+
+    return;
+}
+void addDelRoom()
+{
+    return;
+}
+void matchRoommates()
+{
+
+
+    return;
+}
+void cleanRoom()
+{
+    return;
+}
+void logout()
+{
+    return;
+}

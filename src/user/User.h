@@ -23,9 +23,22 @@ public:
 
 
 	void doLogout();
+	void changePW();
 
-	virtual void printInfo();
-	virtual void changePW();
+	virtual string getFormattedData();
+
+	virtual void registerRoommate();
+    virtual void findRoommate();
+    virtual void registerRoom();
+    virtual void insertInfo();
+
+	virtual void checkRoom();
+    virtual void addDelStudents();
+    virtual void addDelRoom();
+    virtual void matchRoommates();
+    virtual void cleanRoom();
+    virtual void logout();
+
 };
 
 #endif
