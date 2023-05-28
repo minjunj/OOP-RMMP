@@ -133,7 +133,7 @@ int main()
 
     db.update("student", "2s", "content", 3);
     
-    start_menu();    
+    //start_menu();    
 
     return 0;
 }
