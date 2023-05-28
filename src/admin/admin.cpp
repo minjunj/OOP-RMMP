@@ -11,12 +11,10 @@ Admin::Admin( const std::string& userName, const std::string& userID, const std:
 
 std::string Admin::getFormattedData() const {
 
-
     count_admin++;
     std::string a = "a";
     std::string adminId = std::to_string(count_admin) + a;
     return  adminId + "," + userName + "," + userID + "," + userPW + "," + role;
-
 
 }
 

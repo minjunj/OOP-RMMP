@@ -1,12 +1,3 @@
 1a,조민준,mw412,pww12,admin
 2a,조민준1,mw4121,pww121,admin
 3a,NULL,NULL,NULL,admin
-,,mw412,pww12,admin
-,,mw4121,pww121,admin
-,,NULL,NULL,admin
-,,mw412,pww12,admin
-,,mw4121,pww121,admin
-,,NULL,NULL,admin
-,,mw412,pww12,admin
-,,mw4121,pww121,admin
-,,NULL,NULL,admin
