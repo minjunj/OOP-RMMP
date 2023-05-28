@@ -68,6 +68,7 @@ void startMenuTemplate()
 }
 void studentMenuTemplate1()
 {
+    cout<< "hello"<<endl;
     cout << "+------------------------------------------+" << endl;
     cout << "|                                          |" << endl;
     cout << "|              Student Menu                |" << endl;
