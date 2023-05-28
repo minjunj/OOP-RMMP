@@ -27,7 +27,7 @@ private:
 
 public:
 
-    Admin( string userName, string userID, string userPW);
+    Admin( const std::string& userName, const std::string& userID, const std::string& userPW);
     std::string getFormattedData() const; // For database purposes
 
 };

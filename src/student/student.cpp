@@ -1,8 +1,8 @@
 #include "student.h"
 
 
-Student::Student(std::string stuId, int code, std::string userName, std::string userID, std::string userPW,  
-             const std::string& class_, std::string room, 
+Student::Student(std::string stuId, int code, const std::string& userName, const std::string& userID, const std::string& userPW,  
+             const std::string& class_, const std::string& room, 
             char gender, int mateID): User(userID, userPW, userName), studentId(stuId),
             studentCode(code),  Gender(gender), roommateID(mateID), classOf(class_), roomId(room)
 

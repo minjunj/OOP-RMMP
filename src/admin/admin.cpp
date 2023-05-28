@@ -3,7 +3,7 @@
 #include "admin.h"
 int count_admin = 0;
 
-Admin::Admin( std::string userName, std::string userID, std::string userPW)
+Admin::Admin( const std::string& userName, const std::string& userID, const std::string& userPW)
     : User(userID, userPW, userName)
 
 {
