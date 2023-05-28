@@ -52,7 +52,7 @@ public:
         스튜던트 데이터 입력하는 함수
     */
     std::vector<std::unique_ptr<Student>> student_JSON(int code = 0, const std::string& name = "NULL", const std::string& id = "NULL", const std::string& pw = "NULL",
-            const std::string& class_ = "NULL", int room = 0, char gender = 'n', int mateID=0);
+            const std::string& class_ = "NULL", std::string room = 0, char gender = 'n', int mateID=0);
 
 
     // Admin(std::string adminID, string userName, string userID, string userPW);

@@ -27,7 +27,7 @@ private:
     std::string studentId; //auto increased
     int studentCode;
     char Gender;
-    int roomId;
+    std::string roomId;
     int roommateID;
     std::string classOf;
     std::string role = "user"; // role fixed
@@ -36,7 +36,7 @@ private:
 
 public:
     Student(std::string stuId, int code, std::string userName, std::string userID, std::string userPW,  
-             const std::string& class_, int room, 
+             const std::string& class_, std::string room, 
             char gender, int mateID);
 
 
