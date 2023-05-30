@@ -127,14 +127,10 @@ public:
     */
     void update(const char* type, std::string primaryKey, std::string content, int index);
 
-    bool findUser(const string userType, const string userId, const string userPw); // 새로 필요한 함수
-
-    unique_ptr<User> getUser(const string userType, const string userId, const string userPw); // 새로 필요한 함수
 
     //std::make_unique<Student>(studentId, code, name, id, pw, class_, room)
 
     /*
-
         std::vector<std::unique_ptr<Student>> student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw,
             const std::string& class_, int roomId)
         스튜던트 데이터 입력하는 함수
@@ -148,6 +144,9 @@ public:
     std::vector<std::unique_ptr<Admin>> admin_JSON(const std::string& name = "NULL", const std::string& id = "NULL", const std::string& pw = "NULL");
     /* 룸 데이터 입력하는 함수*/
     std::vector<std::unique_ptr<Room>> room_JSON(const std::string& roomNumber = "NULL", const bool is_empty = false);
-};
+    bool findUser(const string userType, const string userId, const string userPw);
+    unique_ptr<User> getUser(const string userType, const string userId, const string userPw);
 
+
+};
 #endif

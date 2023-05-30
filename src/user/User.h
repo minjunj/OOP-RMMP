@@ -24,9 +24,11 @@ public:
 
 	void doLogout();
 	void changePW();
-
-
 	void testfunc();
+	/*
+	이 함수는 userType("student", "admin"), userId, userPw를 받아 데이터 베이스에 특정 정보를 가지고 있는
+	유저가 있는지 확인해서 True, False를 리턴하는 함수다.
+	*/
 
 	virtual string getFormattedData();
 

@@ -5,6 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <exception>
 #include "../user/User.h"
 
 class DataBase; // Forward declaration of DataBase class
@@ -37,7 +38,7 @@ private:
 public:
     Student(std::string stuId, int code, const std::string& userName, const std::string& userID, const std::string& userPW,  
              const std::string& class_, const std::string& room, 
-            const bool gender, const std::string& mateID);
+            const char gender, const std::string& mateID);
 
     ~Student();
     std::string getFormattedData() override const; // For database purposes
@@ -46,6 +47,7 @@ public:
     void registerRoom() override;
     void insertInfo() override;
     void logout() override;
+    
 };
 
 #endif

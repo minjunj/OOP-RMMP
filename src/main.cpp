@@ -13,7 +13,7 @@ using JsonStu = std::vector<std::unique_ptr<Student>>;
 using JsonAdmin = std::vector<std::unique_ptr<Admin>>;
 using JsonRoom = std::vector<std::unique_ptr<Room>>;
 
-/*
+
 unique_ptr<User> Login(DataBase db, string userType)
 {
     string file;
@@ -25,20 +25,19 @@ unique_ptr<User> Login(DataBase db, string userType)
         cin  >> userId;
         cout << "Enter the User Password : ";
         cin  >> userPw;
-        /*
+        
         if(db.findUser(userType, userId, userPw))
         {
-            unique_ptr<User> loginUser = db.getUser(userType, userId, userPw);
-            return loginUser;
+            return db.getUser(userType, userId, userPw);
         }
         else
         {
             cout << "Wrong ID or password, try again" << endl;
         }
-        */
+        
     }
 }
-*/
+
 void startMenuTemplate()
 {
     cout << endl;
@@ -221,7 +220,6 @@ void studentMenu(unique_ptr<User> student, DataBase db)
 
 void adminMenu(unique_ptr<User> admin, DataBase db)
 {
-
     int menuNum;
     while (1)
     {
@@ -268,8 +266,6 @@ void start_menu()
 {
     int st_num;
     unique_ptr<User> curUser;
-    
-
 
     while (1)
     {
@@ -285,13 +281,13 @@ void start_menu()
         {
             if (st_num == 1)
             {
-                //cur_User = Login(db, "admin");
+                cur_User = Login(db, "admin");
                 cout << "Welcome "<< cur_User->userName <<", Logged into Administrator" << endl;
                 adminMenu();
             }
             else if (st_num == 2)
             {
-                //cur_User = Login(db, "student");
+                cur_User = Login(db, "student");
                 cout << "Welcome "<< cur_User->userName << ", Logged into Student" << endl;
                 studentMenu();
             }

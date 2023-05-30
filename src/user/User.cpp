@@ -4,6 +4,7 @@
 
 using namespace std;
 
+
 User::User(string ID="", string PW="", string Name="")
 {
 	cout << "User Constructed" << endl;
@@ -43,6 +44,7 @@ void User::testfunc()
 
 void User::doLogout()
 {
+	cout << "Logging out from user?"<<endl;
 	return;
 }
 
@@ -96,6 +98,12 @@ void User::changePW()
 
 	return;
 }
+
+
+
+
+
+
 
 virtual string User::getFormattedData()
 {

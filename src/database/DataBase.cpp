@@ -180,7 +180,6 @@ std::string DataBase::findAll(const char* type, std::string val)
             {
                 lines.push_back(line);
             }
-            
         }
 
         if(lines.empty())
@@ -326,22 +325,71 @@ std::string DataBase::findDB(const char* type)
     return "";
 }
 
-/*
-이 함수는 userType("student", "admin"), userId, userPw를 받아 데이터 베이스에 특정 정보를 가지고 있는
-유저가 있는지 확인해서 True, False를 리턴하는 함수다.
-*/
 bool DataBase::findUser(const string userType, const string userId, const string userPw)
 {
+	if (findOne(userType, userId, 2) == userId && findOne(userType, userPw, 3) == userPw)
+	{
+		return True;
+	}
+	else
+	{
+		return False;
+	}
+}
 
-    return True;
+vector<string> DataBase::getLineFromId(const string userType, const string userId)
+{
+    try
+    {
+        std::string directory = findDB(type);
+        std::ifstream fin(directory);        
+        std::string line;
+
+        while (std::getline(fin, line))
+        {
+            std::istringstream iss(line);
+            std::string str_buf;
+            char separator = ',';
+            std::vector<std::string> lines;
+
+            while (getline(iss, str_buf, separator))
+            {
+                lines.push_back(str_buf);
+                std::cout << str_buf << std::endl;
+            }
+            if(lines.at(3) == userId && userType == "student")
+            {
+                return lines;
+            }
+            if(lines.at(1) == userId && userType == "admin")
+        }
+    }
 }
 
 
-/*
-위 함수와 비슷하게 특정 정보들을 받아서 그 정보들을 받아서 unique_ptr로 리턴해주는 함수다. 
-polymorphism을 이용할거라 userType가 "admin" 이면 admin으로 "student"이면 student으로 변수를 저장해서 리턴해줘야한다.
-*/
 unique_ptr<User> DataBase::getUser(const string userType, const string userId, const string userPw)
 {
-    
+	try{
+		if(findUser(userType, userId, userPw))
+		{
+            vector<string> userInfo = getLineFromId(userType,userId);
+			if(userType == "admin")
+			{
+				return make_unique<Admin>(userInfo.at(0),userInfo.at(1), userInfo.at(2));
+			}
+			else if (userType == "student")
+			{
+                return make_unique<Student>(userInfo.at(0),(int)userInfo.at(1),userInfo.at(2), userInfo.at(3), userInfo.at(4), userInfo.at(5), userInfo.at(6),(char)userInfo.at(7),userInfo.at(8));
+			}
+		}
+		else
+		{
+			return NotFoundedException();
+		}
+	}
+	catch
+	{
+		cout << "404 Not Founded" <<endl;
+	}
 } // 새로 필요한 함수
+
