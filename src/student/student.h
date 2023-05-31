@@ -1,14 +1,19 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
+#include "../user/User.h"
+#include "../database/DataBase.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
-#include "../user/User.h"
+#include <exception>
+#include <memory>
 
+
+using namespace std;
 class DataBase; // Forward declaration of DataBase class
-
+class User;
 /*
 	[1] studentId : auto increased
     [2] studentCode
@@ -39,8 +44,28 @@ public:
              const std::string& class_, const std::string& room, 
             const bool gender, const std::string& mateID);
 
-
+    //~Student();
     std::string getFormattedData() const; // For database purposes
+    void registerRoommate(DataBase db) ;
+    void findRoommate(DataBase db) ;
+    void registerRoom(DataBase db) ;
+    void insertInfo(DataBase db) ;
+    void logout() ;
+    bool isInfo() ;
+
+    string getUserName();
+    void checkRoom(DataBase db) ;
+
+
+
+    void addDelStudents(DataBase& db);
+    void addDelRoom(DataBase db);
+    void matchRoommates(DataBase db);
+    void cleanRoom(DataBase db);
+	void printInfo();
+	void checkStudents(DataBase db);
+
+
 };
 
 #endif

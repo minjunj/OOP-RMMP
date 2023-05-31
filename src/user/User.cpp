@@ -4,6 +4,7 @@
 
 using namespace std;
 
+
 User::User(string ID="", string PW="", string Name="")
 {
 	cout << "User Constructed" << endl;
@@ -36,20 +37,17 @@ void User::setuserName(string Name)
 	userName = Name;
 }
 
-
-
-void User::doLogout()
+void User::testfunc()
 {
 	return;
 }
 
-void User::printInfo()
+void User::doLogout()
 {
-	cout << "User ID : " << userID << endl;
-	cout << "User PW : " << userPW << endl;
-	cout << "User Name : " << userName << endl;
-
+	cout << "Logging out from user?"<<endl;
+	return;
 }
+
 void User::changePW()
 {
 	string checkPW;
@@ -93,5 +91,3 @@ void User::changePW()
 
 	return;
 }
-
-

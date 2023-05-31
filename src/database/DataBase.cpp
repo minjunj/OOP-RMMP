@@ -4,6 +4,7 @@
 #include "../admin/admin.h"
 #include "../room/room.h"
 #include <typeinfo>
+#include <memory>
 
 int count_room = 0;
 int count_student = 0;
@@ -18,7 +19,7 @@ class NotFoundedException {
 };
 
 template <typename T>
-void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const char* type)
+void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const string type)
 {
     try
     {
@@ -106,11 +107,11 @@ std::vector<std::unique_ptr<Room>> DataBase::room_JSON(const std::string& roomNu
     return roomData;
 }
 
-template void DataBase::insert<Student>(const std::vector<std::unique_ptr<Student>>& data, const char* type);
-template void DataBase::insert<Admin>(const std::vector<std::unique_ptr<Admin>>& data, const char* type);
-template void DataBase::insert<Room>(const std::vector<std::unique_ptr<Room>>& data, const char* type);
+template void DataBase::insert<Student>(const std::vector<std::unique_ptr<Student>>& data, const std::string type);
+template void DataBase::insert<Admin>(const std::vector<std::unique_ptr<Admin>>& data, const std::string type);
+template void DataBase::insert<Room>(const std::vector<std::unique_ptr<Room>>& data, const std::string type);
 
-std::string DataBase::findOne(const char* type, std::string val, int index)
+std::string DataBase::findOne(const std::string type, std::string val, int index)
 {
     try
     {
@@ -164,7 +165,7 @@ std::string DataBase::findOne(const char* type, std::string val, int index)
 }
 // 뭐 만약에 유저 로긴해서 id pw 봄 id 있는지 볼 떄 저걸로 db.FindOne("student", "exid2", 2) 로 아이디 일치하고, db.FindOne("student", "expass", 3) 받아서 확인.
 
-std::string DataBase::findAll(const char* type, std::string val)
+std::string DataBase::findAll(const std::string type, std::string val)
 {
     try
     {
@@ -180,7 +181,6 @@ std::string DataBase::findAll(const char* type, std::string val)
             {
                 lines.push_back(line);
             }
-            
         }
 
         if(lines.empty())
@@ -205,7 +205,7 @@ std::string DataBase::findAll(const char* type, std::string val)
     return "";
 }
 
-void DataBase::update(const char* type, std::string primaryKey, std::string content, int index)
+void DataBase::update(const std::string type, std::string primaryKey, std::string content, int index)
 {
     try
     {
@@ -290,7 +290,7 @@ void DataBase::update(const char* type, std::string primaryKey, std::string cont
     }
 }
 
-std::string DataBase::findDB(const char* type)
+std::string DataBase::findDB(const std::string type)
 {
     try
     {
@@ -326,22 +326,83 @@ std::string DataBase::findDB(const char* type)
     return "";
 }
 
-// /*
-// 이 함수는 userType("student", "admin"), userId, userPw를 받아 데이터 베이스에 특정 정보를 가지고 있는
-// 유저가 있는지 확인해서 True, False를 리턴하는 함수다.
-// */
-// bool DataBase::findUser(const string userType, const string userId, const string userPw)
-// {
+bool DataBase::findUser(const string userType, const string userId, const string userPw)
+{
+	if (findOne(userType, userId, 2) == userId && findOne(userType, userPw, 3) == userPw)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 
-//     return True;
-// }
+vector<string> DataBase::getLineFromId(const string userType, const string userId)
+{
+    std::vector<std::string> lines;
+    try
+    {
+        std::string directory = findDB(userType);
+        std::ifstream fin(directory);        
+        std::string line;
+
+        while (std::getline(fin, line))
+        {
+            std::istringstream iss(line);
+            std::string str_buf;
+            char separator = ',';
+            
+            lines.clear();
+            while (getline(iss, str_buf, separator))
+            {
+                lines.push_back(str_buf);
+                std::cout << str_buf << std::endl;
+            }
+            if(lines.at(3) == userId && userType == "student")
+            {
+                return lines;
+            }
+            if(lines.at(1) == userId && userType == "admin")
+            {
+                return lines;
+            }
+        }
+    }
+    catch(const NotFoundedDataBaseException& e)
+    {
+        cout << "error"<<endl;
+    }
+    return lines;
+}
 
 
-// /*
-// 위 함수와 비슷하게 특정 정보들을 받아서 그 정보들을 받아서 unique_ptr로 리턴해주는 함수다. 
-// polymorphism을 이용할거라 userType가 "admin" 이면 admin으로 "student"이면 student으로 변수를 저장해서 리턴해줘야한다.
-// */
-// unique_ptr<User> DataBase::getUser(const string userType, const string userId, const string userPw)
-// {
+unique_ptr<User> DataBase::getUser(const string userType, const string userId, const string userPw)
+{
     
-// } // 새로 필요한 함수
+	try{
+		if(findUser(userType, userId, userPw))
+		{
+            vector<string> userInfo;
+            userInfo = getLineFromId(userType,userId);
+			if(userType == "admin")
+			{
+				return make_unique<Admin>(userInfo.at(0),userInfo.at(1), userInfo.at(2));
+			}
+			else if (userType == "student")
+			{
+                return make_unique<Student>(userInfo.at(0),stoi(userInfo.at(1)),userInfo.at(2), userInfo.at(3), userInfo.at(4), userInfo.at(5), userInfo.at(6),userInfo.at(7)[0],userInfo.at(8));
+			}
+		}
+		else
+		{
+			throw NotFoundedDataBaseException();
+		}
+	}
+	catch(const NotFoundedDataBaseException& e)
+	{
+		cout << "404 Not Founded" <<endl;
+	}
+    return make_unique<Student>("",0,"","","","","",'a',"");
+} // 새로 필요한 함수
+

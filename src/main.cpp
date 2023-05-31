@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <memory>
 #include "./user/User.h"
 #include "./database/DataBase.h"
 #include "./student/student.h"
@@ -13,7 +14,7 @@ using JsonStu = std::vector<std::unique_ptr<Student>>;
 using JsonAdmin = std::vector<std::unique_ptr<Admin>>;
 using JsonRoom = std::vector<std::unique_ptr<Room>>;
 
-/*
+
 unique_ptr<User> Login(DataBase db, string userType)
 {
     string file;
@@ -25,11 +26,10 @@ unique_ptr<User> Login(DataBase db, string userType)
         cin  >> userId;
         cout << "Enter the User Password : ";
         cin  >> userPw;
-        /*
+        
         if(db.findUser(userType, userId, userPw))
         {
-            unique_ptr<User> loginUser = db.getUser(userType, userId, userPw);
-            return loginUser;
+            return db.getUser(userType, userId, userPw);
         }
         else
         {
@@ -37,7 +37,7 @@ unique_ptr<User> Login(DataBase db, string userType)
         }
     }
 }
-*/
+
 void startMenuTemplate()
 {
     cout << endl;
@@ -151,171 +151,171 @@ void adminMenuTemplate1()
 
 
 
-// void studentMenu(unique_ptr<User> student, DataBase db)
-// {
-//     if (student->isInfo())
-//     {
-//         int menuNum;
-//         while (1)
-//         {
-//             studentMenuTemplate1();
-//             cout << "Enter the Number to use : ";
-//             cin  >> menuNum;
-//             switch (menuNum)
-//             {
-//             case 1:
-//                 student->registerRommate();
-//                 break;
-//             case 2:
-//                 student->findRommate();
-//                 break;
-//             case 3:
-//                 db.checkRoom(); // DataBase에서 새로 들어줘야할 함수, 현재 기숙사의 전체적인 현황(비어있는지, 방에 몇명 있는지 등) 한 눈에 볼 수 있는 함수가 필요
-//                 break;
-//             case 4:
-//                 cout << student->registerRoom() << endl;
-//                 break;
-//             case 5:
-//                 cout << student->getFormattedData() << endl;
-//                 break;
-//             case 6:
-//                 student->insertInfo();
-//                 break;
-//             case 7:
-//                 cout << "Logging out" << student->userName << endl;
-//                 student->logout();
-//                 return;
-//             default:
-//                 cout << "Wrong Input, please try again" << endl;
-//                 break;
-//             }
-//         }
-//     }
-//     else
-//     {
-//         int menuNum;
-//         while (idx == 1)
-//         {
-//             studentMenuTemplate2();
-//             cout << "Enter the Number to use : ";
-//             cin  >> menuNum;
-//             switch (menuNum)
-//             {
-//             case 1:
-//                 student->insertInfo();
-//                 break;
-//             case 2:
-//                 cout << "Logging out" << student->userName << endl;
-//                 student->logout();
-//                 return;
-//             default:
-//                 cout << "Wrong Input, please try again" << endl;
-//                 break;
-//             }
-//         }
-//     }
-//     return;
-// }
+void studentMenu(unique_ptr<User>& student, DataBase db)
+{
+    if (student->isInfo())
+    {
+        int menuNum;
+        while (1)
+        {
+            studentMenuTemplate1();
+            cout << "Enter the Number to use : ";
+            cin  >> menuNum;
+            switch (menuNum)
+            {
+            case 1:
+                student->registerRoommate(db);
+                break;
+            case 2:
+                student->findRoommate(db);
+                break;
+            case 3:
+                student->checkRoom(db); // DataBase에서 새로 들어줘야할 함수, 현재 기숙사의 전체적인 현황(비어있는지, 방에 몇명 있는지 등) 한 눈에 볼 수 있는 함수가 필요
+                break;
+            case 4:
+                student->registerRoom(db);
+                break;
+            case 5:
+                cout << student->getFormattedData() << endl;
+                break;
+            case 6:
+                student->insertInfo(db);
+                break;
+            case 7:
+                cout << "Logging out" << student->getUserName() << endl;
+                student->logout();
+                return;
+            default:
+                cout << "Wrong Input, please try again" << endl;
+                break;
+            }
+        }
+    }
+    else
+    {
+        int menuNum;
+        while (1)
+        {
+            studentMenuTemplate2();
+            cout << "Enter the Number to use : ";
+            cin  >> menuNum;
+            switch (menuNum)
+            {
+            case 1:
+                student->insertInfo(db);
+                break;
+            case 2:
+                cout << "Logging out" << student->getUserName() << endl;
+                student->logout();
+                return;
+            default:
+                cout << "Wrong Input, please try again" << endl;
+                break;
+            }
+        }
+    }
+    return;
+}
 
 
-// void adminMenu(unique_ptr<User> admin, DataBase db)
-// {
-
-//     int menuNum;
-//     while (1)
-//     {
-//         adminMenuTemplate();
-//         cout << "Enter the Number to use : ";
-//         cin  >> menuNum;
-//         switch (menuNum)
-//         {
-//         case 1:
-//             admin->checkStudents();
-//             break;
-//         case 2:
-//             db.checkRoom();
-//             break;
-//         case 3:
-//             admin->addDelStudents(); // DataBase에서 새로 들어줘야할 함수, 현재 기숙사의 전체적인 현황(비어있는지, 방에 몇명 있는지 등) 한 눈에 볼 수 있는 함수가 필요
-//             break;
-//         case 4:
-//             admin->addDelRoom();
-//             break;
-//         case 5:
-//             admin->matchRoommates();
-//             break;
-//         case 6:
-//             admin->cleanRoom();
-//             break;
-//         case 7:
-//             cout << "Logging out" << admin->userName << endl;
-//             admin->logout();
-//             return;
-//         default:
-//             cout << "Wrong Input, please try again" << endl;
-//             break;
-//         }
-//     }
-//     return;
-// }
-
-
+void adminMenu(unique_ptr<User>& admin, DataBase db)
+{
+    int menuNum;
+    while (1)
+    {
+        adminMenuTemplate1();
+        cout << "Enter the Number to use : ";
+        cin  >> menuNum;
+        switch (menuNum)
+        {
+        case 1:
+            admin->checkStudents(db);
+            break;
+        case 2:
+            admin->checkRoom(db);
+            break;
+        case 3:
+            admin->addDelStudents(db); // DataBase에서 새로 들어줘야할 함수, 현재 기숙사의 전체적인 현황(비어있는지, 방에 몇명 있는지 등) 한 눈에 볼 수 있는 함수가 필요
+            break;
+        case 4:
+            admin->addDelRoom(db);
+            break;
+        case 5:
+            admin->matchRoommates(db);
+            break;
+        case 6:
+            admin->cleanRoom(db);
+            break;
+        case 7:
+            cout << "Logging out" << admin->getUserName() << endl;
+            admin->logout();
+            return;
+        default:
+            cout << "Wrong Input, please try again" << endl;
+            break;
+        }
+    }
+    return;
+}
 
 
 
-// void start_menu()
-// {
-//     int st_num;
-//     unique_ptr<User> curUser;
-    
 
 
-//     while (1)
-//     {
-//         startMenuTemplate();
-//         cout << "Enter the number here (1~3) : ";
-//         cin >> st_num;
-//         if (st_num != 1 and st_num != 2 and st_num != 3)
-//         {
-//             cout << "Wrong input, try again" << endl;
-//             continue;
-//         }
-//         else
-//         {
-//             if (st_num == 1)
-//             {
-//                 //cur_User = Login(db, "admin");
-//                 cout << "Welcome "<< cur_User->userName <<", Logged into Administrator" << endl;
-//                 adminMenu();
-//             }
-//             else if (st_num == 2)
-//             {
-//                 //cur_User = Login(db, "student");
-//                 cout << "Welcome "<< cur_User->userName << ", Logged into Student" << endl;
-//                 studentMenu();
-//             }
-//             else if (st_num == 3)
-//             {
-//                 cout << "Ending program" << endl;
-//                 return;
-//             }
-//         }
-//     }
-// }
+void start_menu(DataBase db)
+{
+    int st_num;
+    unique_ptr<User> curUser;
+
+    while (1)
+    {
+        startMenuTemplate();
+        cout << "Enter the number here (1~3) : ";
+        cin >> st_num;
+        if (st_num != 1 and st_num != 2 and st_num != 3)
+        {
+            cout << "Wrong input, try again" << endl;
+            continue;
+        }
+        else
+        {
+            if (st_num == 1)
+            {
+                curUser = Login(db, "admin");
+                cout << "Welcome "<< curUser->getuserName() <<", Logged into Administrator" << endl;
+                adminMenu(curUser,db);
+            }
+            else if (st_num == 2)
+            {
+                curUser = Login(db, "student");
+                cout << "Welcome "<< curUser->getuserName() << ", Logged into Student" << endl;
+                studentMenu(curUser,db);
+            }
+            else if (st_num == 3)
+            {
+                cout << "Ending program" << endl;
+                return;
+            }
+        }
+    }
+}
+
 
 
 int main()
 {
     DataBase db;
     int i=0;
-    JsonStu studentData = db.student_JSON(20225180, "조민준", "m412", "pw12", "22", "2a", true, "3s"); // 데이터 셋팅 // gender ? male : female
-    JsonAdmin adminData = db.admin_JSON("조민준", "mw412", "pww12");
-    JsonRoom roomData = db.room_JSON("g107", true, true);
-    db.insert(studentData, "student"); //db에 삽입
-    db.insert(adminData, "admin");
-    db.insert(roomData, "room");
 
-    // JsonStu studentData1 = db.student_JSON(20225181, "조민준1", "m412", "pw12", "22", "2a", false, "3s"); // 데이터 셋팅
+    // JsonStu studentData = db.student_JSON(20225180, "조민준", "m412", "pw12", "22", 12); // 데이터 셋팅
+    // JsonAdmin adminData = db.admin_JSON("조민준", "mw412", "pww12");
+    // JsonRoom roomData = db.room_JSON("g107", true);
+    // db.insert(studentData, "student"); //db에 삽입
+    // db.insert(adminData, "admin");
+    // db.insert(roomData, "room");
+
+    // JsonStu studentData1 = db.student_JSON(20225180, "조민준1", "m4121", "pw121", "221", 121); // 데이터 셋팅
+
     // JsonAdmin adminData1 = db.admin_JSON("조민준1", "mw4121", "pww121");
     // JsonRoom roomData1 = db.room_JSON("g1071", true);
     // db.insert(studentData1, "student"); //db에 삽입
@@ -329,17 +329,17 @@ int main()
     // db.insert(adminData2, "admin");
     // db.insert(roomData2, "room");
 
-    std::cout << db.findOne("student", "m4121", 21) <<1<< std::endl;
+    // std::cout << db.findOne("student", "m4121", 21) <<1<< std::endl;
 
-    std::cout << db.findAll("student", "jominjun1") <<2<< std::endl;
+    // std::cout << db.findAll("student", "jominjun1") <<2<< std::endl;
 
-    std::cout << db.findAll("room", "g1071") <<3<< std::endl;
+    // std::cout << db.findAll("room", "g1071") <<3<< std::endl;
     
-    std::cout << db.findAll("admin", "mw4121") <<4<< std::endl;
+    // std::cout << db.findAll("admin", "mw4121") <<4<< std::endl;
 
-    db.update("student", "2s", "content", 3);
+    // db.update("student", "2s", "content", 3);
     
-    //start_menu();    
+    //start_menu(db);    
 
     return 0;
 }
