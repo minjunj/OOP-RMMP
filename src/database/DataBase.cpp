@@ -96,13 +96,13 @@ std::vector<std::unique_ptr<Admin>> DataBase::admin_JSON(const std::string& name
     return adminData;
 }
 
-std::vector<std::unique_ptr<Room>> DataBase::room_JSON(const std::string& roomNumber, const bool is_empty)
+std::vector<std::unique_ptr<Room>> DataBase::room_JSON(const std::string& roomNumber, const bool is_empty, const bool status)
 {
     std::vector<std::unique_ptr<Room>> roomData;
     count_room++;
     std::string r = "r";
     std::string roomId = std::to_string(count_room) + r;
-    roomData.push_back(std::make_unique<Room>(roomId, roomNumber, is_empty));
+    roomData.push_back(std::make_unique<Room>(roomId, roomNumber, is_empty, status));
     return roomData;
 }
 
@@ -326,22 +326,22 @@ std::string DataBase::findDB(const char* type)
     return "";
 }
 
-/*
-이 함수는 userType("student", "admin"), userId, userPw를 받아 데이터 베이스에 특정 정보를 가지고 있는
-유저가 있는지 확인해서 True, False를 리턴하는 함수다.
-*/
-bool DataBase::findUser(const string userType, const string userId, const string userPw)
-{
+// /*
+// 이 함수는 userType("student", "admin"), userId, userPw를 받아 데이터 베이스에 특정 정보를 가지고 있는
+// 유저가 있는지 확인해서 True, False를 리턴하는 함수다.
+// */
+// bool DataBase::findUser(const string userType, const string userId, const string userPw)
+// {
 
-    return True;
-}
+//     return True;
+// }
 
 
-/*
-위 함수와 비슷하게 특정 정보들을 받아서 그 정보들을 받아서 unique_ptr로 리턴해주는 함수다. 
-polymorphism을 이용할거라 userType가 "admin" 이면 admin으로 "student"이면 student으로 변수를 저장해서 리턴해줘야한다.
-*/
-unique_ptr<User> DataBase::getUser(const string userType, const string userId, const string userPw)
-{
+// /*
+// 위 함수와 비슷하게 특정 정보들을 받아서 그 정보들을 받아서 unique_ptr로 리턴해주는 함수다. 
+// polymorphism을 이용할거라 userType가 "admin" 이면 admin으로 "student"이면 student으로 변수를 저장해서 리턴해줘야한다.
+// */
+// unique_ptr<User> DataBase::getUser(const string userType, const string userId, const string userPw)
+// {
     
-} // 새로 필요한 함수
+// } // 새로 필요한 함수

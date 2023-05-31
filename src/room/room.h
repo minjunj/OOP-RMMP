@@ -20,11 +20,11 @@ private:
     std::string roomId; //auto increased
     std::string roomNumber;
     bool is_empty;
-
+    bool status;
     friend class DataBase;
 
 public:
-    Room(const std::string& roomId, const std::string& roomNumber, const bool is_empty);
+    Room(const std::string& roomId, const std::string& roomNumber, const bool is_empty, const bool status);
 
     std::string getFormattedData() const; // DB용
 };

@@ -1,12 +1,5 @@
 1r,g107,true
 2r,g1071,true
 3r,NULL,false
-1r,g107,true
-2r,g1071,true
-3r,NULL,false
-1r,g107,true
-2r,g1071,true
-3r,NULL,false
-1r,g107,true
-2r,g1071,true
-3r,NULL,false
+1r,g107,true,true
+1r,g107,true,true
