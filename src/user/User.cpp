@@ -48,13 +48,6 @@ void User::doLogout()
 	return;
 }
 
-void User::printInfo()
-{
-	cout << "User ID : " << userID << endl;
-	cout << "User PW : " << userPW << endl;
-	cout << "User Name : " << userName << endl;
-
-}
 void User::changePW()
 {
 	string checkPW;
@@ -97,56 +90,4 @@ void User::changePW()
 	cout << "\nPassword changed to " << getuserPW() << endl;
 
 	return;
-}
-
-
-
-
-
-
-
-virtual string User::getFormattedData()
-{
-	cout<<"Error : Invalid move"<<endl;
-}
-
-virtual void User::registerRoommate()
-{
-	cout<<"Error : Invalid move"<<endl;
-}
-virtual void User::findRoommate()
-{
-	cout<<"Error : Invalid move"<<endl;
-}
-virtual void User::registerRoom()
-{
-	cout<<"Error : Invalid move"<<endl;
-}
-virtual void User::insertInfo()
-{
-	cout<<"Error : Invalid move"<<endl;
-}
-virtual void User::checkRoom()
-{
-	cout<<"Error : Invalid move"<<endl;
-}
-virtual void User::addDelStudents()
-{
-	cout<<"Error : Invalid move"<<endl;
-}
-virtual void User::addDelRoom()
-{
-	cout<<"Error : Invalid move"<<endl;
-}
-virtual void User::matchRoommates()
-{
-	cout<<"Error : Invalid move"<<endl;
-}
-virtual void User::cleanRoom()
-{
-	cout<<"Error : Invalid move"<<endl;
-}
-virtual void User::logout()
-{
-	cout<<"Error : Invalid move"<<endl;
 }

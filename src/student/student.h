@@ -1,15 +1,19 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
+#include "../user/User.h"
+#include "../database/DataBase.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
 #include <exception>
-#include "../user/User.h"
+#include <memory>
 
+
+using namespace std;
 class DataBase; // Forward declaration of DataBase class
-
+class User;
 /*
 	[1] studentId : auto increased
     [2] studentCode
@@ -38,16 +42,30 @@ private:
 public:
     Student(std::string stuId, int code, const std::string& userName, const std::string& userID, const std::string& userPW,  
              const std::string& class_, const std::string& room, 
-            const char gender, const std::string& mateID);
+            const bool gender, const std::string& mateID);
 
-    ~Student();
-    std::string getFormattedData() override const; // For database purposes
-    void registerRoommate() override;
-    void findRoommate() override;
-    void registerRoom() override;
-    void insertInfo() override;
-    void logout() override;
-    
+    //~Student();
+    std::string getFormattedData() const; // For database purposes
+    void registerRoommate(DataBase db) ;
+    void findRoommate(DataBase db) ;
+    void registerRoom(DataBase db) ;
+    void insertInfo(DataBase db) ;
+    void logout() ;
+    bool isInfo() ;
+
+    string getUserName();
+    void checkRoom(DataBase db) ;
+
+
+
+    void addDelStudents(DataBase& db);
+    void addDelRoom(DataBase db);
+    void matchRoommates(DataBase db);
+    void cleanRoom(DataBase db);
+	void printInfo();
+	void checkStudents(DataBase db);
+
+
 };
 
 #endif

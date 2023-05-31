@@ -8,10 +8,10 @@
 #include <string>
 #include <memory>
 #include <sstream>
-#include "../student/student.h"
-#include "../admin/admin.h"
-#include "../room/room.h"
+#include "../user/User.h"
+using namespace std;
 
+class User;
 class Student;
 class Admin;
 class Room;
@@ -22,14 +22,14 @@ private:
     std::string adminFile = "DB/admin.txt";
     std::string roomFile = "DB/room.txt";
 public:
-    std::string findDB(const char* type);
+    std::string findDB(const string type);
 
     /*
         데이터 베이스에 삽입하는 함수
         insert( _JSON으로 저장한 data, 저장위치 : admin, student, room)
     */
     template <typename T>
-    void insert(const std::vector<std::unique_ptr<T>>& data, const char* type); // Use std::shared_ptr
+    void insert(const std::vector<std::unique_ptr<T>>& data, const string type); // Use std::shared_ptr
 
     /*
     To find one value you want.
@@ -61,7 +61,7 @@ public:
     [2] roomNumber,
     [3] is_empty
     */
-    std::string findOne(const char* type, std::string val, int index);
+    std::string findOne(const std::string type, std::string val, int index);
 
     /*
     To find row you want.
@@ -93,7 +93,7 @@ public:
     [2] roomNumber,
     [3] is_empty
     */
-    std::string findAll(const char* type, std::string val);
+    std::string findAll(const std::string type, std::string val);
 
     /*
     To Update value you want.
@@ -125,7 +125,7 @@ public:
     [2] roomNumber,
     [3] is_empty
     */
-    void update(const char* type, std::string primaryKey, std::string content, int index);
+    void update(const std::string type, std::string primaryKey, std::string content, int index);
 
 
     //std::make_unique<Student>(studentId, code, name, id, pw, class_, room)
@@ -146,7 +146,8 @@ public:
     std::vector<std::unique_ptr<Room>> room_JSON(const std::string& roomNumber = "NULL", const bool is_empty = false);
     bool findUser(const string userType, const string userId, const string userPw);
     unique_ptr<User> getUser(const string userType, const string userId, const string userPw);
+    vector<string> getLineFromId(const string userType, const string userId);
 
-
+    
 };
 #endif

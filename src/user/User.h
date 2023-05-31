@@ -2,8 +2,12 @@
 #define USER_H
 #include <string>
 #include <iostream>
+#include <memory>
+#include "../database/DataBase.h"
 
 using namespace std;
+
+class DataBase;
 
 class User {
 protected:
@@ -30,20 +34,27 @@ public:
 	유저가 있는지 확인해서 True, False를 리턴하는 함수다.
 	*/
 
-	virtual string getFormattedData();
+	virtual string getFormattedData() const =0;
 
-	virtual void registerRoommate();
-    virtual void findRoommate();
-    virtual void registerRoom();
-    virtual void insertInfo();
+	virtual void registerRoommate(DataBase db)=0;
+    virtual void findRoommate(DataBase db)=0;
+    virtual void registerRoom(DataBase db)=0;
+    virtual void insertInfo(DataBase db)=0;
 
-	virtual void checkRoom();
-    virtual void addDelStudents();
-    virtual void addDelRoom();
-    virtual void matchRoommates();
-    virtual void cleanRoom();
-    virtual void logout();
+    virtual void addDelStudents(DataBase& db)=0;
+    virtual void addDelRoom(DataBase db)=0;
+    virtual void matchRoommates(DataBase db)=0;
+    virtual void cleanRoom(DataBase db)=0;
+    virtual void logout()=0;
+	
+	virtual void printInfo()=0;
 
+	virtual bool isInfo()=0;
+	virtual void checkRoom(DataBase db)=0;
+	virtual void checkStudents(DataBase db)=0;
+
+
+	virtual string getUserName()=0;
 };
 
 #endif

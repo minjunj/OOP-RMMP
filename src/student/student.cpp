@@ -1,4 +1,7 @@
 #include "student.h"
+#include <memory>
+
+using namespace std;
 
 Student::Student(std::string stuId, int code, const std::string& userName, const std::string& userID, const std::string& userPW,  
              const std::string& class_, const std::string& room, 
@@ -17,7 +20,7 @@ std::string Student::getFormattedData() const {
 /*
 룸메이트 신청하는 함수
 */
-void registerRoommate(DataBase db)
+void Student::registerRoommate(DataBase db)
 {
     string mateId;
 
@@ -53,7 +56,7 @@ void registerRoommate(DataBase db)
 
 
 //***룸메이트를 찾아내는 특정 알고리즘이 필요함***
-void findRoommate(Database db)
+void Student::findRoommate(DataBase db)
 {
 
     return;
@@ -62,10 +65,10 @@ void findRoommate(Database db)
 /*
 룸메이트가 있을때만 방을 신청할 수 있는 함수
 */
-void registerRoom(DataBase db)
+void Student::registerRoom(DataBase db)
 {
     //룸메이트가 없으면 룸메이트부터 구하고 다시오라고 리턴함
-    if (roommateId.length()==0)
+    if (roommateID.length()==0)
     {
         cout << "No roommate, register a roommate first" <<endl;
         return;
@@ -93,9 +96,9 @@ void registerRoom(DataBase db)
             }
             roomId = regroomId; // 신청자의 방 문자열은 이거로 바뀜
             db.update("room",db.findOne("room",regroomId,0),"false",2); // 신청 방의 isEmpty를 false로 바꾼다
-            db.update("student",db.findOne("student",studentId),regroomId,6); // 신청 학생의 기숙사 방을 바꾼다
-            db.update("student",db.findOne("student",mateId),regroomId,6); // 신청 학생의 룸메의 기숙사 방을 바꾼다.
-            cout << "Room successfully registered to ("<< roomId << ") with roommate ("<<roommateId <<") "<< endl; // 정보 공지
+            db.update("student",db.findOne("student",studentId,0),regroomId,6); // 신청 학생의 기숙사 방을 바꾼다
+            db.update("student",db.findOne("student",roommateID,0),regroomId,6); // 신청 학생의 룸메의 기숙사 방을 바꾼다.
+            cout << "Room successfully registered to ("<< roomId << ") with roommate ("<<roommateID <<") "<< endl; // 정보 공지
             return;
         }
         // 방이 이미 차있다면 루프를 다시 돌리고 다시 선택할 수 있도록 해준다
@@ -111,7 +114,7 @@ void registerRoom(DataBase db)
 /* 
 학생이 처음 회원가입/변경할 때, 룸메이트 매칭을 위한 특정 정보들을 입력 받는 함수
 */
-void insertInfo(DataBase db)
+void Student::insertInfo(DataBase db)
 {
     cout << "Insert the default information of your life style" <<endl;
     cout << "To find the roommate matches with you" <<endl;
@@ -120,7 +123,7 @@ void insertInfo(DataBase db)
                                 "Enter your awaking time (1: earlier that 6a.m. 2: 6a.m. ~ 8a.m. 3: 8a.m. ~ 10a.m. 4: later than 10a.m.) : ",
                                 "Enter your prefering airconditioning temperature (1: ~~ 2: ~~ 3: ~~ 4: ~~) : " ,
                                 "Enter your frequency of smoking (1: Always 2: Often 3: Sometimes 4: Never) : ",
-                                "Enter if you snore (1: Every night 2: Sometimes 3: Never 4: ~~)";
+                                "Enter if you snore (1: Every night 2: Sometimes 3: Never 4: ~~)"
                             }; // 편의상 만든 질문지 벡터
     int checkNum; // 입력 정수
     int idx = 0; // 0부터 질문지의 크기 만큼 커질 커서 역할
@@ -143,8 +146,35 @@ void insertInfo(DataBase db)
 }
 
 //로그아웃 몰?루
-void logout()
+void Student::logout()
 {
     cout << "logging out"<<endl;
     return;
 }
+
+
+bool Student::isInfo()
+{
+    //***보완필요***
+    if(studentId.length()!=0) return true;
+    else return false;
+}
+
+void Student::checkRoom(DataBase db)
+{
+    //만들기
+    return;
+}
+
+string Student::getUserName()
+{
+    return userName;
+}
+
+
+void Student::addDelStudents(DataBase& db){return;}
+void Student::addDelRoom(DataBase db){return;}
+void Student::matchRoommates(DataBase db){return;}
+void Student::cleanRoom(DataBase db){return;}
+void Student::printInfo(){return;}
+void Student::checkStudents(DataBase db){return;}
