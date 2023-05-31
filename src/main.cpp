@@ -1,4 +1,4 @@
-// main.cpp
+﻿// main.cpp
 
 #include <iostream>
 #include <string>
@@ -35,7 +35,6 @@ unique_ptr<User> Login(DataBase db, string userType)
         {
             cout << "Wrong ID or password, try again" << endl;
         }
-        
     }
 }
 
@@ -302,10 +301,12 @@ void start_menu(DataBase db)
 }
 
 
+
 int main()
 {
     DataBase db;
     int i=0;
+
     // JsonStu studentData = db.student_JSON(20225180, "조민준", "m412", "pw12", "22", 12); // 데이터 셋팅
     // JsonAdmin adminData = db.admin_JSON("조민준", "mw412", "pww12");
     // JsonRoom roomData = db.room_JSON("g107", true);
@@ -314,6 +315,7 @@ int main()
     // db.insert(roomData, "room");
 
     // JsonStu studentData1 = db.student_JSON(20225180, "조민준1", "m4121", "pw121", "221", 121); // 데이터 셋팅
+
     // JsonAdmin adminData1 = db.admin_JSON("조민준1", "mw4121", "pww121");
     // JsonRoom roomData1 = db.room_JSON("g1071", true);
     // db.insert(studentData1, "student"); //db에 삽입

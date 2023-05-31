@@ -97,13 +97,13 @@ std::vector<std::unique_ptr<Admin>> DataBase::admin_JSON(const std::string& name
     return adminData;
 }
 
-std::vector<std::unique_ptr<Room>> DataBase::room_JSON(const std::string& roomNumber, const bool is_empty)
+std::vector<std::unique_ptr<Room>> DataBase::room_JSON(const std::string& roomNumber, const bool is_empty, const bool status)
 {
     std::vector<std::unique_ptr<Room>> roomData;
     count_room++;
     std::string r = "r";
     std::string roomId = std::to_string(count_room) + r;
-    roomData.push_back(std::make_unique<Room>(roomId, roomNumber, is_empty));
+    roomData.push_back(std::make_unique<Room>(roomId, roomNumber, is_empty, status));
     return roomData;
 }
 

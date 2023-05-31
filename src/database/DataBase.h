@@ -142,11 +142,15 @@ public:
     // Admin(std::string adminID, string userName, string userID, string userPW);
     /* 어드민 데이터 입력하는 함수*/
     std::vector<std::unique_ptr<Admin>> admin_JSON(const std::string& name = "NULL", const std::string& id = "NULL", const std::string& pw = "NULL");
-    /* 룸 데이터 입력하는 함수*/
-    std::vector<std::unique_ptr<Room>> room_JSON(const std::string& roomNumber = "NULL", const bool is_empty = false);
+
+
+
     bool findUser(const string userType, const string userId, const string userPw);
     unique_ptr<User> getUser(const string userType, const string userId, const string userPw);
     vector<string> getLineFromId(const string userType, const string userId);
+
+    std::vector<std::unique_ptr<Room>> room_JSON(const std::string& roomNumber = "NULL", const bool is_empty = true, const bool status = true);
+
 
     
 };
