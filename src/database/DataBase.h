@@ -21,9 +21,12 @@ private:
     std::string stuFile = "DB/student.txt";
     std::string adminFile = "DB/admin.txt";
     std::string roomFile = "DB/room.txt";
+    std::string surveyFile = "DB/survey.txt";
 public:
     std::string findDB(const string type);
 
+    void insertSurvey(std::vector<std::string> data);
+    
     /*
         데이터 베이스에 삽입하는 함수
         insert( _JSON으로 저장한 data, 저장위치 : admin, student, room)

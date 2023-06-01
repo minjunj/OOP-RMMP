@@ -406,3 +406,22 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
     return make_unique<Student>("",0,"","","","","",'a',"");
 } // 새로 필요한 함수
 
+void DataBase::insertSurvey(std::vector<std::string> dat1a)
+{
+    std::ofstream file("survey.txt");
+    
+    // Check if the file was opened successfully
+    if(!file) {
+        std::cerr << "File couldn't be opened";
+        return ;
+    }
+
+    // Write each string in the vector to the file
+    for(const auto& str : dat1a) {
+        file << str << std::endl;
+    }
+
+    // Close the file
+    file.close();
+
+}
