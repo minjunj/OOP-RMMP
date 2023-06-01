@@ -15,6 +15,10 @@ using JsonAdmin = std::vector<std::unique_ptr<Admin>>;
 using JsonRoom = std::vector<std::unique_ptr<Room>>;
 
 
+
+
+
+
 unique_ptr<User> Login(DataBase db, string userType)
 {
     string file;
@@ -54,11 +58,12 @@ void startMenuTemplate()
     cout << "|                                          |" << endl;
     cout << "|                                          |" << endl;
     cout << "|            Enter the bellow              |" << endl;
-    cout << "|               to Login                   |" << endl;
+    cout << "|            to Sign in / up               |" << endl;
     cout << "|                                          |" << endl;
-    cout << "|            1. Admin Login                |" << endl;
-    cout << "|            2. User  Login                |" << endl;
-    cout << "|            3. Exit                       |" << endl;
+    cout << "|            1. Student Sign up            |" << endl;
+    cout << "|            2. Admin Login                |" << endl;
+    cout << "|            3. Student Login              |" << endl;
+    cout << "|            4. Exit                       |" << endl;
     cout << "|                                          |" << endl;
     cout << "|                                          |" << endl;
     cout << "|                                          |" << endl;
@@ -258,7 +263,70 @@ void adminMenu(unique_ptr<User>& admin, DataBase db)
     return;
 }
 
+void studentSignUp(DataBase db)
+{
+    cout << "To Sign up to the program Enter your personal data" << endl;
+    vector<string> questions = {"Enter student Name (Enter 0 to exit): ",
+                                "Enter student Code (Enter 0 to exit): ",
+                                "Enter student ID (Enter 0 to exit): ",
+                                "Enter student PW (Enter 0 to exit): ",
+                                "Enter student PW again (Enter 0 to exit): ",
+                                "Enter student gender (Enter 0 to exit): "
+                                };
+    vector<string> userInfo;
+    while(true)
+    {
+        userInfo.clear();
+        string ans;
+        int len = questions.size();
+        int idx =0 ;
+        while(idx < len)
+        {
+            cout << questions.at(idx);
+            cin  >> ans;
+            if (ans == "0") return;
+            if (idx == 2 && db.findOne("student",ans,3)==ans)
+            {
+                idx--;
+                cout << "Wrong input, ID already exists "<<endl;
+            }
+            else if (idx == 4 && ans != userInfo.at(3))
+            {
+                idx--;
+                cout << "Wrong input, check PW again " <<endl;
+            }
+            else
+            {
+                idx ++;
+                userInfo.push_back(ans);
+            }
+        }
+        cout << " Name  Code  ID  PW  Gender "<<endl;
+        for(const auto& info : userInfo)
+        {
+            cout << info << ", ";
+        }cout <<endl;
+        cout << "Will you Sign up as student " << userInfo.at(2) <<" ? Yes(Y) NO(N) : ";
+        cin  >> ans;
+        if (ans == "Y" || ans =="y")
+        {
+            bool gender;
 
+            if (userInfo.at(4) == "M") gender = true;
+            if (userInfo.at(4) == "W") gender = false;
+
+            db.addingStudent(stoi(userInfo.at(1)), userInfo.at(0), userInfo.at(2), userInfo.at(3),"","",gender,"");
+        }
+        else
+        {
+            cout << "Failed signing up" <<endl;
+            return;
+        }
+        cout << "Successfully Signed up "<<endl;
+        cout << "To use the program, login again" <<endl;
+    }
+    return;
+}
 
 
 
@@ -281,17 +349,21 @@ void start_menu(DataBase db)
         {
             if (st_num == 1)
             {
+                studentSignUp(db);
+            }
+            else if (st_num == 2)
+            {
                 curUser = Login(db, "admin");
                 cout << "Welcome "<< curUser->getuserName() <<", Logged into Administrator" << endl;
                 adminMenu(curUser,db);
             }
-            else if (st_num == 2)
+            else if (st_num == 3)
             {
                 curUser = Login(db, "student");
                 cout << "Welcome "<< curUser->getuserName() << ", Logged into Student" << endl;
                 studentMenu(curUser,db);
             }
-            else if (st_num == 3)
+            else if (st_num == 4)
             {
                 cout << "Ending program" << endl;
                 return;
@@ -305,6 +377,7 @@ void start_menu(DataBase db)
 int main()
 {
     DataBase db;
+<<<<<<< HEAD
     int i=0;
     // JsonStu studentData = db.student_JSON(20225180, "조민준", "m412", "pw12", "22", 12); // 데이터 셋팅
     // JsonAdmin adminData = db.admin_JSON("조민준", "mw412", "pww12");
@@ -312,9 +385,11 @@ int main()
     // db.insert(studentData, "student"); //db에 삽입
     // db.insert(adminData, "admin");
     // db.insert(roomData, "room");
+=======
+
+>>>>>>> c27eabeaeb7a7bb951617d037fa852ed2f629c02
 
     // JsonStu studentData1 = db.student_JSON(20225180, "조민준1", "m4121", "pw121", "221", 121); // 데이터 셋팅
-
     // JsonAdmin adminData1 = db.admin_JSON("조민준1", "mw4121", "pww121");
     // JsonRoom roomData1 = db.room_JSON("g1071", true);
     // db.insert(studentData1, "student"); //db에 삽입
@@ -339,7 +414,11 @@ int main()
     // db.update("student", "2s", "content", 3);
     
     start_menu(db);    
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> c27eabeaeb7a7bb951617d037fa852ed2f629c02
     return 0;
 }
 

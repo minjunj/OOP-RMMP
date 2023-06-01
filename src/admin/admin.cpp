@@ -6,6 +6,9 @@
 #include <memory>
 
 #include "admin.h"
+
+using namespace std;
+
 int count_admin = 0;
 
 Admin::Admin( const std::string& userName, const std::string& userID, const std::string& userPW)
@@ -35,8 +38,9 @@ void Admin::checkRoom(DataBase db)
 /*
 전학생등 특정 회원가입이 힘든 사람들의 정보를 미리 데이터베이스에 입력하는 함수
 */
-void Admin::addDelStudents(DataBase& db)
+void Admin::addDelStudents(DataBase db)
 {
+    
     string selection;
     while (true)
     {
@@ -50,7 +54,6 @@ void Admin::addDelStudents(DataBase& db)
         else if(selection == "1") // adding student
         {
             vector<string> userInfo;
-            //vector<unique_ptr<Student>> insertInfo;
             vector<string> questions = {"Enter student Name (Enter 0 to exit): ",
                                         "Enter student Code (Enter 0 to exit): ",
                                         "Enter student ID (Enter 0 to exit): ",
@@ -59,18 +62,21 @@ void Admin::addDelStudents(DataBase& db)
                                         };
             while(true)
             {
+                userInfo.clear();
                 string ans;
-                for(const auto& question : questions)
+                int len = questions.size();
+                for(int i=0; i<len; i++)
                 {
-                    cout << question;
+                    cout << questions.at(i);
                     cin  >> ans;
+                    if (ans == "0") return;
                     userInfo.push_back(ans);
                 }
                 cout << " Name  Code  ID  PW  Gender "<<endl;
                 for(const auto& info : userInfo)
                 {
                     cout << info << ", ";
-                }
+                }cout <<endl;
                 cout << "Will you add this new student? Yes(Y) NO(N) : ";
                 cin  >> ans;
                 if (ans == "Y" || ans =="y")
@@ -78,10 +84,16 @@ void Admin::addDelStudents(DataBase& db)
                     bool gender;
                     if (userInfo.at(4) == "M") gender = true;
                     if (userInfo.at(4) == "W") gender = false;
-                    //insertInfo = db.student_JSON(userInfo.at(1), userInfo.at(0),userInfo.at(2),userInfo.at(3),"","",gender,""  );
-                    //db.insert(insertInfo, "student");
+                    db.addingStudent(stoi(userInfo.at(1)), userInfo.at(0), userInfo.at(2), userInfo.at(3),"","",gender,"");
+                    
+                }
+                else
+                {
+                    cout << "Failed adding student" << endl;
+                    continue;
                 }
                 cout << "Successfully Added student " << userInfo.at(0) <<endl;
+                return;
             }
         }
         else if(selection == "2")

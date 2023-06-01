@@ -39,7 +39,7 @@ public:
     Admin( const std::string& userName, const std::string& userID, const std::string& userPW);
     std::string getFormattedData() const override; // For database purposes
 
-    void addDelStudents(DataBase& db) ;
+    void addDelStudents(DataBase db) ;
     void addDelRoom(DataBase db) ;
     void matchRoommates(DataBase db) ;
     void cleanRoom(DataBase db) ;

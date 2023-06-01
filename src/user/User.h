@@ -41,7 +41,7 @@ public:
     virtual void registerRoom(DataBase db)=0;
     virtual void insertInfo(DataBase db)=0;
 
-    virtual void addDelStudents(DataBase& db)=0;
+    virtual void addDelStudents(DataBase db)=0;
     virtual void addDelRoom(DataBase db)=0;
     virtual void matchRoommates(DataBase db)=0;
     virtual void cleanRoom(DataBase db)=0;

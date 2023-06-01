@@ -84,9 +84,6 @@ std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std
     std::string studentId = std::to_string(count_student) + s;
 
     studentData.push_back(std::make_unique<Student>(studentId, code, name, id, pw, class_, room, gender, mateID));
-
-
-
     return studentData;
 }
 
@@ -328,7 +325,7 @@ std::string DataBase::findDB(const std::string type)
 
 bool DataBase::findUser(const string userType, const string userId, const string userPw)
 {
-	if (findOne(userType, userId, 2) == userId && findOne(userType, userPw, 3) == userPw)
+	if (findOne(userType, userId, 3) == userId && findOne(userType, userPw, 4) == userPw)
 	{
 		return true;
 	}
@@ -406,6 +403,7 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
     return make_unique<Student>("",0,"","","","","",'a',"");
 } // 새로 필요한 함수
 
+<<<<<<< HEAD
 void DataBase::insertSurvey(std::vector<std::string> dat1a)
 {
     std::ofstream file("survey.txt");
@@ -425,3 +423,12 @@ void DataBase::insertSurvey(std::vector<std::string> dat1a)
     file.close();
 
 }
+=======
+void DataBase::addingStudent(int code, string name, string id, string pw, string class_, string room, bool gender, string mateID)
+{
+    vector<unique_ptr<Student>> stu = student_JSON(code, name, id, pw, class_, room, gender, mateID);
+    insert(stu, "student");
+    return;
+}
+    
+>>>>>>> c27eabeaeb7a7bb951617d037fa852ed2f629c02
