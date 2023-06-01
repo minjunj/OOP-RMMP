@@ -94,7 +94,7 @@ public:
     [3] is_empty
     */
     std::string findAll(const std::string type, std::string val);
-
+    
     /*
     To Update value you want.
 
@@ -130,6 +130,7 @@ public:
 
     //std::make_unique<Student>(studentId, code, name, id, pw, class_, room)
 
+
     /*
         std::vector<std::unique_ptr<Student>> student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw,
             const std::string& class_, int roomId)
@@ -151,7 +152,7 @@ public:
 
     std::vector<std::unique_ptr<Room>> room_JSON(const std::string& roomNumber = "NULL", const bool is_empty = true, const bool status = true);
 
-
+    void addingStudent(int code, string name, string id, string pw, string class_, string room, bool gender, string mateID);
     
 };
 #endif

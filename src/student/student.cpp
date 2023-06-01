@@ -141,7 +141,7 @@ void Student::insertInfo(DataBase db)
         }
     }
     //***stuInfo를 오브젝트에 저장하는 과정이 필요***
-
+    
     return;
 }
 
@@ -172,7 +172,7 @@ string Student::getUserName()
 }
 
 
-void Student::addDelStudents(DataBase& db){return;}
+void Student::addDelStudents(DataBase db){return;}
 void Student::addDelRoom(DataBase db){return;}
 void Student::matchRoommates(DataBase db){return;}
 void Student::cleanRoom(DataBase db){return;}
