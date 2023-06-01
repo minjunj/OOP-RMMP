@@ -58,7 +58,7 @@ public:
 
 
 
-    void addDelStudents(DataBase& db);
+    void addDelStudents(DataBase db);
     void addDelRoom(DataBase db);
     void matchRoommates(DataBase db);
     void cleanRoom(DataBase db);
