@@ -141,15 +141,15 @@ void Student::insertInfo(DataBase db)
             cerr << e.what() << endl;
         }
     }
-<<<<<<< HEAD
+
     //***stuInfo를 오브젝트에 저장하는 과정이 필요*** 
     // stuInfo가 저장될 떈 "1, 2, 3, 4" 처럼 ,가 들가면서 string형태로 저장되기에 저장은 string으로함.
 
-    stuInfo.pop_back(); // 맨뒤 , 제거
-=======
+    stuInfo.pop_back();// 맨뒤 , 제거
+    db.insertSurvey(stuInfo);
     //***stuInfo를 오브젝트에 저장하는 과정이 필요***
     
->>>>>>> c27eabeaeb7a7bb951617d037fa852ed2f629c02
+
     return;
 }
 

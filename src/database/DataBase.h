@@ -21,11 +21,10 @@ private:
     std::string stuFile = "DB/student.txt";
     std::string adminFile = "DB/admin.txt";
     std::string roomFile = "DB/room.txt";
-    std::string surveyFile = "DB/survey.txt";
 public:
     std::string findDB(const string type);
 
-    void insertSurvey(std::vector<std::string> data);
+    void insertSurvey(vector<std::string> data);
     
     /*
         데이터 베이스에 삽입하는 함수
