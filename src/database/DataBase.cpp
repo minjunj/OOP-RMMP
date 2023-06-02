@@ -5,7 +5,7 @@
 #include "../room/room.h"
 #include <typeinfo>
 #include <memory>
-
+#include <numeric>
 int count_room = 0;
 int count_student = 0;
 
@@ -403,6 +403,26 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
     return make_unique<Student>("",0,"","","","","",'a',"");
 } // 새로 필요한 함수
 
+
+void DataBase::insertSurvey(vector<std::string> data)
+{
+
+    std::ofstream file("DB/survey.txt");
+    
+    // Check if the file was opened successfully
+    if(!file) {
+        std::cerr << "File couldn't be opened";
+        return ;
+    }
+
+    std::string result = std::accumulate(data.begin(), data.end(), std::string());
+
+    file << result;
+    // Close the file
+    file.close();
+
+}
+
 void DataBase::addingStudent(int code, string name, string id, string pw, string class_, string room, bool gender, string mateID)
 {
     vector<unique_ptr<Student>> stu = student_JSON(code, name, id, pw, class_, room, gender, mateID);
@@ -410,3 +430,4 @@ void DataBase::addingStudent(int code, string name, string id, string pw, string
     return;
 }
     
+

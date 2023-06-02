@@ -24,6 +24,8 @@ private:
 public:
     std::string findDB(const string type);
 
+    void insertSurvey(vector<std::string> data);
+    
     /*
         데이터 베이스에 삽입하는 함수
         insert( _JSON으로 저장한 data, 저장위치 : admin, student, room)

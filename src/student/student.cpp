@@ -118,7 +118,7 @@ void Student::insertInfo(DataBase db)
 {
     cout << "Insert the default information of your life style" <<endl;
     cout << "To find the roommate matches with you" <<endl;
-    vector<int> stuInfo; //학생정보가 담길 벡터
+    vector<string> stuInfo; //학생정보가 담길 벡터
     vector<string> questions {  "Enter your sleeping time (1: earlier than 10p.m. 2: 10p.m ~ 12a.m. 3: 12a.m. ~ 2a.m. 4. later than 2a.m) : ",
                                 "Enter your awaking time (1: earlier that 6a.m. 2: 6a.m. ~ 8a.m. 3: 8a.m. ~ 10a.m. 4: later than 10a.m.) : ",
                                 "Enter your prefering airconditioning temperature (1: ~~ 2: ~~ 3: ~~ 4: ~~) : " ,
@@ -132,7 +132,8 @@ void Student::insertInfo(DataBase db)
         try{ // 입력받는 과정에서 띨빡이들이 정수가 아니라 다른걸 입력받는 에러가 발생 가능
             cout << questions.at(idx);
             cin  >> checkNum;
-            stuInfo.push_back(checkNum);
+            stuInfo.push_back(to_string(checkNum));
+            stuInfo.push_back(","); // 1,2,3,4,5,6,7,8, 꼴
             idx ++; // 다음 질문으로
         }
         catch(const exception& e) // 에러 확인
@@ -140,8 +141,15 @@ void Student::insertInfo(DataBase db)
             cerr << e.what() << endl;
         }
     }
+
+    //***stuInfo를 오브젝트에 저장하는 과정이 필요*** 
+    // stuInfo가 저장될 떈 "1, 2, 3, 4" 처럼 ,가 들가면서 string형태로 저장되기에 저장은 string으로함.
+
+    stuInfo.pop_back();// 맨뒤 , 제거
+    db.insertSurvey(stuInfo);
     //***stuInfo를 오브젝트에 저장하는 과정이 필요***
     
+
     return;
 }
 
