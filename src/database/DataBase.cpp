@@ -406,22 +406,31 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
 
 void DataBase::insertSurvey(vector<std::string> data)
 {
-
-    std::ofstream file("DB/survey.txt");
-    
-    // Check if the file was opened successfully
-    if(!file) {
-        std::cerr << "File couldn't be opened";
-        return ;
+    std::ofstream outFile;
+    std::string load = "DB/survey.txt";
+    outFile.open(load, std::ios_base::app); // Append mode
+    if (!outFile)
+    {
+        std::cout << "Failed to open the student file." << std::endl;
+        return;
     }
 
     std::string result = std::accumulate(data.begin(), data.end(), std::string());
+    
+    // Remove the trailing comma
+    if (!result.empty())
+    {
+        result.pop_back();
+    }
 
-    file << result;
+    // Add a newline character
+    result += '\n';
+
+    outFile << result;
     // Close the file
-    file.close();
-
+    outFile.close();
 }
+
 
 void DataBase::addingStudent(int code, string name, string id, string pw, string class_, string room, bool gender, string mateID)
 {
