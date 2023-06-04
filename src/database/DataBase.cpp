@@ -121,7 +121,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
 
         while (std::getline(fin, line))
         {
-            if(line.find(val) != std::string::npos) // ì›í•˜ëŠ” row ì°¾ê¸°
+            if(line.find(val) != std::string::npos) // ?›?•˜?Š” row ì°¾ê¸°
             {
                 std::stringstream result(line);
                 while (getline(result, word, ','))
@@ -160,7 +160,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
 
     return "";
 }
-// ë­ ë§Œì•½ì— ìœ ì € ë¡œê¸´í•´ì„œ id pw ë´„ id ìˆëŠ”ì§€ ë³¼ ë–„ ì €ê±¸ë¡œ db.FindOne("student", "exid2", 2) ë¡œ ì•„ì´ë”” ì¼ì¹˜í•˜ê³ , db.FindOne("student", "expass", 3) ë°›ì•„ì„œ í™•ì¸.
+// ë­? ë§Œì•½?— ?œ ??? ë¡œê¸´?•´?„œ id pw ë´? id ?ˆ?Š”ì§? ë³? ?–„ ???ê±¸ë¡œ db.FindOne("student", "exid2", 2) ë¡? ?•„?´?”” ?¼ì¹˜í•˜ê³?, db.FindOne("student", "expass", 3) ë°›ì•„?„œ ?™•?¸.
 
 std::string DataBase::findAll(const std::string type, std::string val)
 {
@@ -208,7 +208,7 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
     {
         std::string directory = findDB(type);
         std::ifstream fin(directory);
-        std::ofstream fout("temp.txt");  // ì¼ì‹œì €ì¥ìš©
+        std::ofstream fout("temp.txt");  // ?¼?‹œ????¥?š©
         std::cout << directory << std::endl;
 
         try
@@ -229,9 +229,9 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
                         words.push_back(word);
                     }
             
-                    if (words[0] == primaryKey) // ì´ê±¸ë¡œ í…Œì´ë¸” & row êµ¬ë¶„
+                    if (words[0] == primaryKey) // ?´ê±¸ë¡œ ?…Œ?´ë¸? & row êµ¬ë¶„
                     {
-                        // string ì œì‘
+                        // string ? œ?‘
                         int i;
                         std::string newData = "";
                         for(i = 0; i < index; i++)
@@ -244,13 +244,13 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
                             newData = newData + words[i] + ',';
                         }
                         newData.pop_back();
-                        fout << newData << "\n";  // ë®ì–´ì“°ê¸°
+                        fout << newData << "\n";  // ?®?–´?“°ê¸?
                         updated = true;
                         std::cout << "out" <<std::endl;
                     }
                     else
                     {
-                        fout << line << "\n";  // ì‹¤íŒ¨ì‹œ ì›ë˜ ë¼ì¸ ë„£ê¸°
+                        fout << line << "\n";  // ?‹¤?Œ¨?‹œ ?›?˜ ?¼?¸ ?„£ê¸?
                     }
 
                     words.clear();
@@ -407,7 +407,7 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
 		cout << "404 Not Founded" <<endl;
 	}
     return make_unique<Student>("",0,"","","","","",'a',"");
-} // ìƒˆë¡œ í•„ìš”í•œ í•¨ìˆ˜
+} // ?ƒˆë¡? ?•„?š”?•œ ?•¨?ˆ˜
 
 
 void DataBase::insertSurvey(vector<std::string> data)
@@ -439,7 +439,29 @@ void DataBase::insertSurvey(vector<std::string> data)
     // Close the file
     outFile.close();
 }
+vector<vector<string>> DataBase::readSurvey()
+{
+    vector<vector<string>>readsurvey;
+    std::ifstream file("DB/survey.txt");
+    if (file.is_open()) {
+        std::string line;
+        while (std::getline(file, line)) {
+            std::istringstream iss(line);
+            std::vector<std::string> answers;
+            std::string answer;
+            while (std::getline(iss, answer, ',')) {
+                answers.push_back(answer);
+            }
+            readsurvey.push_back(answers);
+        }
+        file.close();
+    }
+    else {
+        std::cout << "Failed to open the file." << std::endl;
+    }
 
+    return readsurvey;
+}
 
 void DataBase::addingStudent(int code, string name, string id, string pw, string class_, string room, bool gender, string mateID)
 {
