@@ -26,7 +26,7 @@ private:
 public:
     Room(const std::string& roomId, const std::string& roomNumber, const bool is_empty, const bool status);
 
-    std::string getFormattedData() const; // DBìš©
+    std::string getFormattedData() const; // DB¿ë
 };
 
 #endif

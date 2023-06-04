@@ -121,7 +121,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
 
         while (std::getline(fin, line))
         {
-            if(line.find(val) != std::string::npos) // ?›?•˜?Š” row ì°¾ê¸°
+            if(line.find(val) != std::string::npos) // ¿øÇÏ´Â row Ã£±â
             {
                 std::stringstream result(line);
                 while (getline(result, word, ','))
@@ -160,7 +160,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
 
     return "";
 }
-// ë­? ë§Œì•½?— ?œ ??? ë¡œê¸´?•´?„œ id pw ë´? id ?ˆ?Š”ì§? ë³? ?–„ ???ê±¸ë¡œ db.FindOne("student", "exid2", 2) ë¡? ?•„?´?”” ?¼ì¹˜í•˜ê³?, db.FindOne("student", "expass", 3) ë°›ì•„?„œ ?™•?¸.
+// ¹¹ ¸¸¾à¿¡ À¯Àú ·Î±äÇØ¼­ id pw º½ id ÀÖ´ÂÁö º¼ ‹š Àú°É·Î db.FindOne("student", "exid2", 2) ·Î ¾ÆÀÌµğ ÀÏÄ¡ÇÏ°í, db.FindOne("student", "expass", 3) ¹Ş¾Æ¼­ È®ÀÎ.
 
 std::string DataBase::findAll(const std::string type, std::string val)
 {
@@ -208,7 +208,7 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
     {
         std::string directory = findDB(type);
         std::ifstream fin(directory);
-        std::ofstream fout("temp.txt");  // ?¼?‹œ????¥?š©
+        std::ofstream fout("temp.txt");  // ÀÏ½ÃÀúÀå¿ë
         std::cout << directory << std::endl;
 
         try
@@ -229,9 +229,9 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
                         words.push_back(word);
                     }
             
-                    if (words[0] == primaryKey) // ?´ê±¸ë¡œ ?…Œ?´ë¸? & row êµ¬ë¶„
+                    if (words[0] == primaryKey) // ÀÌ°É·Î Å×ÀÌºí & row ±¸ºĞ
                     {
-                        // string ? œ?‘
+                        // string Á¦ÀÛ
                         int i;
                         std::string newData = "";
                         for(i = 0; i < index; i++)
@@ -244,13 +244,13 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
                             newData = newData + words[i] + ',';
                         }
                         newData.pop_back();
-                        fout << newData << "\n";  // ?®?–´?“°ê¸?
+                        fout << newData << "\n";  // µ¤¾î¾²±â
                         updated = true;
                         std::cout << "out" <<std::endl;
                     }
                     else
                     {
-                        fout << line << "\n";  // ?‹¤?Œ¨?‹œ ?›?˜ ?¼?¸ ?„£ê¸?
+                        fout << line << "\n";  // ½ÇÆĞ½Ã ¿ø·¡ ¶óÀÎ ³Ö±â
                     }
 
                     words.clear();
@@ -407,7 +407,7 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
 		cout << "404 Not Founded" <<endl;
 	}
     return make_unique<Student>("",0,"","","","","",'a',"");
-} // ?ƒˆë¡? ?•„?š”?•œ ?•¨?ˆ˜
+} // »õ·Î ÇÊ¿äÇÑ ÇÔ¼ö
 
 
 void DataBase::insertSurvey(vector<std::string> data)
