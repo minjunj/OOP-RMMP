@@ -8,7 +8,7 @@
 #include <numeric>
 int count_room = 0;
 int count_student = 0;
-
+int count_survey = 0;
 
 class NotFoundedDataBaseException {
 
@@ -414,7 +414,9 @@ void DataBase::insertSurvey(vector<std::string> data)
         std::cout << "Failed to open the student file." << std::endl;
         return;
     }
-
+    count_survey++;
+    std::string index = "su,";
+    std::string add = to_string(count_survey) + index;
     std::string result = std::accumulate(data.begin(), data.end(), std::string());
     
     // Remove the trailing comma
@@ -423,10 +425,11 @@ void DataBase::insertSurvey(vector<std::string> data)
         result.pop_back();
     }
 
+    
     // Add a newline character
     result += '\n';
-
-    outFile << result;
+    add += result;
+    outFile << add;
     // Close the file
     outFile.close();
 }
