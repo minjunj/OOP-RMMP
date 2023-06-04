@@ -308,6 +308,12 @@ std::string DataBase::findDB(const std::string type)
             directory = "DB/room.txt";
 
         }
+        else if (std::string(type) == "survey")
+        {
+            directory.clear();
+            directory = "DB/survey.txt";
+
+        }
         else
         {
             throw NotFoundedDataBaseException();

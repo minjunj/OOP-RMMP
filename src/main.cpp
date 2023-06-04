@@ -399,20 +399,20 @@ int main()
     // db.insert(adminData2, "admin");
     // db.insert(roomData2, "room");
 
-    // std::cout << db.findOne("student", "m4121", 21) <<1<< std::endl;
+    std::cout << db.findOne("survey", "1su", 0) <<1<< std::endl;
 
     // std::cout << db.findAll("student", "jominjun1") <<2<< std::endl;
 
-    // std::cout << db.findAll("room", "g1071") <<3<< std::endl;
+    //std::cout << db.findAll("room", "g1071") <<3<< std::endl;
     
     // std::cout << db.findAll("admin", "mw4121") <<4<< std::endl;
 
     // db.update("student", "2s", "content", 3);
-    vector<string> list;
-    list = {"a", ",", "s", ",", "22"};
+    // vector<string> list;
+    // list = {"a", ",", "s", ",", "22"};
     
 
-    db.insertSurvey(list);
+    // db.insertSurvey(list);
     //start_menu(db);    
     return 0;
 }
