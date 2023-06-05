@@ -236,7 +236,7 @@ void Student::checkRoom(DataBase db) //방 상태 확인하기 방 번호와 상태 출력
 {
     int datamore = 0;
     string numbers;
-    int number=11;
+    int number=11; // 1r~9r까지는 11r이나 31r도 인식해서 11r부터 인식하는걸로 설정
     cout << "check Room Data"<<endl;
     while (true) {
         cout << endl;
