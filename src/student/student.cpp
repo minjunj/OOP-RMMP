@@ -97,6 +97,8 @@ void Student::findRoommate(DataBase db)
     //출력
     cout << "Matched roommates:" <<endl;
     int i = 0;
+    int index = 0;
+    bool check = 0; //룸메이트 있는지 확인용
     for (const auto& roommate : matchedRoommates) {
         if (i == 0) {
             cout << endl;
@@ -104,11 +106,30 @@ void Student::findRoommate(DataBase db)
         }
         else {
             cout << "Answer " << i << ": ";
+            cout << db.findOne("student", roommate[0], 1); //학번
+    //        cout << db.findOne("student", db.findOne("student", roommate[0], 1), 8); //학번
+            if (db.findOne("student", db.findOne("student", roommate[0], 1), 8) == "404 Not Founded : out of range") { //그 사람이 룸메이트가 있는가.
+                cout << " has no roommate" << endl; //룸메이트 없는 경우에만 출력되도록 설정해야함
+                check = 0;
+            }
+            else {
+                check = 1;
+                cout << " has roommate" << endl;//여기서 원래라면 continue로 돌아가게 할듯
+            }
+            cout << "his/her info: ";
         }
+        
+
+
         for (const auto& answer : roommate) {
+            //if (index % 5 != 0) {
+            //    cout << answer << " ";
+            //}
+            //index += 1;
             cout << answer << " ";
+
         }
-        cout << endl;
+        cout << endl<<endl;
         if (i == 0) {
             cout << endl;
             cout << "The most appropriate order of roommates." << endl;
@@ -120,7 +141,6 @@ void Student::findRoommate(DataBase db)
         }
     }
     cout << endl;
-    //보완해야할점. 1. 상대방이 룸메이트 있는지 여부 확인해서 새 벡터에 담기. 2. 출력되는 내용에 학번 포함하기 3. survey랑 student랑 비교대조하는것도 필요
     return;
 }
 
@@ -211,7 +231,7 @@ void Student::insertInfo(DataBase db)
     stuInfo.pop_back();// 맨뒤 , 제거
     db.insertSurvey(stuInfo);
     //***stuInfo를 오브젝트에 저장하는 과정이 필요***
-
+ 
 
     return;
 }
@@ -228,37 +248,72 @@ void Student::logout()
 bool Student::isInfo()
 {
     //***보완필요***
-    if (studentId.length() != 0) return true;
-    else return false;
+    //정보가 입력되었는지 확인이 필요함. survey를 입력했을때 있는 'su'가 있는지 확인
+    if (studentId=="0") {//surveyid가 들어있는지 확인해야함 수정이 필요
+        return false;
+    }
+    return true;
+ 
 }
 
 void Student::checkRoom(DataBase db) //방 상태 확인하기 방 번호와 상태 출력
 {
     int datamore = 0;
     string numbers;
-    int number=11; // 1r~9r까지는 11r이나 31r도 인식해서 11r부터 인식하는걸로 설정
-    cout << "check Room Data"<<endl;
+    int number=0;
+    string zone;
+    int floor;
+
     while (true) {
-        cout << endl;
+        if (datamore == 0) {
+            cout << "Which zone do you want to see first.(g, i, s, t): "; //어느 구역인지
+            cin >> zone;
+            cout << "Which floor do you want to see(2~6): "; //몇층인지
+            cin >> floor;
+            cout << "check Room Data" << endl;
+            cout << endl;
+        }
+
         for (int i = 0; i < 10; i++) {//10개씩 끊어서 출력.
-            numbers = to_string(number) + "r";
-            cout<<"Room number " << db.findOne("room", numbers, 1);
-            if (db.findOne("room", numbers, 2) == "true") { //방이 비어있다면.
-                cout << " is empty!" << endl;
+            numbers = zone+to_string(floor*100+i+1+10*datamore);
+            if (i + 1 + 10*datamore != 20) { //19호까지 출력
+                cout << "Room number " << db.findOne("room", numbers, 1);
+                if (db.findOne("room", numbers, 2) == "true") { //방이 비어있다면.
+                    cout << " is empty!" << endl;
+                }
+                else if (db.findOne("room", numbers, 2) == "false") { //방이 비어있지 않으면
+                    cout << " is not empty." << endl;
+                }
+                numbers = "";
             }
-            else if(db.findOne("room", numbers, 2) == "false") { //방이 비어있지 않으면
-                cout << " is not empty." << endl;
+            else {//20번째 일때 다른 호실에 대한 정보를 볼지 물음
+                cout << endl;
+                cout << "Do you want information on another room? enter 1. to exist is 0: ";
+                cin >> datamore;
+                if (datamore == 1) {
+                    datamore = 0;
+                }
+                else {
+                    return;
+                }
             }
-            numbers = "";
+            
+        }
+        cout << endl;
+        if (number == 0) { // 00~10호 까지 확인 후 더 볼것인가
+            cout << "if you want more data enter 1. to exist is 0: ";
+            cin >> datamore;
+            if (datamore == 0) {
+                cout << "thank you." << endl;
+                return;
+            }
             number += 1;
         }
-        cout << endl;
-        cout << "if you want more data enter 1. to exist is 0: ";
-        cin >> datamore;
-        if (datamore ==0) {
-            cout << "over" << endl;
-            return;
+        else {
+            number = 0;
         }
+
+
 
     }
 
