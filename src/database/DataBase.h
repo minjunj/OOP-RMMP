@@ -23,7 +23,7 @@ private:
     std::string roomFile = "DB/room.txt";
 public:
     std::string findDB(const string type);
-
+    std::string roadLatestData(const string type);
     void insertSurvey(vector<std::string> data);
     
     /*

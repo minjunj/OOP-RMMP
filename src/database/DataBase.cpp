@@ -9,7 +9,7 @@
 int count_room = 0;
 int count_student = 0;
 int count_survey = 0;
-
+int count_admin = 0;
 class NotFoundedDataBaseException {
 
 };
@@ -78,26 +78,47 @@ void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const string 
 std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw,
  const std::string& class_, const std::string& room, const bool gender, const std::string& mateID, const std::string& surveyId)
 {
-    std::vector<std::unique_ptr<Student>> studentData;
+    std::string val = roadLatestData("student");
+    int latePk = stoi(val.substr(0, val.size() - 1));
+    if(latePk != 0)
+    {
+        count_student = latePk;
+    }
     count_student++;
+    
+    std::vector<std::unique_ptr<Student>> studentData;
     std::string s = "s";
     std::string studentId = std::to_string(count_student) + s;
-
     studentData.push_back(std::make_unique<Student>(studentId, code, name, id, pw, class_, room, gender, mateID, surveyId));
     return studentData;
 }
 
 std::vector<std::unique_ptr<Admin>> DataBase::admin_JSON(const std::string& name, const std::string& id, const std::string& pw)
 {
+    std::string val = roadLatestData("admin");
+    int latePk = stoi(val.substr(0, val.size() - 1));
+    if(latePk != 0)
+    {
+        count_admin = latePk;
+    }
+    count_admin++;
     std::vector<std::unique_ptr<Admin>> adminData;
-    adminData.push_back(std::make_unique<Admin>(name, id, pw));
+        std::string a = "a";
+    std::string adminId = std::to_string(count_admin) + a;
+    adminData.push_back(std::make_unique<Admin>(adminId, name, id, pw));
     return adminData;
 }
 
 std::vector<std::unique_ptr<Room>> DataBase::room_JSON(const std::string& roomNumber, const bool is_empty, const bool status)
 {
-    std::vector<std::unique_ptr<Room>> roomData;
+    std::string val = roadLatestData("room");
+    int latePk = stoi(val.substr(0, val.size() - 1));
+    if(latePk != 0)
+    {
+        count_room = latePk;
+    }
     count_room++;
+    std::vector<std::unique_ptr<Room>> roomData;
     std::string r = "r";
     std::string roomId = std::to_string(count_room) + r;
     roomData.push_back(std::make_unique<Room>(roomId, roomNumber, is_empty, status));
@@ -107,6 +128,35 @@ std::vector<std::unique_ptr<Room>> DataBase::room_JSON(const std::string& roomNu
 template void DataBase::insert<Student>(const std::vector<std::unique_ptr<Student>>& data, const std::string type);
 template void DataBase::insert<Admin>(const std::vector<std::unique_ptr<Admin>>& data, const std::string type);
 template void DataBase::insert<Room>(const std::vector<std::unique_ptr<Room>>& data, const std::string type);
+
+std::string DataBase::roadLatestData(const std::string type)
+{
+    std::ifstream outFile;
+    std::string load = findDB(type);
+    outFile.open(load, std::ios_base::app); // Append mode
+    if (!outFile)
+    {
+        std::cout << "Failed to open the student file." << std::endl;
+        return "";
+    }
+
+    std::string line;
+    std::string last_line;
+    std::vector<std::string> words;
+    std::string word;
+    // Read each line from the file
+    while (std::getline(outFile, line)) {
+        // Save the line
+        last_line = line;
+    }
+
+    std::stringstream result(last_line);
+    while (getline(result, word, ','))
+    words.push_back(word);
+    // Close the file
+    outFile.close();
+    return words[0];
+}
 
 std::string DataBase::findOne(const std::string type, std::string val, int index)
 {
@@ -420,6 +470,12 @@ void DataBase::insertSurvey(vector<std::string> data)
         std::cout << "Failed to open the student file." << std::endl;
         return;
     }
+    std::string val = roadLatestData("survey");
+    int latePk = stoi(val.substr(0, val.size() - 1));
+    if(latePk != 0)
+    {
+        count_survey = latePk;
+    }
     count_survey++;
     std::string index = "su,";
     std::string add = to_string(count_survey) + index;
@@ -439,7 +495,6 @@ void DataBase::insertSurvey(vector<std::string> data)
     // Close the file
     outFile.close();
 }
-
 
 void DataBase::addingStudent(int code, string name, string id, string pw, string class_, string room, bool gender, string mateID)
 {

@@ -28,7 +28,7 @@ string role = "admin" //fixed
 class Admin : public User {
 private:
 
-
+    std::string adminId;
     std::string role = "admin"; // role fixed
 
 
@@ -36,7 +36,7 @@ private:
 
 public:
 
-    Admin( const std::string& userName, const std::string& userID, const std::string& userPW);
+    Admin( std::string adminId, const std::string& userName, const std::string& userID, const std::string& userPW);
     std::string getFormattedData() const override; // For database purposes
 
     void addDelStudents(DataBase db) ;

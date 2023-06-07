@@ -9,18 +9,16 @@
 
 using namespace std;
 
-int count_admin = 0;
 
-Admin::Admin( const std::string& userName, const std::string& userID, const std::string& userPW)
-    : User(userID, userPW, userName)
+
+Admin::Admin(std::string adminId, const std::string& userName, const std::string& userID, const std::string& userPW)
+    : User(userID, userPW, userName), adminId(adminId) 
 
 {
 }
 
 std::string Admin::getFormattedData() const {
-    count_admin++;
-    std::string a = "a";
-    std::string adminId = std::to_string(count_admin) + a;
+    
     return  adminId + "," + userName + "," + userID + "," + userPW + "," + role;
 }
 
