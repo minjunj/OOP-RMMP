@@ -19,358 +19,358 @@ using JsonRoom = std::vector<std::unique_ptr<Room>>;
 
 
 
-// unique_ptr<User> Login(DataBase db, string userType)
-// {
-//     string file;
-//     string userId, userPw;
+unique_ptr<User> Login(DataBase db, string userType)
+{
+    string file;
+    string userId, userPw;
 
-//     while(1)
-//     {
-//         cout << "Enter User ID : ";
-//         cin  >> userId;
-//         cout << "Enter the User Password : ";
-//         cin  >> userPw;
+    while(1)
+    {
+        cout << "Enter User ID : ";
+        cin  >> userId;
+        cout << "Enter the User Password : ";
+        cin  >> userPw;
         
-//         if(db.findUser(userType, userId, userPw))
-//         {
-//             return db.getUser(userType, userId, userPw);
-//         }
-//         else
-//         {
-//             cout << "Wrong ID or password, try again" << endl;
-//         }
-//     }
-// }
+        if(db.findUser(userType, userId, userPw))
+        {
+            return db.getUser(userType, userId, userPw);
+        }
+        else
+        {
+            cout << "Wrong ID or password, try again" << endl;
+        }
+    }
+}
 
-// void startMenuTemplate()
-// {
-//     cout << endl;
-//     cout << "+------------------------------------------+" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|         Roommate Matching System         |" << endl;
-//     cout << "|              Made by Seiun               |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|            Enter the bellow              |" << endl;
-//     cout << "|            to Sign in / up               |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|            1. Student Sign up            |" << endl;
-//     cout << "|            2. Admin Login                |" << endl;
-//     cout << "|            3. Student Login              |" << endl;
-//     cout << "|            4. Exit                       |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "+------------------------------------------+" << endl;
-//     return;
-// }
-// void studentMenuTemplate1()
-// {
-//     cout<< "hello"<<endl;
-//     cout << "+------------------------------------------+" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|              Student Menu                |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|              Studnet Name:               |" << endl;
-//     cout << "|                  Name                    |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|              Info : Okay                 |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|            Enter the bellow              |" << endl;
-//     cout << "|               to Use                     |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|            1. Register Roommate          |" << endl;
-//     cout << "|            2. Find Roommate              |" << endl;
-//     cout << "|            3. Check Rooms                |" << endl;
-//     cout << "|            4. Register Room              |" << endl;
-//     cout << "|            5. Check Info                 |" << endl;
-//     cout << "|            6. Change Info                |" << endl;
-//     cout << "|            7. Logout                     |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "+------------------------------------------+" << endl;
-//     return;
-// }
-// void studentMenuTemplate2()
-// {
-//     cout << "+------------------------------------------+" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|              Student Menu                |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|              Studnet Name:               |" << endl;
-//     cout << "|                  Name                    |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|              No User Info                |" << endl;
-//     cout << "|              Need to Enter               |" << endl;
-//     cout << "|              default Info                |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|            Enter the bellow              |" << endl;
-//     cout << "|               to Use                     |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|            1. Insert Info                |" << endl;
-//     cout << "|            2. Logout                     |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "+------------------------------------------+" << endl;
-// }
+void startMenuTemplate()
+{
+    cout << endl;
+    cout << "+------------------------------------------+" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|         Roommate Matching System         |" << endl;
+    cout << "|              Made by Seiun               |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|            Enter the bellow              |" << endl;
+    cout << "|            to Sign in / up               |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|            1. Student Sign up            |" << endl;
+    cout << "|            2. Admin Login                |" << endl;
+    cout << "|            3. Student Login              |" << endl;
+    cout << "|            4. Exit                       |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "+------------------------------------------+" << endl;
+    return;
+}
+void studentMenuTemplate1()
+{
+    cout<< "hello"<<endl;
+    cout << "+------------------------------------------+" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|              Student Menu                |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|              Studnet Name:               |" << endl;
+    cout << "|                  Name                    |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|              Info : Okay                 |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|            Enter the bellow              |" << endl;
+    cout << "|               to Use                     |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|            1. Register Roommate          |" << endl;
+    cout << "|            2. Find Roommate              |" << endl;
+    cout << "|            3. Check Rooms                |" << endl;
+    cout << "|            4. Register Room              |" << endl;
+    cout << "|            5. Check Info                 |" << endl;
+    cout << "|            6. Change Info                |" << endl;
+    cout << "|            7. Logout                     |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "+------------------------------------------+" << endl;
+    return;
+}
+void studentMenuTemplate2()
+{
+    cout << "+------------------------------------------+" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|              Student Menu                |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|              Studnet Name:               |" << endl;
+    cout << "|                  Name                    |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|              No User Info                |" << endl;
+    cout << "|              Need to Enter               |" << endl;
+    cout << "|              default Info                |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|            Enter the bellow              |" << endl;
+    cout << "|               to Use                     |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|            1. Insert Info                |" << endl;
+    cout << "|            2. Logout                     |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "+------------------------------------------+" << endl;
+}
 
-// void adminMenuTemplate1()
-// {
-//     cout << "+------------------------------------------+" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|            Administrator Menu            |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|               Admin Name:                |" << endl;
-//     cout << "|                  Name                    |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|            Enter the bellow              |" << endl;
-//     cout << "|               to Use                     |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|            1. Check Students             |" << endl;
-//     cout << "|            2. Check Rooms                |" << endl;
-//     cout << "|            3. Add/Del Students           |" << endl;
-//     cout << "|            4. Add/Del Rooms              |" << endl;
-//     cout << "|            5. Match Roommates            |" << endl;
-//     cout << "|            6. Clean Room                 |" << endl;
-//     cout << "|            7. Logout                     |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "|                                          |" << endl;
-//     cout << "+------------------------------------------+" << endl;
-//     return;
-// }
-
-
-
-
-// void studentMenu(unique_ptr<User>& student, DataBase db)
-// {
-//     if (student->isInfo())
-//     {
-//         int menuNum;
-//         while (1)
-//         {
-//             studentMenuTemplate1();
-//             cout << "Enter the Number to use : ";
-//             cin  >> menuNum;
-//             switch (menuNum)
-//             {
-//             case 1:
-//                 student->registerRoommate(db);
-//                 break;
-//             case 2:
-//                 student->findRoommate(db);
-//                 break;
-//             case 3:
-//                 student->checkRoom(db); // DataBase에서 새로 들어줘야할 함수, 현재 기숙사의 전체적인 현황(비어있는지, 방에 몇명 있는지 등) 한 눈에 볼 수 있는 함수가 필요
-//                 break;
-//             case 4:
-//                 student->registerRoom(db);
-//                 break;
-//             case 5:
-//                 cout << student->getFormattedData() << endl;
-//                 break;
-//             case 6:
-//                 student->insertInfo(db);
-//                 break;
-//             case 7:
-//                 cout << "Logging out" << student->getUserName() << endl;
-//                 student->logout();
-//                 return;
-//             default:
-//                 cout << "Wrong Input, please try again" << endl;
-//                 break;
-//             }
-//         }
-//     }
-//     else
-//     {
-//         int menuNum;
-//         while (1)
-//         {
-//             studentMenuTemplate2();
-//             cout << "Enter the Number to use : ";
-//             cin  >> menuNum;
-//             switch (menuNum)
-//             {
-//             case 1:
-//                 student->insertInfo(db);
-//                 break;
-//             case 2:
-//                 cout << "Logging out" << student->getUserName() << endl;
-//                 student->logout();
-//                 return;
-//             default:
-//                 cout << "Wrong Input, please try again" << endl;
-//                 break;
-//             }
-//         }
-//     }
-//     return;
-// }
-
-
-// void adminMenu(unique_ptr<User>& admin, DataBase db)
-// {
-//     int menuNum;
-//     while (1)
-//     {
-//         adminMenuTemplate1();
-//         cout << "Enter the Number to use : ";
-//         cin  >> menuNum;
-//         switch (menuNum)
-//         {
-//         case 1:
-//             admin->checkStudents(db);
-//             break;
-//         case 2:
-//             admin->checkRoom(db);
-//             break;
-//         case 3:
-//             admin->addDelStudents(db); // DataBase에서 새로 들어줘야할 함수, 현재 기숙사의 전체적인 현황(비어있는지, 방에 몇명 있는지 등) 한 눈에 볼 수 있는 함수가 필요
-//             break;
-//         case 4:
-//             admin->addDelRoom(db);
-//             break;
-//         case 5:
-//             admin->matchRoommates(db);
-//             break;
-//         case 6:
-//             admin->cleanRoom(db);
-//             break;
-//         case 7:
-//             cout << "Logging out" << admin->getUserName() << endl;
-//             admin->logout();
-//             return;
-//         default:
-//             cout << "Wrong Input, please try again" << endl;
-//             break;
-//         }
-//     }
-//     return;
-// }
-
-// void studentSignUp(DataBase db)
-// {
-//     cout << "To Sign up to the program Enter your personal data" << endl;
-//     vector<string> questions = {"Enter student Name (Enter 0 to exit): ",
-//                                 "Enter student Code (Enter 0 to exit): ",
-//                                 "Enter student ID (Enter 0 to exit): ",
-//                                 "Enter student PW (Enter 0 to exit): ",
-//                                 "Enter student PW again (Enter 0 to exit): ",
-//                                 "Enter student gender (Enter 0 to exit): "
-//                                 };
-//     vector<string> userInfo;
-//     while(true)
-//     {
-//         userInfo.clear();
-//         string ans;
-//         int len = questions.size();
-//         int idx =0 ;
-//         while(idx < len)
-//         {
-//             cout << questions.at(idx);
-//             cin  >> ans;
-//             if (ans == "0") return;
-//             if (idx == 2 && db.findOne("student",ans,3)==ans)
-//             {
-//                 idx--;
-//                 cout << "Wrong input, ID already exists "<<endl;
-//             }
-//             else if (idx == 4 && ans != userInfo.at(3))
-//             {
-//                 idx--;
-//                 cout << "Wrong input, check PW again " <<endl;
-//             }
-//             else
-//             {
-//                 idx ++;
-//                 userInfo.push_back(ans);
-//             }
-//         }
-//         cout << " Name  Code  ID  PW  Gender "<<endl;
-//         for(const auto& info : userInfo)
-//         {
-//             cout << info << ", ";
-//         }cout <<endl;
-//         cout << "Will you Sign up as student " << userInfo.at(2) <<" ? Yes(Y) NO(N) : ";
-//         cin  >> ans;
-//         if (ans == "Y" || ans =="y")
-//         {
-//             bool gender;
-
-//             if (userInfo.at(4) == "M") gender = true;
-//             if (userInfo.at(4) == "W") gender = false;
-
-//             db.addingStudent(stoi(userInfo.at(1)), userInfo.at(0), userInfo.at(2), userInfo.at(3),"","",gender,"");
-//         }
-//         else
-//         {
-//             cout << "Failed signing up" <<endl;
-//             return;
-//         }
-//         cout << "Successfully Signed up "<<endl;
-//         cout << "To use the program, login again" <<endl;
-//     }
-//     return;
-// }
+void adminMenuTemplate1()
+{
+    cout << "+------------------------------------------+" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|            Administrator Menu            |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|               Admin Name:                |" << endl;
+    cout << "|                  Name                    |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|            Enter the bellow              |" << endl;
+    cout << "|               to Use                     |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|            1. Check Students             |" << endl;
+    cout << "|            2. Check Rooms                |" << endl;
+    cout << "|            3. Add/Del Students           |" << endl;
+    cout << "|            4. Add/Del Rooms              |" << endl;
+    cout << "|            5. Match Roommates            |" << endl;
+    cout << "|            6. Clean Room                 |" << endl;
+    cout << "|            7. Logout                     |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "+------------------------------------------+" << endl;
+    return;
+}
 
 
 
-// void start_menu(DataBase db)
-// {
-//     int st_num;
-//     unique_ptr<User> curUser;
 
-//     while (1)
-//     {
-//         startMenuTemplate();
-//         cout << "Enter the number here (1~3) : ";
-//         cin >> st_num;
-//         if (st_num != 1 and st_num != 2 and st_num != 3)
-//         {
-//             cout << "Wrong input, try again" << endl;
-//             continue;
-//         }
-//         else
-//         {
-//             if (st_num == 1)
-//             {
-//                 studentSignUp(db);
-//             }
-//             else if (st_num == 2)
-//             {
-//                 curUser = Login(db, "admin");
-//                 cout << "Welcome "<< curUser->getuserName() <<", Logged into Administrator" << endl;
-//                 adminMenu(curUser,db);
-//             }
-//             else if (st_num == 3)
-//             {
-//                 curUser = Login(db, "student");
-//                 cout << "Welcome "<< curUser->getuserName() << ", Logged into Student" << endl;
-//                 studentMenu(curUser,db);
-//             }
-//             else if (st_num == 4)
-//             {
-//                 cout << "Ending program" << endl;
-//                 return;
-//             }
-//         }
-//     }
-// }
+void studentMenu(unique_ptr<User>& student, DataBase db)
+{
+    if (student->isInfo())
+    {
+        int menuNum;
+        while (1)
+        {
+            studentMenuTemplate1();
+            cout << "Enter the Number to use : ";
+            cin  >> menuNum;
+            switch (menuNum)
+            {
+            case 1:
+                student->registerRoommate(db);
+                break;
+            case 2:
+                student->findRoommate(db);
+                break;
+            case 3:
+                student->checkRoom(db); // DataBase에서 새로 들어줘야할 함수, 현재 기숙사의 전체적인 현황(비어있는지, 방에 몇명 있는지 등) 한 눈에 볼 수 있는 함수가 필요
+                break;
+            case 4:
+                student->registerRoom(db);
+                break;
+            case 5:
+                cout << student->getFormattedData() << endl;
+                break;
+            case 6:
+                student->insertInfo(db);
+                break;
+            case 7:
+                cout << "Logging out" << student->getUserName() << endl;
+                student->logout();
+                return;
+            default:
+                cout << "Wrong Input, please try again" << endl;
+                break;
+            }
+        }
+    }
+    else
+    {
+        int menuNum;
+        while (1)
+        {
+            studentMenuTemplate2();
+            cout << "Enter the Number to use : ";
+            cin  >> menuNum;
+            switch (menuNum)
+            {
+            case 1:
+                student->insertInfo(db);
+                break;
+            case 2:
+                cout << "Logging out" << student->getUserName() << endl;
+                student->logout();
+                return;
+            default:
+                cout << "Wrong Input, please try again" << endl;
+                break;
+            }
+        }
+    }
+    return;
+}
+
+
+void adminMenu(unique_ptr<User>& admin, DataBase db)
+{
+    int menuNum;
+    while (1)
+    {
+        adminMenuTemplate1();
+        cout << "Enter the Number to use : ";
+        cin  >> menuNum;
+        switch (menuNum)
+        {
+        case 1:
+            admin->checkStudents(db);
+            break;
+        case 2:
+            admin->checkRoom(db);
+            break;
+        case 3:
+            admin->addDelStudents(db); // DataBase에서 새로 들어줘야할 함수, 현재 기숙사의 전체적인 현황(비어있는지, 방에 몇명 있는지 등) 한 눈에 볼 수 있는 함수가 필요
+            break;
+        case 4:
+            admin->addDelRoom(db);
+            break;
+        case 5:
+            admin->matchRoommates(db);
+            break;
+        case 6:
+            admin->cleanRoom(db);
+            break;
+        case 7:
+            cout << "Logging out" << admin->getUserName() << endl;
+            admin->logout();
+            return;
+        default:
+            cout << "Wrong Input, please try again" << endl;
+            break;
+        }
+    }
+    return;
+}
+
+void studentSignUp(DataBase db)
+{
+    cout << "To Sign up to the program Enter your personal data" << endl;
+    vector<string> questions = {"Enter student Name (Enter 0 to exit): ",
+                                "Enter student Code (Enter 0 to exit): ",
+                                "Enter student ID (Enter 0 to exit): ",
+                                "Enter student PW (Enter 0 to exit): ",
+                                "Enter student PW again (Enter 0 to exit): ",
+                                "Enter student gender (Enter 0 to exit): "
+                                };
+    vector<string> userInfo;
+    while(true)
+    {
+        userInfo.clear();
+        string ans;
+        int len = questions.size();
+        int idx =0 ;
+        while(idx < len)
+        {
+            cout << questions.at(idx);
+            cin  >> ans;
+            if (ans == "0") return;
+            if (idx == 2 && db.findOne("student",ans,3)==ans)
+            {
+                idx--;
+                cout << "Wrong input, ID already exists "<<endl;
+            }
+            else if (idx == 4 && ans != userInfo.at(3))
+            {
+                idx--;
+                cout << "Wrong input, check PW again " <<endl;
+            }
+            else
+            {
+                idx ++;
+                userInfo.push_back(ans);
+            }
+        }
+        cout << " Name  Code  ID  PW  Gender "<<endl;
+        for(const auto& info : userInfo)
+        {
+            cout << info << ", ";
+        }cout <<endl;
+        cout << "Will you Sign up as student " << userInfo.at(2) <<" ? Yes(Y) NO(N) : ";
+        cin  >> ans;
+        if (ans == "Y" || ans =="y")
+        {
+            bool gender;
+
+            if (userInfo.at(4) == "M") gender = true;
+            if (userInfo.at(4) == "W") gender = false;
+
+            db.addingStudent(stoi(userInfo.at(1)), userInfo.at(0), userInfo.at(2), userInfo.at(3),"","",gender,"");
+        }
+        else
+        {
+            cout << "Failed signing up" <<endl;
+            return;
+        }
+        cout << "Successfully Signed up "<<endl;
+        cout << "To use the program, login again" <<endl;
+    }
+    return;
+}
+
+
+
+void start_menu(DataBase db)
+{
+    int st_num;
+    unique_ptr<User> curUser;
+
+    while (1)
+    {
+        startMenuTemplate();
+        cout << "Enter the number here (1~3) : ";
+        cin >> st_num;
+        if (st_num != 1 and st_num != 2 and st_num != 3)
+        {
+            cout << "Wrong input, try again" << endl;
+            continue;
+        }
+        else
+        {
+            if (st_num == 1)
+            {
+                studentSignUp(db);
+            }
+            else if (st_num == 2)
+            {
+                curUser = Login(db, "admin");
+                cout << "Welcome "<< curUser->getuserName() <<", Logged into Administrator" << endl;
+                adminMenu(curUser,db);
+            }
+            else if (st_num == 3)
+            {
+                curUser = Login(db, "student");
+                cout << "Welcome "<< curUser->getuserName() << ", Logged into Student" << endl;
+                studentMenu(curUser,db);
+            }
+            else if (st_num == 4)
+            {
+                cout << "Ending program" << endl;
+                return;
+            }
+        }
+    }
+}
 
 
 
