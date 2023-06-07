@@ -6,3 +6,5 @@
 1s,20225150,Lee,gusdn,dlgusdn,,Male,user,,
 
 1s,2022231442,min,m4443,122s2,,Female,user,,
+1s,20225180,조민준,m412,pw12,22,Male,user,2a,3s
+1s,20225180,조민준,m412,pw12,22,Male,user,2a,3s,1su

@@ -75,15 +75,15 @@ void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const string 
 }
 
 
-std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw, const std::string& class_, const std::string& room, const bool gender, const std::string& mateID)
-
+std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw,
+ const std::string& class_, const std::string& room, const bool gender, const std::string& mateID, const std::string& surveyId)
 {
     std::vector<std::unique_ptr<Student>> studentData;
     count_student++;
     std::string s = "s";
     std::string studentId = std::to_string(count_student) + s;
 
-    studentData.push_back(std::make_unique<Student>(studentId, code, name, id, pw, class_, room, gender, mateID));
+    studentData.push_back(std::make_unique<Student>(studentId, code, name, id, pw, class_, room, gender, mateID, surveyId));
     return studentData;
 }
 
@@ -380,34 +380,34 @@ vector<string> DataBase::getLineFromId(const string userType, const string userI
 }
 
 
-unique_ptr<User> DataBase::getUser(const string userType, const string userId, const string userPw)
-{
+// unique_ptr<User> DataBase::getUser(const string userType, const string userId, const string userPw)
+// {
     
-	try{
-		if(findUser(userType, userId, userPw))
-		{
-            vector<string> userInfo;
-            userInfo = getLineFromId(userType,userId);
-			if(userType == "admin")
-			{
-				return make_unique<Admin>(userInfo.at(0),userInfo.at(1), userInfo.at(2));
-			}
-			else if (userType == "student")
-			{
-                return make_unique<Student>(userInfo.at(0),stoi(userInfo.at(1)),userInfo.at(2), userInfo.at(3), userInfo.at(4), userInfo.at(5), userInfo.at(6),userInfo.at(7)[0],userInfo.at(8));
-			}
-		}
-		else
-		{
-			throw NotFoundedDataBaseException();
-		}
-	}
-	catch(const NotFoundedDataBaseException& e)
-	{
-		cout << "404 Not Founded" <<endl;
-	}
-    return make_unique<Student>("",0,"","","","","",'a',"");
-} // 새로 필요한 함수
+// 	try{
+// 		if(findUser(userType, userId, userPw))
+// 		{
+//             vector<string> userInfo;
+//             userInfo = getLineFromId(userType,userId);
+// 			if(userType == "admin")
+// 			{
+// 				return make_unique<Admin>(userInfo.at(0),userInfo.at(1), userInfo.at(2));
+// 			}
+// 			else if (userType == "student")
+// 			{
+//                 return make_unique<Student>(userInfo.at(0),stoi(userInfo.at(1)),userInfo.at(2), userInfo.at(3), userInfo.at(4), userInfo.at(5), userInfo.at(6),userInfo.at(7)[0],userInfo.at(8));
+// 			}
+// 		}
+// 		else
+// 		{
+// 			throw NotFoundedDataBaseException();
+// 		}
+// 	}
+// 	catch(const NotFoundedDataBaseException& e)
+// 	{
+// 		cout << "404 Not Founded" <<endl;
+// 	}
+//     return make_unique<Student>("",0,"","","","","",'a',"");
+// } // 새로 필요한 함수
 
 
 void DataBase::insertSurvey(vector<std::string> data)

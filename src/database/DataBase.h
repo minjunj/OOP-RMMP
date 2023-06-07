@@ -139,7 +139,7 @@ public:
         스튜던트 데이터 입력하는 함수
     */
     std::vector<std::unique_ptr<Student>> student_JSON(int code = 0, const std::string& name = "NULL", const std::string& id = "NULL", const std::string& pw = "NULL",
-            const std::string& class_ = "NULL", const std::string& room = "NULL", const bool gender = true, const std::string& mateID = "NULL"); // 성별 기본 값은 ture
+            const std::string& class_ = "NULL", const std::string& room = "NULL", const bool gender = true, const std::string& mateID = "NULL", const std::string& surveyId = "NULL"); // 성별 기본 값은 ture
 
 
     // Admin(std::string adminID, string userName, string userID, string userPW);
