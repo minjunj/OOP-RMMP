@@ -335,6 +335,10 @@ bool DataBase::findUser(const string userType, const string userId, const string
 	{
 		return true;
 	}
+    else if (findOne(userType, userId, 2) == userId && findOne(userType, userPw, 3) == userPw)
+    {
+        return true;
+    }    
 	else
 	{
 		return false;

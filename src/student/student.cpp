@@ -15,7 +15,7 @@ Student::Student(std::string stuId, int code, const std::string& userName, const
 std::string Student::getFormattedData() const {
     std::string genderString = gender ? "Male" : "Female";
     return studentId + "," + std::to_string(studentCode) + "," + userName + "," + userID + ","
-        + userPW + "," + classOf + "," + genderString + "," + role + "," + roomId + "," + roommateID;
+        + userPW + "," + classOf + "," + genderString + "," + role + "," + roomId + "," + roommateID+","+surveyID;
 
 }
 /*
@@ -45,9 +45,11 @@ void Student::registerRoommate(DataBase db)
         }
         else // 룸메 아이디를 잘 입력하면 //6.3 오류를 보긴했음. 근데 비쥬얼스튜디오 문제일수도. vector의 범위 오버 관련 문제인듯
         {
-            roommateID = mateId;
-            db.update("student", db.findOne("student", mateId, 0), userID, 8); //db에 룸메이트의 룸메이트 업데이트
-            db.update("student", studentId, mateId, 8);                      //db에 신청자 룸메이트 업데이트
+            roommateID = db.findOne("student", mateId, 0);
+            string studentIDrm= userID.replace(userID.find("s"), 1, "m");
+            string roommateIDrm= roommateID.replace(roommateID.find("s"), 1, "m");
+            db.update("student", db.findOne("student", mateId, 0), studentIDrm, 9); //db에 룸메이트의 룸메이트 업데이트
+            db.update("student", studentId,roommateIDrm, 9);                      //db에 신청자 룸메이트 업데이트
             cout << "Now (" << userID << ") will be a roommate with (" << mateId << ") " << endl;
         }
     }
@@ -59,14 +61,13 @@ void Student::registerRoommate(DataBase db)
 //***룸메이트를 찾아내는 특정 알고리즘이 필요함***
 void Student::findRoommate(DataBase db)
 {
-    
     vector<string> main_survey;
     vector<vector<string>> roommate_survey= db.readSurvey();//survey의 정보를 전부 담은 벡터
     vector<vector<string>> matchedRoommates;
     int applicantIndex=-1;//못찾았을때 -1, 찾았을때는 위치 확인
     //사용자의 위치 확인
     for (size_t i = 0; i < roommate_survey.size(); i++) {
-        if (roommate_survey[i][0] == "3su") //일단은 임의의 값을 넣어둠
+        if (roommate_survey[i][0] == db.findOne("student", studentId, 10)) //일단은 임의의 값을 넣어둠 
             applicantIndex = i;
     }
     if (applicantIndex != -1) {
@@ -83,7 +84,7 @@ void Student::findRoommate(DataBase db)
     for (size_t i = 0; i < roommate_survey.size(); i++) {
         int score = 0;
         for (size_t j = 1; j < roommate_survey[i].size(); j++) {
-            score += pow(stoi(roommate_survey[0][j]) - stoi(roommate_survey[i][j]),2);
+            score += pow(stoi(roommate_survey[0][j]) - stoi(roommate_survey[i][j]),2)*j;
         }
         scores.push_back(make_pair(score, roommate_survey[i]));
     }
@@ -106,9 +107,9 @@ void Student::findRoommate(DataBase db)
         }
         else {
             cout << "Answer " << i << ": ";
-            cout << db.findOne("student", roommate[0], 1); //학번
+            cout << db.findOne("student", roommate[0], 1); //학번 roommate[0]는 1su처럼 고유식별번호
     //        cout << db.findOne("student", db.findOne("student", roommate[0], 1), 8); //학번
-            if (db.findOne("student", db.findOne("student", roommate[0], 1), 8) == "404 Not Founded : out of range") { //그 사람이 룸메이트가 있는가.
+            if (db.findOne("student", roommate[0], 9) == "404 Not Founded : out of range") { //그 사람이 룸메이트가 있는가.
                 cout << " has no roommate" << endl; //룸메이트 없는 경우에만 출력되도록 설정해야함
                 check = 0;
             }
@@ -116,7 +117,7 @@ void Student::findRoommate(DataBase db)
                 check = 1;
                 cout << " has roommate" << endl;//여기서 원래라면 continue로 돌아가게 할듯
             }
-            cout << "his/her info: ";
+            cout << "roommate candidate info: ";
         }
         
 
@@ -161,7 +162,7 @@ void Student::registerRoom(DataBase db)
     while (true)
     {
         cout << "Enter a Room to Register (Enter 0 to quit): ";
-        cin >> regroomId;
+        cin >> regroomId; //g217 같은 거
         // 0을 입력받으면 취소
         if (regroomId == "0")
         {
@@ -173,13 +174,14 @@ void Student::registerRoom(DataBase db)
         {
             if (roomId.length() != 0) // 기존에 차지하고 있던 방이 있으면
             {
+
                 //***자신과 룸메이트의 신청 방은 ""으로 초기화하고***
                 //***그 방의 정보를 지워야함***
             }
             roomId = regroomId; // 신청자의 방 문자열은 이거로 바뀜
             db.update("room", db.findOne("room", regroomId, 0), "false", 2); // 신청 방의 isEmpty를 false로 바꾼다
-            db.update("student", db.findOne("student", studentId, 0), regroomId, 6); // 신청 학생의 기숙사 방을 바꾼다
-            db.update("student", db.findOne("student", roommateID, 0), regroomId, 6); // 신청 학생의 룸메의 기숙사 방을 바꾼다.
+            db.update("student", db.findOne("student", studentId, 0), db.findOne("room", regroomId, 0), 8); // 신청 학생의 기숙사 방을 바꾼다
+            db.update("student", db.findOne("student", roommateID, 0), db.findOne("room", regroomId, 0), 8); // 신청 학생의 룸메의 기숙사 방을 바꾼다.
             cout << "Room successfully registered to (" << roomId << ") with roommate (" << roommateID << ") " << endl; // 정보 공지
             return;
         }
@@ -206,7 +208,7 @@ void Student::insertInfo(DataBase db)
                                 "Enter your prefering airconditioning temperature (1: ~~ 2: ~~ 3: ~~ 4: ~~) : " ,
                                 "Enter your frequency of smoking (1: Always 2: Often 3: Sometimes 4: Never) : ",
                                 "Enter if you snore (1: Every night 2: Sometimes 3: Never 4: ~~)"
-    }; // 편의상 만든 질문지 벡터 
+    }; // 편의상 만든 질문지 벡터 취침시간,기상시간,더위를 잘타는가?,술,담배,코골이 유무
     int checkNum; // 입력 정수
     int idx = 0; // 0부터 질문지의 크기 만큼 커질 커서 역할
 
@@ -282,7 +284,7 @@ void Student::checkRoom(DataBase db) //방 상태 확인하기 방 번호와 상태 출력
                     cout << " is empty!" << endl;
                 }
                 else if (db.findOne("room", numbers, 2) == "false") { //방이 비어있지 않으면
-                    cout << " is not empty." << endl;
+                    cout << " was applied." << endl;
                 }
                 numbers = "";
             }
