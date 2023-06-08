@@ -58,7 +58,7 @@ void Student::registerRoommate(DataBase db)
 //***룸메이트를 찾아내는 특정 알고리즘이 필요함***
 void Student::findRoommate(DataBase db)
 {
-
+    
     return;
 }
 
@@ -141,7 +141,7 @@ void Student::insertInfo(DataBase db)
         }
     }
     //***stuInfo를 오브젝트에 저장하는 과정이 필요***
-    
+
     return;
 }
 

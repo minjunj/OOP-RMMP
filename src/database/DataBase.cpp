@@ -409,4 +409,3 @@ void DataBase::addingStudent(int code, string name, string id, string pw, string
     insert(stu, "student");
     return;
 }
-    
