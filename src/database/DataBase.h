@@ -156,6 +156,6 @@ public:
     std::vector<std::unique_ptr<Room>> room_JSON(const std::string& roomNumber = "NULL", const bool is_empty = true, const bool status = true);
 
     void addingStudent(int code, string name, string id, string pw, string class_, string room, bool gender, string mateID);
-    void deleteLine(const std::string type, std::string lineToDelete);
+    void Delete(const std::string type, std::string lineToDelete);
 };
 #endif
