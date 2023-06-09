@@ -9,7 +9,7 @@
 int count_room = 0;
 int count_student = 0;
 int count_survey = 0;
-
+int count_admin = 0;
 class NotFoundedDataBaseException {
 
 };
@@ -89,29 +89,50 @@ void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const string 
 }
 
 
-std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw, const std::string& class_, const std::string& room, const bool gender, const std::string& mateID)
-
+std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw,
+ const std::string& class_, const std::string& room, const bool gender, const std::string& mateID, const std::string& surveyId)
 {
-    std::vector<std::unique_ptr<Student>> studentData;
+    std::string val = roadLatestData("student");
+    int latePk = stoi(val.substr(0, val.size() - 1));
+    if(latePk != 0)
+    {
+        count_student = latePk;
+    }
     count_student++;
+    
+    std::vector<std::unique_ptr<Student>> studentData;
     std::string s = "s";
     std::string studentId = std::to_string(count_student) + s;
-
-    studentData.push_back(std::make_unique<Student>(studentId, code, name, id, pw, class_, room, gender, mateID));
+    studentData.push_back(std::make_unique<Student>(studentId, code, name, id, pw, class_, room, gender, mateID, surveyId));
     return studentData;
 }
 
 std::vector<std::unique_ptr<Admin>> DataBase::admin_JSON(const std::string& name, const std::string& id, const std::string& pw)
 {
+    std::string val = roadLatestData("admin");
+    int latePk = stoi(val.substr(0, val.size() - 1));
+    if(latePk != 0)
+    {
+        count_admin = latePk;
+    }
+    count_admin++;
     std::vector<std::unique_ptr<Admin>> adminData;
-    adminData.push_back(std::make_unique<Admin>(name, id, pw));
+        std::string a = "a";
+    std::string adminId = std::to_string(count_admin) + a;
+    adminData.push_back(std::make_unique<Admin>(adminId, name, id, pw));
     return adminData;
 }
 
 std::vector<std::unique_ptr<Room>> DataBase::room_JSON(const std::string& roomNumber, const bool is_empty, const bool status)
 {
-    std::vector<std::unique_ptr<Room>> roomData;
+    std::string val = roadLatestData("room");
+    int latePk = stoi(val.substr(0, val.size() - 1));
+    if(latePk != 0)
+    {
+        count_room = latePk;
+    }
     count_room++;
+    std::vector<std::unique_ptr<Room>> roomData;
     std::string r = "r";
     std::string roomId = std::to_string(count_room) + r;
     roomData.push_back(std::make_unique<Room>(roomId, roomNumber, is_empty, status));
@@ -121,6 +142,35 @@ std::vector<std::unique_ptr<Room>> DataBase::room_JSON(const std::string& roomNu
 template void DataBase::insert<Student>(const std::vector<std::unique_ptr<Student>>& data, const std::string type);
 template void DataBase::insert<Admin>(const std::vector<std::unique_ptr<Admin>>& data, const std::string type);
 template void DataBase::insert<Room>(const std::vector<std::unique_ptr<Room>>& data, const std::string type);
+
+std::string DataBase::roadLatestData(const std::string type)
+{
+    std::ifstream outFile;
+    std::string load = findDB(type);
+    outFile.open(load, std::ios_base::app); // Append mode
+    if (!outFile)
+    {
+        std::cout << "Failed to open the student file." << std::endl;
+        return "";
+    }
+
+    std::string line;
+    std::string last_line;
+    std::vector<std::string> words;
+    std::string word;
+    // Read each line from the file
+    while (std::getline(outFile, line)) {
+        // Save the line
+        last_line = line;
+    }
+
+    std::stringstream result(last_line);
+    while (getline(result, word, ','))
+    words.push_back(word);
+    // Close the file
+    outFile.close();
+    return words[0];
+}
 
 std::string DataBase::findOne(const std::string type, std::string val, int index)
 {
@@ -135,7 +185,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
 
         while (std::getline(fin, line))
         {
-            if(line.find(val) != std::string::npos) // ¿øÇÏ´Â row Ã£±â
+            if(line.find(val) != std::string::npos) // ï¿½ï¿½ï¿½Ï´ï¿½ row Ã£ï¿½ï¿½
             {
                 std::stringstream result(line);
                 while (getline(result, word, ','))
@@ -174,7 +224,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
 
     return "";
 }
-// ¹¹ ¸¸¾à¿¡ À¯Àú ·Î±äÇØ¼­ id pw º½ id ÀÖ´ÂÁö º¼ ‹š Àú°É·Î db.FindOne("student", "exid2", 2) ·Î ¾ÆÀÌµð ÀÏÄ¡ÇÏ°í, db.FindOne("student", "expass", 3) ¹Þ¾Æ¼­ È®ÀÎ.
+// ï¿½ï¿½ ï¿½ï¿½ï¿½à¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½Ø¼ï¿½ id pw ï¿½ï¿½ id ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½É·ï¿½ db.FindOne("student", "exid2", 2) ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½Ä¡ï¿½Ï°ï¿½, db.FindOne("student", "expass", 3) ï¿½Þ¾Æ¼ï¿½ È®ï¿½ï¿½.
 
 std::string DataBase::findAll(const std::string type, std::string val)
 {
@@ -222,7 +272,7 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
     {
         std::string directory = findDB(type);
         std::ifstream fin(directory);
-        std::ofstream fout("temp.txt");  // ÀÏ½ÃÀúÀå¿ë
+        std::ofstream fout("temp.txt");  // ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         std::cout << directory << std::endl;
 
         try
@@ -243,9 +293,9 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
                         words.push_back(word);
                     }
             
-                    if (words[0] == primaryKey) // ÀÌ°É·Î Å×ÀÌºí & row ±¸ºÐ
+                    if (words[0] == primaryKey) // ï¿½Ì°É·ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ & row ï¿½ï¿½ï¿½ï¿½
                     {
-                        // string Á¦ÀÛ
+                        // string ï¿½ï¿½ï¿½ï¿½
                         int i;
                         std::string newData = "";
                         for(i = 0; i < index; i++)
@@ -258,13 +308,13 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
                             newData = newData + words[i] + ',';
                         }
                         newData.pop_back();
-                        fout << newData << "\n";  // µ¤¾î¾²±â
+                        fout << newData << "\n";  // ï¿½ï¿½ï¿½î¾²ï¿½ï¿½
                         updated = true;
                         std::cout << "out" <<std::endl;
                     }
                     else
                     {
-                        fout << line << "\n";  // ½ÇÆÐ½Ã ¿ø·¡ ¶óÀÎ ³Ö±â
+                        fout << line << "\n";  // ï¿½ï¿½ï¿½Ð½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
                     }
 
                     words.clear();
@@ -408,11 +458,11 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
             userInfo = getLineFromId(userType,userId);
 			if(userType == "admin")
 			{
-				return make_unique<Admin>(userInfo.at(0),userInfo.at(1), userInfo.at(2));
+				return make_unique<Admin>(userInfo.at(0),userInfo.at(1), userInfo.at(2), userInfo.at(3));
 			}
 			else if (userType == "student")
 			{
-                return make_unique<Student>(userInfo.at(0),stoi(userInfo.at(1)),userInfo.at(2), userInfo.at(3), userInfo.at(4), userInfo.at(5), userInfo.at(6),userInfo.at(7)[0],userInfo.at(8));
+                return make_unique<Student>(userInfo.at(0),stoi(userInfo.at(1)),userInfo.at(2), userInfo.at(3), userInfo.at(4), userInfo.at(5), userInfo.at(6),userInfo.at(7)[0],userInfo.at(8),userInfo.at(9));
 			}
 		}
 		else
@@ -424,8 +474,10 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
 	{
 		cout << "404 Not Founded" <<endl;
 	}
-    return make_unique<Student>("",0,"","","","","",'a',"");
-} // »õ·Î ÇÊ¿äÇÑ ÇÔ¼ö
+
+    return make_unique<Student>("",0,"","","","","",'a',"", "");
+}
+
 
 
 void DataBase::insertSurvey(vector<std::string> data)
@@ -437,6 +489,12 @@ void DataBase::insertSurvey(vector<std::string> data)
     {
         std::cout << "Failed to open the student file." << std::endl;
         return;
+    }
+    std::string val = roadLatestData("survey");
+    int latePk = stoi(val.substr(0, val.size() - 1));
+    if(latePk != 0)
+    {
+        count_survey = latePk;
     }
     count_survey++;
     std::string index = "su,";
@@ -477,6 +535,7 @@ vector<vector<string>> DataBase::readSurvey()
     else {
         std::cout << "Failed to open the file." << std::endl;
     }
+
 
     return readsurvey;
 }

@@ -23,13 +23,13 @@ private:
     std::string roomFile = "DB/room.txt";
 public:
     std::string findDB(const string type);
-
+    std::string roadLatestData(const string type);
     void insertSurvey(vector<std::string> data);
     vector<vector<string>> readSurvey();
     
     /*
-        µ¥ÀÌÅÍ º£ÀÌ½º¿¡ »ğÀÔÇÏ´Â ÇÔ¼ö
-        insert( _JSONÀ¸·Î ÀúÀåÇÑ data, ÀúÀåÀ§Ä¡ : admin, student, room)
+        ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
+        insert( _JSONï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ data, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ : admin, student, room)
     */
     template <typename T>
     void insert(const std::vector<std::unique_ptr<T>>& data, const string type); // Use std::shared_ptr
@@ -137,14 +137,14 @@ public:
      /*
         std::vector<std::unique_ptr<Student>> student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw,
             const std::string& class_, int roomId)
-        ½ºÆ©´øÆ® µ¥ÀÌÅÍ ÀÔ·ÂÇÏ´Â ÇÔ¼ö
+        ï¿½ï¿½Æ©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     */
     std::vector<std::unique_ptr<Student>> student_JSON(int code = 0, const std::string& name = "NULL", const std::string& id = "NULL", const std::string& pw = "NULL",
-            const std::string& class_ = "NULL", const std::string& room = "NULL", const bool gender = true, const std::string& mateID = "NULL"); // ¼ºº° ±âº» °ªÀº ture
+            const std::string& class_ = "NULL", const std::string& room = "NULL", const bool gender = true, const std::string& mateID = "NULL", const std::string& surveyId = "NULL"); // ì„±ë³„ ê¸°ë³¸ ê°’ì€ ture
 
 
     // Admin(std::string adminID, string userName, string userID, string userPW);
-    /* ¾îµå¹Î µ¥ÀÌÅÍ ÀÔ·ÂÇÏ´Â ÇÔ¼ö*/
+    /* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½*/
     std::vector<std::unique_ptr<Admin>> admin_JSON(const std::string& name = "NULL", const std::string& id = "NULL", const std::string& pw = "NULL");
 
 

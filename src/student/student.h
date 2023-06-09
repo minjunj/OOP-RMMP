@@ -36,13 +36,14 @@ private:
     std::string roommateID;
     std::string classOf;
     std::string role = "user"; // role fixed
+    std::string surveyId;
     
     friend class DataBase;
 
 public:
     Student(std::string stuId, int code, const std::string& userName, const std::string& userID, const std::string& userPW,  
              const std::string& class_, const std::string& room, 
-            const bool gender, const std::string& mateID);
+            const bool gender, const std::string& mateID, const std::string& surveyId);
 
     //~Student();
     std::string getFormattedData() const; // For database purposes

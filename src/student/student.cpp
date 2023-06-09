@@ -1,21 +1,20 @@
 #include "student.h"
 #include <memory>
 #include <algorithm>
-
+#include <cmath>
 using namespace std;
 
-Student::Student(std::string stuId, int code, const std::string& userName, const std::string& userID, const std::string& userPW,
-    const std::string& class_, const std::string& room,
-    const bool gender, const std::string& mateID) : User(userID, userPW, userName), studentId(stuId),
-    studentCode(code), gender(gender), roommateID(mateID), classOf(class_), roomId(room)
-
+Student::Student(std::string stuId, int code, const std::string& userName, const std::string& userID, const std::string& userPW,  
+             const std::string& class_, const std::string& room, 
+            const bool gender, const std::string& mateID, const std::string& surveyId): User(userID, userPW, userName), studentId(stuId),
+            studentCode(code),  gender(gender), roommateID(mateID), classOf(class_), roomId(room), surveyId(surveyId)
 {
 }
 
 std::string Student::getFormattedData() const {
     std::string genderString = gender ? "Male" : "Female";
     return studentId + "," + std::to_string(studentCode) + "," + userName + "," + userID + ","
-        + userPW + "," + classOf + "," + genderString + "," + role + "," + roomId + "," + roommateID+","+surveyID;
+        + userPW + "," + classOf + "," + genderString + "," + role + "," + roomId + "," + roommateID + "," + surveyId;
 
 }
 /*
