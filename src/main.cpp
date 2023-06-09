@@ -14,24 +14,19 @@ using JsonStu = std::vector<std::unique_ptr<Student>>;
 using JsonAdmin = std::vector<std::unique_ptr<Admin>>;
 using JsonRoom = std::vector<std::unique_ptr<Room>>;
 
-
-
-
-
-
 unique_ptr<User> Login(DataBase db, string userType)
 {
     string file;
     string userId, userPw;
 
-    while(1)
+    while (1)
     {
         cout << "Enter User ID : ";
-        cin  >> userId;
+        cin >> userId;
         cout << "Enter the User Password : ";
-        cin  >> userPw;
-        
-        if(db.findUser(userType, userId, userPw))
+        cin >> userPw;
+
+        if (db.findUser(userType, userId, userPw))
         {
             return db.getUser(userType, userId, userPw);
         }
@@ -72,7 +67,7 @@ void startMenuTemplate()
 }
 void studentMenuTemplate1()
 {
-    cout<< "hello"<<endl;
+    cout << "hello" << endl;
     cout << "+------------------------------------------+" << endl;
     cout << "|                                          |" << endl;
     cout << "|              Student Menu                |" << endl;
@@ -153,9 +148,6 @@ void adminMenuTemplate1()
     return;
 }
 
-
-
-
 void studentMenu(unique_ptr<User>& student, DataBase db)
 {
     if (student->isInfo())
@@ -165,7 +157,7 @@ void studentMenu(unique_ptr<User>& student, DataBase db)
         {
             studentMenuTemplate1();
             cout << "Enter the Number to use : ";
-            cin  >> menuNum;
+            cin >> menuNum;
             switch (menuNum)
             {
             case 1:
@@ -203,7 +195,7 @@ void studentMenu(unique_ptr<User>& student, DataBase db)
         {
             studentMenuTemplate2();
             cout << "Enter the Number to use : ";
-            cin  >> menuNum;
+            cin >> menuNum;
             switch (menuNum)
             {
             case 1:
@@ -222,7 +214,6 @@ void studentMenu(unique_ptr<User>& student, DataBase db)
     return;
 }
 
-
 void adminMenu(unique_ptr<User>& admin, DataBase db)
 {
     int menuNum;
@@ -230,7 +221,7 @@ void adminMenu(unique_ptr<User>& admin, DataBase db)
     {
         adminMenuTemplate1();
         cout << "Enter the Number to use : ";
-        cin  >> menuNum;
+        cin >> menuNum;
         switch (menuNum)
         {
         case 1:
@@ -266,87 +257,87 @@ void adminMenu(unique_ptr<User>& admin, DataBase db)
 void studentSignUp(DataBase db)
 {
     cout << "To Sign up to the program Enter your personal data" << endl;
-    vector<string> questions = {"Enter student Name (Enter 0 to exit): ",
+    vector<string> questions = { "Enter student Name (Enter 0 to exit): ",
                                 "Enter student Code (Enter 0 to exit): ",
                                 "Enter student ID (Enter 0 to exit): ",
                                 "Enter student PW (Enter 0 to exit): ",
                                 "Enter student PW again (Enter 0 to exit): ",
                                 "Enter student gender (Enter 0 to exit): "
-                                };
+    };
     vector<string> userInfo;
-    while(true)
+    while (true)
     {
         userInfo.clear();
         string ans;
         int len = questions.size();
-        int idx =0 ;
-        while(idx < len)
+        int idx = 0;
+        while (idx < len)
         {
             cout << questions.at(idx);
-            cin  >> ans;
+            cin >> ans;
             if (ans == "0") return;
-            if (idx == 2 && db.findOne("student",ans,3)==ans)
+            if (idx == 2 && db.findOne("student", ans, 3) == ans)
             {
                 idx--;
-                cout << "Wrong input, ID already exists "<<endl;
+                cout << "Wrong input, ID already exists " << endl;
             }
             else if (idx == 4 && ans != userInfo.at(3))
             {
                 idx--;
-                cout << "Wrong input, check PW again " <<endl;
+                cout << "Wrong input, check PW again " << endl;
             }
             else
             {
-                idx ++;
+                idx++;
                 userInfo.push_back(ans);
             }
         }
-        cout << " Name  Code  ID  PW  Gender "<<endl;
-        for(const auto& info : userInfo)
+        cout << " Name  Code  ID  PW  Gender " << endl;
+        for (const auto& info : userInfo)
         {
             cout << info << ", ";
-        }cout <<endl;
-        cout << "Will you Sign up as student " << userInfo.at(2) <<" ? Yes(Y) NO(N) : ";
-        cin  >> ans;
-        if (ans == "Y" || ans =="y")
+        }cout << endl;
+        cout << "Will you Sign up as student " << userInfo.at(2) << " ? Yes(Y) NO(N) : ";
+        cin >> ans;
+        if (ans == "Y" || ans == "y")
         {
-            bool gender;
+            bool gender=0;
 
             if (userInfo.at(4) == "M") gender = true;
             if (userInfo.at(4) == "W") gender = false;
 
-            db.addingStudent(stoi(userInfo.at(1)), userInfo.at(0), userInfo.at(2), userInfo.at(3),"","",gender,"");
+            db.addingStudent(stoi(userInfo.at(1)), userInfo.at(0), userInfo.at(2), userInfo.at(3), "", "", gender, "");
         }
         else
         {
-            cout << "Failed signing up" <<endl;
+            cout << "Failed signing up" << endl;
             return;
         }
-        cout << "Successfully Signed up "<<endl;
-        cout << "To use the program, login again" <<endl;
+        cout << "Successfully Signed up " << endl;
+        cout << "To use the program, login again" << endl;
     }
     return;
 }
 
-
-
 void start_menu(DataBase db)
 {
     int st_num;
+    string st_num1; // 기존의 int로 입력받으면 문자가 들어왔을때 무한루프함 string으로 받아서 해결
     unique_ptr<User> curUser;
 
     while (1)
     {
         startMenuTemplate();
         cout << "Enter the number here (1~3) : ";
-        cin >> st_num;
-        if (st_num != 1 and st_num != 2 and st_num != 3)
+        cin >> st_num1;
+        if (st_num1 != "1" and st_num1 != "2" and st_num1 != "3")
         {
             cout << "Wrong input, try again" << endl;
             continue;
         }
         else
         {
+            st_num = stoi(st_num1);
             if (st_num == 1)
             {
                 studentSignUp(db);
@@ -354,14 +345,14 @@ void start_menu(DataBase db)
             else if (st_num == 2)
             {
                 curUser = Login(db, "admin");
-                cout << "Welcome "<< curUser->getuserName() <<", Logged into Administrator" << endl;
-                adminMenu(curUser,db);
+                cout << "Welcome " << curUser->getuserName() << ", Logged into Administrator" << endl;
+                adminMenu(curUser, db);
             }
             else if (st_num == 3)
             {
                 curUser = Login(db, "student");
-                cout << "Welcome "<< curUser->getuserName() << ", Logged into Student" << endl;
-                studentMenu(curUser,db);
+                cout << "Welcome " << curUser->getuserName() << ", Logged into Student" << endl;
+                studentMenu(curUser, db);
             }
             else if (st_num == 4)
             {
@@ -413,7 +404,7 @@ int main()
     
 
     // db.insertSurvey(list);
-    //start_menu(db);    
+    start_menu(db);    
     return 0;
 }
 

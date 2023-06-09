@@ -1,8 +1,9 @@
-1s,20225180,Jominjun,m412,pw12,22,Male,user,2a,3s
-2s,20225181,Jominjun1,content,pw12,22,Female,user,2a,3s
-3s,0,NULL,NULL,NULL,NULL,Male,user,NULL,NULL
-1s,20225180,JominJun,m412,pw12,22,Male,user,2a,3s
-1s,20225180,Jominhun,m412,pw12,22,Male,user,2a,3s
-1s,20225150,Lee,gusdn,dlgusdn,,Male,user,,
-
-1s,2022231442,min,m4443,122s2,,Female,user,,
+1s,20225180,Jominjun,m412,pw12,22,Male,user,22r,3m,1su
+2s,20225181,Jun,content,pw12,22,Female,user,23r,4m,2su
+3s,20225183,Jomin,m4123,pw121,22,Male,user,22r,1m,3su
+4s,20225184,Jominhun,m4124,pw122,22,Male,user,23r,2m,4su
+5s,20225150,Lee,gusdn,dlgusdn,22,Male,user,,,5su
+6s,20225123,cola,coca,pepsi,22,Male,user,,,6su
+7s,20225142,min,m4443,122s2,,Female,user,,,7su
+8s,20225222,papago,qwer,asdf1,,Female,user,,,8su
+9s,20225111,phone,samsung,apple,,Female,user,,,
