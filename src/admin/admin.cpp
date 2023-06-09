@@ -6,6 +6,7 @@
 #include <memory>
 #include<algorithm>
 #include "admin.h"
+#include "room.h"
 
 using namespace std;
 
@@ -221,10 +222,55 @@ void Admin::addDelRoom(DataBase db)
         cout << "To add room Enter (1), to delete room Enter (2), to quit Enter (0) :";
         cin >> selection;
         if (selection == "1") {
+            string zone;
+            int floor;
+            //몇층 어느 구역에 추가할 것인가
+            cout << "Which zone do you want to add first.(g, i, s, t): ";
+            cin>> zone;
+            cout << "Which floor do you want to add (2~6): "; //몇층인지
+            cin >> floor;
+            int i = 1;
+            string roomnumber = zone + to_string(floor * 100 + i);
+            while (db.findOne("room", roomnumber, 1) == roomnumber) {
+                 roomnumber = zone + to_string(floor * 100 + i);
+
+                if (db.findOne("room", roomnumber, 1) != roomnumber) {//방 정보가 없다면
+                    cout << db.findOne("room", roomnumber, 1) << endl;
+                    cout << "The addition room is " << roomnumber<<endl;
+                    vector<unique_ptr<Room>> roomdata = db.room_JSON(roomnumber, true);
+                    db.insert(roomdata, "room"); // 정보추가
+                    return;
+                }
+                i++;
+
+
+            }
+            return;
 
         }
         else if (selection == "2") {
-
+            //몇층 어디를 못 쓰게 만들것인지(삭제할것인지)
+            string roomnumber;
+            cout << "Which room do you want to delete (ex: g200): ";
+            cin >> roomnumber;
+            if (db.findOne("room", roomnumber, 1) != roomnumber) {
+                cout << "Invalid input." << endl;
+                return;
+            }
+            else{
+                cout << "Do you want to erase " << roomnumber << "? (Y/N)"; //그 방의 정보를 정말로 지울것인가?
+                string check;
+                cin >> check;
+                if (check == "Y" || check == "y") {
+                    for (int i = 0; i < 4; i++) {
+                        db.update("room", roomnumber, "", i);//원래 있던값에 공백을 넣는다.
+                    }
+                    cout << "Room's information has been cleared about" <<roomnumber<< endl;
+                }
+                else {
+                    return;
+                }
+            }
         }
         else {
             return;
@@ -288,11 +334,27 @@ void Admin::matchRoommates(DataBase db)
             string roommateid = db.findOne("student", roommate[0], 0);
             string studentid9= studentid.replace(studentid.find("s"), 1, "m");
             string roommateid9 = roommateid.replace(roommateid.find("s"), 1, "m");
-            //db.update("student", studentid, roommateid9, 9); //db에 룸메이트의 룸메이트 업데이트
-            //db.update("student", roommateid, studentid9, 9); //db에 신청자 룸메이트 업데이트
+            db.update("student", studentid, roommateid9, 9); //db에 룸메이트의 룸메이트 업데이트
+            db.update("student", roommateid, studentid9, 9); //db에 신청자 룸메이트 업데이트
             
             //방도 랜덤으로 여기서 넣어줘야해?
             i = 0;
+            int room = 11;
+            string roomid = to_string(room) + "r";
+            //비어있는 방을 아무거나 찾아서 넣어준다.
+            while (db.findOne("room", roomid, 0) != roomid) {//비어있는 방을 찾는다.
+                room += 1;
+                roomid = to_string(room) + "r";
+            }
+            cout << roomid << endl;
+            db.update("room", db.findOne("room", roomid, 0), "false", 2); // 신청 방의 isEmpty를 false로 바꾼다
+            db.update("student", db.findOne("student", studentid, 0), db.findOne("room", roomid, 0), 8); // 신청 학생의 기숙사 방을 바꾼다
+            db.update("student", db.findOne("student", roommateid, 0), db.findOne("room", roomid, 0), 8); // 신청 학생의 룸메의 기숙사 방을 바꾼다.
+            cout << "Room successfully registered to (" << db.findOne("student",rmmate[0],1) 
+                << ") with roommate (" << db.findOne("student",roommate[0],1) << ") in " 
+                <<db.findOne("room",roomid,1) <<". " << endl; // 정보 공지
+
+            
         }
         //for (const auto& answer : roommate) {
         //    cout << answer << " ";

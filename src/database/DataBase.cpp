@@ -66,6 +66,20 @@ void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const string 
                 outFile << room->getFormattedData() << std::endl;
             }
         }
+       else if (std::string(type) == "survey")
+        {
+            outFile.open(roomFile, std::ios_base::app); // Append mode
+            if (!outFile)
+            {
+                std::cout << "Failed to open the admin file." << std::endl;
+                return;
+            }
+
+            for (const auto& room : data)
+            {
+                outFile << room->getFormattedData() << std::endl;
+            }
+        }        
         outFile.close();
     }
     catch(const std::exception& e)
