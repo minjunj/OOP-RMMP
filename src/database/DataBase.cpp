@@ -66,6 +66,20 @@ void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const string 
                 outFile << room->getFormattedData() << std::endl;
             }
         }
+       else if (std::string(type) == "survey")
+        {
+            outFile.open(roomFile, std::ios_base::app); // Append mode
+            if (!outFile)
+            {
+                std::cout << "Failed to open the admin file." << std::endl;
+                return;
+            }
+
+            for (const auto& room : data)
+            {
+                outFile << room->getFormattedData() << std::endl;
+            }
+        }        
         outFile.close();
     }
     catch(const std::exception& e)
@@ -171,7 +185,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
 
         while (std::getline(fin, line))
         {
-            if(line.find(val) != std::string::npos) // 원하는 row 찾기
+            if(line.find(val) != std::string::npos) // ���ϴ� row ã��
             {
                 std::stringstream result(line);
                 while (getline(result, word, ','))
@@ -210,7 +224,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
 
     return "";
 }
-// 뭐 만약에 유저 로긴해서 id pw 봄 id 있는지 볼 떄 저걸로 db.FindOne("student", "exid2", 2) 로 아이디 일치하고, db.FindOne("student", "expass", 3) 받아서 확인.
+// �� ���࿡ ���� �α��ؼ� id pw �� id �ִ��� �� �� ���ɷ� db.FindOne("student", "exid2", 2) �� ���̵� ��ġ�ϰ�, db.FindOne("student", "expass", 3) �޾Ƽ� Ȯ��.
 
 std::string DataBase::findAll(const std::string type, std::string val)
 {
@@ -258,7 +272,7 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
     {
         std::string directory = findDB(type);
         std::ifstream fin(directory);
-        std::ofstream fout("temp.txt");  // 일시저장용
+        std::ofstream fout("temp.txt");  // �Ͻ������
         std::cout << directory << std::endl;
 
         try
@@ -279,9 +293,9 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
                         words.push_back(word);
                     }
             
-                    if (words[0] == primaryKey) // 이걸로 테이블 & row 구분
+                    if (words[0] == primaryKey) // �̰ɷ� ���̺� & row ����
                     {
-                        // string 제작
+                        // string ����
                         int i;
                         std::string newData = "";
                         for(i = 0; i < index; i++)
@@ -294,13 +308,13 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
                             newData = newData + words[i] + ',';
                         }
                         newData.pop_back();
-                        fout << newData << "\n";  // 덮어쓰기
+                        fout << newData << "\n";  // �����
                         updated = true;
                         std::cout << "out" <<std::endl;
                     }
                     else
                     {
-                        fout << line << "\n";  // 실패시 원래 라인 넣기
+                        fout << line << "\n";  // ���н� ���� ���� �ֱ�
                     }
 
                     words.clear();
@@ -385,6 +399,10 @@ bool DataBase::findUser(const string userType, const string userId, const string
 	{
 		return true;
 	}
+    else if (findOne(userType, userId, 2) == userId && findOne(userType, userPw, 3) == userPw)
+    {
+        return true;
+    }    
 	else
 	{
 		return false;
@@ -456,8 +474,10 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
 	{
 		cout << "404 Not Founded" <<endl;
 	}
+
     return make_unique<Student>("",0,"","","","","",'a',"", "");
-} // 새로 필요한 함수
+}
+
 
 
 void DataBase::insertSurvey(vector<std::string> data)
@@ -494,6 +514,30 @@ void DataBase::insertSurvey(vector<std::string> data)
     outFile << add;
     // Close the file
     outFile.close();
+}
+vector<vector<string>> DataBase::readSurvey()
+{
+    vector<vector<string>>readsurvey;
+    std::ifstream file("DB/survey.txt");
+    if (file.is_open()) {
+        std::string line;
+        while (std::getline(file, line)) {
+            std::istringstream iss(line);
+            std::vector<std::string> answers;
+            std::string answer;
+            while (std::getline(iss, answer, ',')) {
+                answers.push_back(answer);
+            }
+            readsurvey.push_back(answers);
+        }
+        file.close();
+    }
+    else {
+        std::cout << "Failed to open the file." << std::endl;
+    }
+
+
+    return readsurvey;
 }
 
 void DataBase::addingStudent(int code, string name, string id, string pw, string class_, string room, bool gender, string mateID)

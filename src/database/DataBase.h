@@ -25,10 +25,11 @@ public:
     std::string findDB(const string type);
     std::string roadLatestData(const string type);
     void insertSurvey(vector<std::string> data);
+    vector<vector<string>> readSurvey();
     
     /*
-        데이터 베이스에 삽입하는 함수
-        insert( _JSON으로 저장한 data, 저장위치 : admin, student, room)
+        ������ ���̽��� �����ϴ� �Լ�
+        insert( _JSON���� ������ data, ������ġ : admin, student, room)
     */
     template <typename T>
     void insert(const std::vector<std::unique_ptr<T>>& data, const string type); // Use std::shared_ptr
@@ -133,17 +134,17 @@ public:
     //std::make_unique<Student>(studentId, code, name, id, pw, class_, room)
 
 
-    /*
+     /*
         std::vector<std::unique_ptr<Student>> student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw,
             const std::string& class_, int roomId)
-        스튜던트 데이터 입력하는 함수
+        ��Ʃ��Ʈ ������ �Է��ϴ� �Լ�
     */
     std::vector<std::unique_ptr<Student>> student_JSON(int code = 0, const std::string& name = "NULL", const std::string& id = "NULL", const std::string& pw = "NULL",
             const std::string& class_ = "NULL", const std::string& room = "NULL", const bool gender = true, const std::string& mateID = "NULL", const std::string& surveyId = "NULL"); // 성별 기본 값은 ture
 
 
     // Admin(std::string adminID, string userName, string userID, string userPW);
-    /* 어드민 데이터 입력하는 함수*/
+    /* ���� ������ �Է��ϴ� �Լ�*/
     std::vector<std::unique_ptr<Admin>> admin_JSON(const std::string& name = "NULL", const std::string& id = "NULL", const std::string& pw = "NULL");
 
 
