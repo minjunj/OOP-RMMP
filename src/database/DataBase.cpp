@@ -440,11 +440,11 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
             userInfo = getLineFromId(userType,userId);
 			if(userType == "admin")
 			{
-				return make_unique<Admin>(userInfo.at(0),userInfo.at(1), userInfo.at(2));
+				return make_unique<Admin>(userInfo.at(0),userInfo.at(1), userInfo.at(2), userInfo.at(3));
 			}
 			else if (userType == "student")
 			{
-                return make_unique<Student>(userInfo.at(0),stoi(userInfo.at(1)),userInfo.at(2), userInfo.at(3), userInfo.at(4), userInfo.at(5), userInfo.at(6),userInfo.at(7)[0],userInfo.at(8));
+                return make_unique<Student>(userInfo.at(0),stoi(userInfo.at(1)),userInfo.at(2), userInfo.at(3), userInfo.at(4), userInfo.at(5), userInfo.at(6),userInfo.at(7)[0],userInfo.at(8),userInfo.at(9));
 			}
 		}
 		else
@@ -456,7 +456,7 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
 	{
 		cout << "404 Not Founded" <<endl;
 	}
-    return make_unique<Student>("",0,"","","","","",'a',"");
+    return make_unique<Student>("",0,"","","","","",'a',"", "");
 } // 새로 필요한 함수
 
 
