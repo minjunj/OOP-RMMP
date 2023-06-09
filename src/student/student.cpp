@@ -1,6 +1,8 @@
 #include "student.h"
 #include <memory>
-#include<algorithm>
+
+#include <algorithm>
+ 
 
 using namespace std;
 
@@ -19,7 +21,7 @@ std::string Student::getFormattedData() const {
 
 }
 /*
-·ë¸ÞÀÌÆ® ½ÅÃ»ÇÏ´Â ÇÔ¼ö
+ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ã»ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
 */
 void Student::registerRoommate(DataBase db)
 {
@@ -29,27 +31,27 @@ void Student::registerRoommate(DataBase db)
     {
         cout << "To register a roommate, Enter the person's studentID(ex: 2022xxxx) , to exit enter 0 : ";
         cin >> mateId;
-        if (mateId == "0") // 0À» ÀÔ·Â¹ÞÀ¸¸é Ãë¼Ò
+        if (mateId == "0") // 0ï¿½ ï¿½Ô·Â¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         {
             cout << "Quiting Register Roommate" << endl;
             return;
         }
         /*
-        ***½ÅÃ»ÇÒ ·ë¸ÞÀÌÆ®ÀÇ ¾ÆÀÌµð°¡ µ¥ÀÌÅÍº£ÀÌ½º¿¡ Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é ´Ù½Ã µ¹¸²
-        ¿©±â¼­ ¿¡·¯°¡ ¹ß»ýÇÒ ¼ö ÀÖ´ÂÁ¡ÀÌ mateId¸¦ "404 Not Founded : out of range"·Î
-        ÀÔ·Â¹ÞÀ¸¸é ¹®Á¦°¡ »ý±â±â ¶§¹®¿¡ ³ªÁß¿¡ °íÃÄÁà¾ßÇÔ***
+        ***ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´Ù¸ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ mateIdï¿½ï¿½ "404 Not Founded : out of range"ï¿½ï¿½
+        ï¿½Ô·Â¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½***
         */
         if (db.findOne("student", mateId, 1) != mateId)
         {
             cout << "Wrong input, enter again" << endl;
         }
-        else // ·ë¸Þ ¾ÆÀÌµð¸¦ Àß ÀÔ·ÂÇÏ¸é //6.3 ¿À·ù¸¦ º¸±äÇßÀ½. ±Ùµ¥ ºñÁê¾ó½ºÆ©µð¿À ¹®Á¦ÀÏ¼öµµ. vectorÀÇ ¹üÀ§ ¿À¹ö °ü·Ã ¹®Á¦ÀÎµí
+        else // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¸ï¿½ //6.3 ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½Ùµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Æ©ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½. vectorï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Îµï¿½
         {
             roommateID = db.findOne("student", mateId, 0);
             string studentIDrm= userID.replace(userID.find("s"), 1, "m");
             string roommateIDrm= roommateID.replace(roommateID.find("s"), 1, "m");
-            db.update("student", db.findOne("student", mateId, 0), studentIDrm, 9); //db¿¡ ·ë¸ÞÀÌÆ®ÀÇ ·ë¸ÞÀÌÆ® ¾÷µ¥ÀÌÆ®
-            db.update("student", studentId,roommateIDrm, 9);                      //db¿¡ ½ÅÃ»ÀÚ ·ë¸ÞÀÌÆ® ¾÷µ¥ÀÌÆ®
+            db.update("student", db.findOne("student", mateId, 0), studentIDrm, 9); //dbï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½Æ®
+            db.update("student", studentId,roommateIDrm, 9);                      //dbï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½Æ®
             cout << "Now (" << userID << ") will be a roommate with (" << mateId << ") " << endl;
         }
     }
@@ -58,16 +60,16 @@ void Student::registerRoommate(DataBase db)
 }
 
 
-//***·ë¸ÞÀÌÆ®¸¦ Ã£¾Æ³»´Â Æ¯Á¤ ¾Ë°í¸®ÁòÀÌ ÇÊ¿äÇÔ***
+//***ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½Æ³ï¿½ï¿½ï¿½ Æ¯ï¿½ ï¿½Ë°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½***
 void Student::findRoommate(DataBase db)
 {
     vector<string> main_survey;
-    vector<vector<string>> roommate_survey= db.readSurvey();//surveyÀÇ Á¤º¸¸¦ ÀüºÎ ´ãÀº º¤ÅÍ
+    vector<vector<string>> roommate_survey= db.readSurvey();//surveyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     vector<vector<string>> matchedRoommates;
-    int applicantIndex=-1;//¸øÃ£¾ÒÀ»¶§ -1, Ã£¾ÒÀ»¶§´Â À§Ä¡ È®ÀÎ
-    //»ç¿ëÀÚÀÇ À§Ä¡ È®ÀÎ
+    int applicantIndex=-1;//ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ -1, Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¡ È®ï¿½ï¿½
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¡ È®ï¿½ï¿½
     for (size_t i = 0; i < roommate_survey.size(); i++) {
-        if (roommate_survey[i][0] == db.findOne("student", studentId, 10)) //ÀÏ´ÜÀº ÀÓÀÇÀÇ °ªÀ» ³Ö¾îµÒ 
+        if (roommate_survey[i][0] == db.findOne("student", studentId, 10)) //ï¿½Ï´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ 
             applicantIndex = i;
     }
     if (applicantIndex != -1) {
@@ -78,7 +80,7 @@ void Student::findRoommate(DataBase db)
     else {
         cout << "Please enter your information first." << endl;
     }
-    //·ë¸ÞÀÌÆ® ¸ÅÄª
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Äª
     vector<pair<int,vector<string>>> scores;
 
     for (size_t i = 0; i < roommate_survey.size(); i++) {
@@ -88,18 +90,18 @@ void Student::findRoommate(DataBase db)
         }
         scores.push_back(make_pair(score, roommate_survey[i]));
     }
-    //Á¡¼ö¸¦ ±âÁØÀ¸·Î Á¤·Ä (Á¡¼ö´Â °¢ ¹®Ç×º° Â÷ÀÌÀÇ Á¦°öÀÇ ÇÕ»ê)
+    //ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½×ºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ»ï¿½)
     sort(scores.begin(), scores.end());
     for (const auto& score : scores) {
         matchedRoommates.push_back(score.second);
         cout << score.first << " ";
     }
     cout << endl;
-    //Ãâ·Â
+    //ï¿½ï¿½ï¿½
     cout << "Matched roommates:" <<endl;
     int i = 0;
     int index = 0;
-    bool check = 0; //·ë¸ÞÀÌÆ® ÀÖ´ÂÁö È®ÀÎ¿ë
+    bool check = 0; //ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½Î¿ï¿½
     for (const auto& roommate : matchedRoommates) {
         if (i == 0) {
             cout << endl;
@@ -107,15 +109,15 @@ void Student::findRoommate(DataBase db)
         }
         else {
             cout << "Answer " << i << ": ";
-            cout << db.findOne("student", roommate[0], 1); //ÇÐ¹ø roommate[0]´Â 1suÃ³·³ °íÀ¯½Äº°¹øÈ£
-    //        cout << db.findOne("student", db.findOne("student", roommate[0], 1), 8); //ÇÐ¹ø
-            if (db.findOne("student", roommate[0], 9) == "404 Not Founded : out of range") { //±× »ç¶÷ÀÌ ·ë¸ÞÀÌÆ®°¡ ÀÖ´Â°¡.
-                cout << " has no roommate" << endl; //·ë¸ÞÀÌÆ® ¾ø´Â °æ¿ì¿¡¸¸ Ãâ·ÂµÇµµ·Ï ¼³Á¤ÇØ¾ßÇÔ
+            cout << db.findOne("student", roommate[0], 1); //ï¿½Ð¹ï¿½ roommate[0]ï¿½ï¿½ 1suÃ³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½È£
+    //        cout << db.findOne("student", db.findOne("student", roommate[0], 1), 8); //ï¿½Ð¹ï¿½
+            if (db.findOne("student", roommate[0], 9) == "404 Not Founded : out of range") { //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö´Â°ï¿½.
+                cout << " has no roommate" << endl; //ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ÂµÇµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
                 check = 0;
             }
             else {
                 check = 1;
-                cout << " has roommate" << endl;//¿©±â¼­ ¿ø·¡¶ó¸é continue·Î µ¹¾Æ°¡°Ô ÇÒµí
+                cout << " has roommate" << endl;//ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½ï¿½ continueï¿½ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ ï¿½Òµï¿½
             }
             cout << "roommate candidate info: ";
         }
@@ -146,46 +148,46 @@ void Student::findRoommate(DataBase db)
 }
 
 /*
-·ë¸ÞÀÌÆ®°¡ ÀÖÀ»¶§¸¸ ¹æÀ» ½ÅÃ»ÇÒ ¼ö ÀÖ´Â ÇÔ¼ö
+ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ô¼ï¿½
 */
 void Student::registerRoom(DataBase db)
 {
-    //·ë¸ÞÀÌÆ®°¡ ¾øÀ¸¸é ·ë¸ÞÀÌÆ®ºÎÅÍ ±¸ÇÏ°í ´Ù½Ã¿À¶ó°í ¸®ÅÏÇÔ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ù½Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     if (roommateID.length() == 0)
     {
         cout << "No roommate, register a roommate first" << endl;
         return;
     }
 
-    string regroomId; // ÀÔ·Â¹ÞÀ» ½ÅÃ»¹æ ¹®ÀÚ¿­
+    string regroomId; // ï¿½Ô·Â¹ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 
     while (true)
     {
         cout << "Enter a Room to Register (Enter 0 to quit): ";
-        cin >> regroomId; //g217 °°Àº °Å
-        // 0À» ÀÔ·Â¹ÞÀ¸¸é Ãë¼Ò
+        cin >> regroomId; //g217 ï¿½ï¿½ï¿½ ï¿½ï¿½
+        // 0ï¿½ ï¿½Ô·Â¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         if (regroomId == "0")
         {
             cout << "Quiting Register Room" << endl;
             return;
         }
-        //µ¥ÀÌÅÍº£ÀÌ½º(room.txt)¿¡¼­ Ã£¾Æ¿Â isEmpty°¡ true Áï ºñ¾îÀÖÀ»¶§ ½ÅÃ»°¡´É
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½(room.txt)ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Æ¿ï¿½ isEmptyï¿½ï¿½ true ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½
         if (db.findOne("room", regroomId, 2) == "true")
         {
-            if (roomId.length() != 0) // ±âÁ¸¿¡ Â÷ÁöÇÏ°í ÀÖ´ø ¹æÀÌ ÀÖÀ¸¸é
+            if (roomId.length() != 0) // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
             {
 
-                //***ÀÚ½Å°ú ·ë¸ÞÀÌÆ®ÀÇ ½ÅÃ» ¹æÀº ""À¸·Î ÃÊ±âÈ­ÇÏ°í***
-                //***±× ¹æÀÇ Á¤º¸¸¦ Áö¿ö¾ßÇÔ***
+                //***ï¿½Ú½Å°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ ""ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ï°ï¿½***
+                //***ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½***
             }
-            roomId = regroomId; // ½ÅÃ»ÀÚÀÇ ¹æ ¹®ÀÚ¿­Àº ÀÌ°Å·Î ¹Ù²ñ
-            db.update("room", db.findOne("room", regroomId, 0), "false", 2); // ½ÅÃ» ¹æÀÇ isEmpty¸¦ false·Î ¹Ù²Û´Ù
-            db.update("student", db.findOne("student", studentId, 0), db.findOne("room", regroomId, 0), 8); // ½ÅÃ» ÇÐ»ýÀÇ ±â¼÷»ç ¹æÀ» ¹Ù²Û´Ù
-            db.update("student", db.findOne("student", roommateID, 0), db.findOne("room", regroomId, 0), 8); // ½ÅÃ» ÇÐ»ýÀÇ ·ë¸ÞÀÇ ±â¼÷»ç ¹æÀ» ¹Ù²Û´Ù.
-            cout << "Room successfully registered to (" << roomId << ") with roommate (" << roommateID << ") " << endl; // Á¤º¸ °øÁö
+            roomId = regroomId; // ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ ï¿½Ì°Å·ï¿½ ï¿½Ù²ï¿½
+            db.update("room", db.findOne("room", regroomId, 0), "false", 2); // ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ isEmptyï¿½ï¿½ falseï¿½ï¿½ ï¿½Ù²Û´ï¿½
+            db.update("student", db.findOne("student", studentId, 0), db.findOne("room", regroomId, 0), 8); // ï¿½ï¿½Ã» ï¿½Ð»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù²Û´ï¿½
+            db.update("student", db.findOne("student", roommateID, 0), db.findOne("room", regroomId, 0), 8); // ï¿½ï¿½Ã» ï¿½Ð»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù²Û´ï¿½.
+            cout << "Room successfully registered to (" << roomId << ") with roommate (" << roommateID << ") " << endl; // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             return;
         }
-        // ¹æÀÌ ÀÌ¹Ì Â÷ÀÖ´Ù¸é ·çÇÁ¸¦ ´Ù½Ã µ¹¸®°í ´Ù½Ã ¼±ÅÃÇÒ ¼ö ÀÖµµ·Ï ÇØÁØ´Ù
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½
         else
         {
             cout << "Room is already full " << endl;
@@ -196,50 +198,50 @@ void Student::registerRoom(DataBase db)
 }
 
 /*
-ÇÐ»ýÀÌ Ã³À½ È¸¿ø°¡ÀÔ/º¯°æÇÒ ¶§, ·ë¸ÞÀÌÆ® ¸ÅÄªÀ» À§ÇÑ Æ¯Á¤ Á¤º¸µéÀ» ÀÔ·Â ¹Þ´Â ÇÔ¼ö
+ï¿½Ð»ï¿½ï¿½ï¿½ Ã³ï¿½ È¸ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Äªï¿½ ï¿½ï¿½ï¿½ Æ¯ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½Þ´ï¿½ ï¿½Ô¼ï¿½
 */
 void Student::insertInfo(DataBase db)
 {
     cout << "Insert the default information of your life style" << endl;
     cout << "To find the roommate matches with you" << endl;
-    vector<string> stuInfo; //ÇÐ»ýÁ¤º¸°¡ ´ã±æ º¤ÅÍ
+    vector<string> stuInfo; //ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     vector<string> questions{ "Enter your sleeping time (1: earlier than 10p.m. 2: 10p.m ~ 12a.m. 3: 12a.m. ~ 2a.m. 4. later than 2a.m) : ",
                                 "Enter your awaking time (1: earlier that 6a.m. 2: 6a.m. ~ 8a.m. 3: 8a.m. ~ 10a.m. 4: later than 10a.m.) : ",
                                 "Enter your prefering airconditioning temperature (1: ~~ 2: ~~ 3: ~~ 4: ~~) : " ,
                                 "Enter your frequency of smoking (1: Always 2: Often 3: Sometimes 4: Never) : ",
                                 "Enter if you snore (1: Every night 2: Sometimes 3: Never 4: ~~)"
-    }; // ÆíÀÇ»ó ¸¸µç Áú¹®Áö º¤ÅÍ ÃëÄ§½Ã°£,±â»ó½Ã°£,´õÀ§¸¦ ÀßÅ¸´Â°¡?,¼ú,´ã¹è,ÄÚ°ñÀÌ À¯¹«
-    int checkNum; // ÀÔ·Â Á¤¼ö
-    int idx = 0; // 0ºÎÅÍ Áú¹®ÁöÀÇ Å©±â ¸¸Å­ Ä¿Áú Ä¿¼­ ¿ªÇÒ
+    }; // ï¿½ï¿½ï¿½Ç»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä§ï¿½Ã°ï¿½,ï¿½ï¿½ï¿½Ã°ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½Â°ï¿½?,ï¿½ï¿½,ï¿½ï¿½ï¿½,ï¿½Ú°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+    int checkNum; // ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½
+    int idx = 0; // 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½Å­ Ä¿ï¿½ï¿½ Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     while (idx != questions.size())
     {
-        try { // ÀÔ·Â¹Þ´Â °úÁ¤¿¡¼­ ¶îºýÀÌµéÀÌ Á¤¼ö°¡ ¾Æ´Ï¶ó ´Ù¸¥°É ÀÔ·Â¹Þ´Â ¿¡·¯°¡ ¹ß»ý °¡´É
+        try { // ï¿½Ô·Â¹Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½Ô·Â¹Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ ï¿½ï¿½ï¿½ï¿½
             cout << questions.at(idx);
             cin >> checkNum;
             stuInfo.push_back(to_string(checkNum));
-            stuInfo.push_back(","); // 1,2,3,4,5,6,7,8, ²Ã
-            idx++; // ´ÙÀ½ Áú¹®À¸·Î
+            stuInfo.push_back(","); // 1,2,3,4,5,6,7,8, ï¿½ï¿½
+            idx++; // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
         }
-        catch (const exception& e) // ¿¡·¯ È®ÀÎ
+        catch (const exception& e) // ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         {
             cerr << e.what() << endl;
         }
     }
 
-    //***stuInfo¸¦ ¿ÀºêÁ§Æ®¿¡ ÀúÀåÇÏ´Â °úÁ¤ÀÌ ÇÊ¿ä*** 
-    // stuInfo°¡ ÀúÀåµÉ ‹ž "1, 2, 3, 4" Ã³·³ ,°¡ µé°¡¸é¼­ stringÇüÅÂ·Î ÀúÀåµÇ±â¿¡ ÀúÀåÀº stringÀ¸·ÎÇÔ.
+    //***stuInfoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½*** 
+    // stuInfoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ "1, 2, 3, 4" Ã³ï¿½ï¿½ ,ï¿½ï¿½ ï¿½é°¡ï¿½é¼­ stringï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½Ç±â¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ stringï¿½ï¿½ï¿½ï¿½ï¿½.
 
-    stuInfo.pop_back();// ¸ÇµÚ , Á¦°Å
+    stuInfo.pop_back();// ï¿½Çµï¿½ , ï¿½ï¿½ï¿½
     db.insertSurvey(stuInfo);
-    //***stuInfo¸¦ ¿ÀºêÁ§Æ®¿¡ ÀúÀåÇÏ´Â °úÁ¤ÀÌ ÇÊ¿ä***
+    //***stuInfoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½***
  
 
     return;
 }
 
 
-//·Î±×¾Æ¿ô ¸ô?·ç
+//ï¿½Î±×¾Æ¿ï¿½ ï¿½ï¿½?ï¿½ï¿½
 void Student::logout()
 {
     cout << "logging out" << endl;
@@ -249,16 +251,16 @@ void Student::logout()
 
 bool Student::isInfo()
 {
-    //***º¸¿ÏÇÊ¿ä***
-    //Á¤º¸°¡ ÀÔ·ÂµÇ¾ú´ÂÁö È®ÀÎÀÌ ÇÊ¿äÇÔ. survey¸¦ ÀÔ·ÂÇßÀ»¶§ ÀÖ´Â 'su'°¡ ÀÖ´ÂÁö È®ÀÎ
-    if (studentId=="0") {//surveyid°¡ µé¾îÀÖ´ÂÁö È®ÀÎÇØ¾ßÇÔ ¼öÁ¤ÀÌ ÇÊ¿ä
+    //***ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½***
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ÂµÇ¾ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½. surveyï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ 'su'ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+    if (studentId=="0") {//surveyidï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
         return false;
     }
     return true;
  
 }
 
-void Student::checkRoom(DataBase db) //¹æ »óÅÂ È®ÀÎÇÏ±â ¹æ ¹øÈ£¿Í »óÅÂ Ãâ·Â
+void Student::checkRoom(DataBase db) //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 {
     int datamore = 0;
     string numbers;
@@ -268,27 +270,27 @@ void Student::checkRoom(DataBase db) //¹æ »óÅÂ È®ÀÎÇÏ±â ¹æ ¹øÈ£¿Í »óÅÂ Ãâ·Â
 
     while (true) {
         if (datamore == 0) {
-            cout << "Which zone do you want to see first.(g, i, s, t): "; //¾î´À ±¸¿ªÀÎÁö
+            cout << "Which zone do you want to see first.(g, i, s, t): "; //ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             cin >> zone;
-            cout << "Which floor do you want to see(2~6): "; //¸îÃþÀÎÁö
+            cout << "Which floor do you want to see(2~6): "; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             cin >> floor;
             cout << "check Room Data" << endl;
             cout << endl;
         }
 
-        for (int i = 0; i < 10; i++) {//10°³¾¿ ²÷¾î¼­ Ãâ·Â.
+        for (int i = 0; i < 10; i++) {//10ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î¼­ ï¿½ï¿½ï¿½.
             numbers = zone+to_string(floor*100+i+1+10*datamore);
-            if (i + 1 + 10*datamore != 20) { //19È£±îÁö Ãâ·Â
+            if (i + 1 + 10*datamore != 20) { //19È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
                 cout << "Room number " << db.findOne("room", numbers, 1);
-                if (db.findOne("room", numbers, 2) == "true") { //¹æÀÌ ºñ¾îÀÖ´Ù¸é.
+                if (db.findOne("room", numbers, 2) == "true") { //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´Ù¸ï¿½.
                     cout << " is empty!" << endl;
                 }
-                else if (db.findOne("room", numbers, 2) == "false") { //¹æÀÌ ºñ¾îÀÖÁö ¾ÊÀ¸¸é
+                else if (db.findOne("room", numbers, 2) == "false") { //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
                     cout << " was applied." << endl;
                 }
                 numbers = "";
             }
-            else {//20¹øÂ° ÀÏ¶§ ´Ù¸¥ È£½Ç¿¡ ´ëÇÑ Á¤º¸¸¦ º¼Áö ¹°À½
+            else {//20ï¿½ï¿½Â° ï¿½Ï¶ï¿½ ï¿½Ù¸ï¿½ È£ï¿½Ç¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
                 cout << endl;
                 cout << "Do you want information on another room? enter 1. to exist is 0: ";
                 cin >> datamore;
@@ -302,7 +304,7 @@ void Student::checkRoom(DataBase db) //¹æ »óÅÂ È®ÀÎÇÏ±â ¹æ ¹øÈ£¿Í »óÅÂ Ãâ·Â
             
         }
         cout << endl;
-        if (number == 0) { // 00~10È£ ±îÁö È®ÀÎ ÈÄ ´õ º¼°ÍÀÎ°¡
+        if (number == 0) { // 00~10È£ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½
             cout << "if you want more data enter 1. to exist is 0: ";
             cin >> datamore;
             if (datamore == 0) {
@@ -319,7 +321,7 @@ void Student::checkRoom(DataBase db) //¹æ »óÅÂ È®ÀÎÇÏ±â ¹æ ¹øÈ£¿Í »óÅÂ Ãâ·Â
 
     }
 
-    //¸¸µé±â
+    //ï¿½ï¿½ï¿½ï¿½ï¿½
     return;
 }
 
@@ -329,9 +331,10 @@ string Student::getUserName()
 }
 
 
-void Student::addDelStudents(DataBase db) { return; }
-void Student::addDelRoom(DataBase db) { return; }
-void Student::matchRoommates(DataBase db) { return; }
-void Student::cleanRoom(DataBase db) { return; }
-void Student::printInfo() { return; }
-void Student::checkStudents(DataBase db) { return; }
+void Student::addDelStudents(DataBase db){return;}
+void Student::addDelRoom(DataBase db){return;}
+void Student::matchRoommates(DataBase db){return;}
+void Student::cleanRoom(DataBase db){return;}
+void Student::printInfo(){return;}
+void Student::checkStudents(DataBase db){return;}
+
