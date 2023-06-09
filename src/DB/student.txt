@@ -1,7 +1,6 @@
 1s,20225180,Jominjun,m412,pw12,22,Male,user,2a,3s
 3s,0,NULL,NULL,NULL,NULL,Male,user,NULL,NULL
 5s,20225180,Jominhun,m412,pw12,22,Male,user,2a,3s
-6s,20225150,Lee,gusdn,dlgusdn,,Male,user,,
 7s,2022231442,min,m4443,122s2,,Female,user,,
 8s,20225180,조민준,m412,pw12,22,Male,user,2a,3s
 10s,20225180,조민준,m412,pw12,22,Male,user,2a,3s,1su

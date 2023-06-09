@@ -560,10 +560,10 @@ std::string getPkNum(std::string line)
     return words[0];
 }
 
-void DataBase::deleteLine(const std::string type, std::string lineToDelete) {
+void DataBase::Delete(const std::string type, std::string lineToDelete) {
     std::string line;
 
-    if(findOne(type, lineToDelete, 0).size() == 0) { return; }
+    if(findOne(type, lineToDelete, 0) != lineToDelete) { return; }
 
     // 원본 파일 열기
     std::string filename = findDB(type);

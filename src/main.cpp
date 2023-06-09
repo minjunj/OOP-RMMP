@@ -369,8 +369,8 @@ int main()
 {
     DataBase db;
     int i=0;
-    db.deleteLine("survey", "6s");
-    db.deleteLine("survey", "111s");
+    db.Delete("survey", "6su");
+    db.Delete("survey", "111s");
     // JsonStu studentData = db.student_JSON(20225180, "조민준", "m412", "pw12", "22", "2a", true, "3s", "1su"); 
     // //JsonAdmin adminData = db.admin_JSON("조민준", "mw412", "pww12");
     // // JsonRoom roomData = db.room_JSON("g107", true);
