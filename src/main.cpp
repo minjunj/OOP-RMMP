@@ -150,7 +150,7 @@ unique_ptr<User> Login(DataBase db, string userType)
 void studentMenu(unique_ptr<User>& student, DataBase db)
 {
     cout << student->getsurveyId() <<endl;
-    cout << student->getFormattedData()<<endl;
+    student->print();
 
     cout <<db.findOne("survey",student->getsurveyId() , 0) <<endl;
     if (db.findOne("survey",student->getsurveyId() , 0) != "404 Not Founded : out of range")
@@ -399,10 +399,10 @@ int main()
     // db.Delete("survey", "6su");
     // db.Delete("survey", "111s");
     //JsonStu studentData = db.student_JSON(20225180, "조민준", "m412", "pw12", "22", "2a", true, "3s", "1su"); 
-    JsonStu studentData = db.student_JSON(); 
-    // //JsonAdmin adminData = db.admin_JSON("조민준", "mw412", "pww12");
-    // // JsonRoom roomData = db.room_JSON("g107", true);
-    db.insert(studentData, "student"); //db에 삽입
+    // JsonStu studentData = db.student_JSON(); 
+    // // //JsonAdmin adminData = db.admin_JSON("조민준", "mw412", "pww12");
+    // // // JsonRoom roomData = db.room_JSON("g107", true);
+    // db.insert(studentData, "student"); //db에 삽입
     // //db.insert(adminData, "admin");
     // db.insert(roomData, "room");
 

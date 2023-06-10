@@ -6,6 +6,9 @@
 #include <typeinfo>
 #include <memory>
 #include <numeric>
+
+#include <algorithm>
+#include <sstream>
 int count_room = 0;
 int count_student = 0;
 int count_survey = 0;
@@ -433,8 +436,14 @@ vector<string> DataBase::getLineFromId(const string userType, const string userI
                 lines.push_back(str_buf);
                 //std::cout << str_buf << std::endl;
             }
+            int ca = 0;
             if(lines.at(3) == userId && userType == "student")
             {
+                std::cout << "ingetlineformid \n" << std::endl;
+                for (const auto& str : lines) {
+                    std::cout << ca << " : "<< str << std::endl;
+                    ca++;
+                }
                 return lines;
             }
             if(lines.at(1) == userId && userType == "admin")
@@ -451,6 +460,7 @@ vector<string> DataBase::getLineFromId(const string userType, const string userI
 }
 
 
+
 unique_ptr<User> DataBase::getUser(const string userType, const string userId, const string userPw)
 {
     
@@ -465,7 +475,9 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
 			}
 			else if (userType == "student")
 			{
-                return make_unique<Student>(userInfo.at(0),stoi(userInfo.at(1)),userInfo.at(2), userInfo.at(3), userInfo.at(4), userInfo.at(5), userInfo.at(6),userInfo.at(7)[0],userInfo.at(8),userInfo.at(9));
+                bool setGern = true;
+                if(userInfo.at(6) != "Male") { setGern = false;}
+                return make_unique<Student>(userInfo.at(0),stoi(userInfo.at(1)),userInfo.at(2), userInfo.at(3), userInfo.at(4), userInfo.at(5),userInfo.at(8), setGern, userInfo.at(8),userInfo.at(10));
 			}
 		}
 		else
