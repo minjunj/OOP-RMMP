@@ -24,7 +24,8 @@ private:
 public:
     std::string findDB(const string type);
     std::string roadLatestData(const string type);
-    void insertSurvey(vector<std::string> data, string surveyId);
+
+    std::string insertSurvey(vector<std::string> data);
     vector<vector<string>> readSurvey();
     
     /*
@@ -156,6 +157,6 @@ public:
     std::vector<std::unique_ptr<Room>> room_JSON(const std::string& roomNumber = "NULL", const bool is_empty = true, const bool status = true);
 
     void addingStudent(int code, string name, string id, string pw, string class_, string room, bool gender, string mateID);
-    
+    void Delete(const std::string type, std::string lineToDelete);
 };
 #endif

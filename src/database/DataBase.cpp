@@ -481,7 +481,8 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
 }
 
 
-void DataBase::insertSurvey(vector<std::string> data)
+std::string DataBase::insertSurvey(vector<std::string> data)
+
 {
     std::ofstream outFile;
     std::string load = "DB/survey.txt";
@@ -489,7 +490,7 @@ void DataBase::insertSurvey(vector<std::string> data)
     if (!outFile)
     {
         std::cout << "Failed to open the student file." << std::endl;
-        return;
+        return"";
     }
     std::string val = roadLatestData("survey");
     int latePk = stoi(val.substr(0, val.size() - 1));
@@ -500,6 +501,8 @@ void DataBase::insertSurvey(vector<std::string> data)
     count_survey++;
     std::string index = "su,";
     std::string add = to_string(count_survey) + index;
+    std::string returnAdd;
+    returnAdd = add;
     std::string result = std::accumulate(data.begin(), data.end(), std::string());
     
     // Remove the trailing comma
@@ -515,6 +518,8 @@ void DataBase::insertSurvey(vector<std::string> data)
     outFile << add;
     // Close the file
     outFile.close();
+    returnAdd.pop_back();
+    return returnAdd;
 }
 vector<vector<string>> DataBase::readSurvey()
 {
@@ -548,3 +553,65 @@ void DataBase::addingStudent(int code, string name, string id, string pw, string
     return;
 }
     
+std::string getPkNum(std::string line)
+{
+    std::vector<std::string> words;
+    std::string word;
+
+    std::stringstream result(line);
+    while (getline(result, word, ','))
+    words.push_back(word);
+    // Close the file
+    return words[0];
+}
+
+void DataBase::Delete(const std::string type, std::string lineToDelete) {
+    std::string line;
+
+    if(findOne(type, lineToDelete, 0) != lineToDelete) { return; }
+
+    // 원본 파일 열기
+    std::string filename = findDB(type);
+    std::ifstream inputFile(filename);
+    if (!inputFile) {
+        std::cout << "Failed to open the file." << std::endl;
+        return;
+    }
+
+    // 임시 파일 생성
+    std::string tempFilename = filename + ".tmp";
+    std::ofstream tempFile(tempFilename);
+    if (!tempFile) {
+        std::cout << "Failed to create the temporary file." << std::endl;
+        inputFile.close();
+        return;
+    }
+
+    
+
+    // 원본 파일의 각 줄을 임시 파일로 복사 (삭제할 줄은 제외) // 삭제할 것만 들여보낸다.
+    while (std::getline(inputFile, line)) {
+        if (getPkNum(line) != lineToDelete) {
+            tempFile << line << std::endl;
+        }
+    }
+    
+
+    // 파일 닫기
+    inputFile.close();
+    tempFile.close();
+
+    // 원본 파일 삭제
+    if (std::remove(filename.c_str()) != 0) {
+        std::cout << "Failed to delete the original file." << std::endl;
+        return;
+    }
+
+    // 임시 파일 이름 변경
+    if (std::rename(tempFilename.c_str(), filename.c_str()) != 0) {
+        std::cout << "Failed to rename the temporary file." << std::endl;
+        return;
+    }
+
+    std::cout << "Line " << lineToDelete << " deleted successfully." << std::endl;
+}
