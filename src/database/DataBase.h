@@ -24,6 +24,7 @@ private:
 public:
     std::string findDB(const string type);
     std::string roadLatestData(const string type);
+
     std::string insertSurvey(vector<std::string> data);
     vector<vector<string>> readSurvey();
     

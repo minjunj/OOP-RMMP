@@ -13,9 +13,9 @@
 class DataBase; // Forward declaration of DataBase class
 
 /*
-string userID; // user »ó¼Ó
-string userPW; // user »ó¼Ó
-string userName; // user »ó¼Ó
+string userID; // user ï¿½ï¿½ï¿½
+string userPW; // user ï¿½ï¿½ï¿½
+string userName; // user ï¿½ï¿½ï¿½
 string role = "admin" //fixed
 
 [1] adminId : auto increased
@@ -43,7 +43,7 @@ public:
     void addDelRoom(DataBase db) ;
     void matchRoommates(DataBase db) ;
     void cleanRoom(DataBase db) ;
-    void logout() ;
+
 
     void checkRoom(DataBase db) ;
     void checkStudents(DataBase db) ;
@@ -51,13 +51,13 @@ public:
 
 
 
-
+    void releaseRoommate(DataBase db) ;
 	void registerRoommate(DataBase db);
     void findRoommate(DataBase db);
     void registerRoom(DataBase db);
     void insertInfo(DataBase db);
 	void printInfo();
-
+    string getsurveyId();
 	bool isInfo();
 	string getUserName();
 };
