@@ -65,8 +65,24 @@ public:
     void cleanRoom(DataBase db);
 	void printInfo();
 	void checkStudents(DataBase db);
-
-
+    
+    void print() const override {
+    // Implementation for Student
+    std::cout << "studentId : " << studentId << "\n"<< std::endl;
+    std::cout << "studentCode : " << studentCode << "\n"<< std::endl;
+    std::cout << "userName : " << userName << "\n"<< std::endl;
+    std::cout << "userID : " << userID << "\n"<< std::endl;
+    std::cout << "userPW : " << userPW << "\n"<< std::endl;
+    std::cout << "classof : " << classOf << "\n"<< std::endl;
+    std::cout << "gneder : " << gender << "\n"<< std::endl;
+    std::cout << "role : " << role << "\n"<< std::endl;
+    std::cout << "roomId : " << roomId << "\n"<< std::endl;
+    std::cout << "roommateID : " << roommateID << "\n"<< std::endl;
+    std::cout << "surveyId : " << surveyId << "\n"<< std::endl;
+    
+    
+    
+    }
 };
 
 #endif
