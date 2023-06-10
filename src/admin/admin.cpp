@@ -22,13 +22,12 @@ std::string Admin::getFormattedData() const {
     return  adminId + "," + userName + "," + userID + "," + userPW + "," + role;
 }
 
-
 /*
-���� ����� ����� ��Ȳ�� Ȯ���� �� �ִ�
-�л��麸�� �� �ڼ��� �������� �� �� �ִ�
-Ư�� �濡 ���� ��� �ִ��� ��
+현재 기숙사 방들의 현황을 확인할 수 있다
+학생들보다 더 자세한 정보들을 볼 수 있다
+특정 방에 누가 살고 있는지 등
 */
-void Admin::checkRoom(DataBase db) //���� �ȵ����� checkroom,student ��������
+void Admin::checkRoom(DataBase db) //아직 안돌려봄 checkroom,student 마찬가지
 {
     int datamore = 0;
     string numbers;
@@ -37,73 +36,66 @@ void Admin::checkRoom(DataBase db) //���� �ȵ����� checkroom
     string roommate;
     string roommateid;
     int floor;
+    int count = 0;
+
     while (true) {
-        if (datamore == 0) {
-            cout << ">> Which zone do you want to see first.(g, i, s, t): "; //��� ��������
+        if (count == 0) {
+            cout << ">> Which zone do you want to see first.(g, i, s, t): "; //어느 구역인지
             cin >> zone;
-            cout << ">> Which floor do you want to see(2~6): "; //��������
+            cout << ">> Which floor do you want to see(2~6): "; //몇층인지
             cin >> floor;
-            cout << ">> check Room Data" << endl<<endl;
+            while(cin.fail()){
+                cout << "** Wrong input try again"<<endl;
+                cin.clear();
+                cin.ignore(100 ,'\n');
+                cout << ">> Which floor do you want to see(2~6): "; //몇층인지
+                cin >> floor;
+            }
+            cout << ">> check Room Data" << endl;
             cout << endl;
         }
-
-        for (int i = 0; i < 10; i++) {//10���� ��� ���.
-            numbers = zone + to_string(floor * 100 + i + 1 + 10 * datamore);
-            if (db.findOne("room", numbers, 1) == "") {
+        numbers = zone + to_string(floor * 100 +count);
+        if (db.findOne("room", numbers, 1) != numbers) {
+            cout << ">> no more room in here." << endl;
+            cout << endl;
+            cout << ">> Do you want information on another room? enter 1. to exist is 0: ";
+            cin >> datamore;
+            if (datamore == 1) {
+                count = 0;
+                continue;
+            }
+            else {
                 return;
             }
-            if (i + 1 + 10 * datamore != 20) { //19ȣ���� ���
-                cout << ">> Room number " << db.findOne("room", numbers, 1);
-                if (db.findOne("room", numbers, 2) == "true") { //���� ����ִٸ�.
-                    cout << " is empty!" << endl;
-                }
-                else if (db.findOne("room", numbers, 2) == "false") { //���� ������� ������
-                    roommate = db.findOne("student", db.findOne("room", numbers, 0), 9);
-                    roommateid = roommate.replace(roommate.find("m"), 1, "s");
-                    cout << " was applied by "<< db.findOne("student", db.findOne("room", numbers, 0), 1)
-                        << "," << db.findOne("student", roommateid, 1) << endl;
-
-                }
-                numbers = "";
-            }
-            else {//20��° �϶� �ٸ� ȣ�ǿ� ���� ������ ���� ����
-                cout << endl;
-                cout << ">> Do you want information on another room? enter 1. to exist is 0: ";
-                cin >> datamore;
-                cout << endl;
-                if (datamore == 1) {
-                    datamore = 0;
-                }
-                else {
-                    return;
-                }
-            }
-
         }
-        cout << endl;
-        if (number == 0) { // 00~10ȣ ���� Ȯ�� �� �� �����ΰ�
-            cout << ">> If you want more data enter 1. to exit 0: ";
+        cout << ">> Room number " << db.findOne("room", numbers, 1);
+        if (db.findOne("room", numbers, 2) == "true") { //방이 비어있다면.
+            cout << " is empty!" << endl;
+        }
+        else if (db.findOne("room", numbers, 2) == "false") { //방이 비어있지 않으면
+            roommate = db.findOne("student", db.findOne("room", numbers, 0), 9);
+            roommateid = roommate.replace(roommate.find("m"), 1, "s");
+            cout << " was applied by " << db.findOne("student", db.findOne("room", numbers, 0), 1)
+                << "," << db.findOne("student", roommateid, 1) << endl;
+        }
+        numbers = "";
+
+
+        count++;
+        if (count % 10 == 0) { //10개 단위로 끊어서 더 볼것인가
+            cout << ">> if you want more data enter 1. to exist is 0: ";
             cin >> datamore;
             cout << endl;
             if (datamore == 0) {
                 cout << "thank you." << endl;
                 return;
             }
-            number += 1;
         }
-        else {
-            number = 0;
-        }
-        //���� �������� student�� �ִ����� ��Ī�ؼ� Ȯ��
-        //��µǴ°� g219
-        //if (db.findOne("room", "g217", 2) == "true") {
-        //    cout << "No one lives in " << "g217" << endl;
-        //}
-        //else {
-        //    cout << "20225100" << " and " << "20225200" << "live in " << "g200" << endl;
-        //}
-        
+
+
     }
+
+    return;
 }
 /*
 ���л��� Ư�� ȸ�������� ���� ������� ������ �̸� �����ͺ��̽��� �Է��ϴ� �Լ�
@@ -396,17 +388,22 @@ void Admin::matchRoommates(DataBase db)
     return;
 }
 /*
-����� ��ü�� ������� �ʱ�ȭ ���ִ� �Լ�
+기숙사 전체를 비워버려 초기화 해주는 함수
 */
-void Admin::cleanRoom(DataBase db) //�� room�� 2��° ���� �� true�� �ʱ�ȭ +student�� ��û ������ ��������
+void Admin::cleanRoom(DataBase db) //걍 room의 2번째 열을 다 true롤 초기화 +student의 신청 정보도 지워야함
 {
     int i = 11;
-    while (db.findOne("student", to_string(i)+"r", 0) != "") {
+    cout << to_string(i)+"r"<<endl;
+    while (db.findOne("student", to_string(i)+"r", 0) != "404 Not Founded : out of range") {
         string s = to_string(i) + "r";
-        if (db.findOne("room", s, 2) == "false") { //�濡 ���� �������
-            db.update("room", s, "true", 2); //���� ����
-            db.update("student", s, "", 8); //�л����� �濡 ���� ������ ����
-            db.update("student", s, "", 8);
+        if (db.findOne("room", s, 2) == "false") { //방에 누가 있을경우
+            db.update("room", s, "true", 2); //방을 비우고
+            string ss = db.findOne("student", s, 0);
+            db.update("student", ss, "", 8); //학생들의 방에 대한 정보도 비운다
+            string rs = db.findOne("student", s, 9);
+            cout << rs <<endl;
+            rs.replace(rs.find("m"), 1, "s");
+            db.update("student", rs, "", 8);
         }
         i++;
 
@@ -488,6 +485,7 @@ void Admin::checkStudents(DataBase db) //checkroom���� �л��� �
 
     }
     else {
+        cout <<"** Quiting chekcing students"<<endl;
         return;
     }
     return;
@@ -502,3 +500,4 @@ void Admin::releaseRoommate(DataBase db) {return;}
 bool Admin::isInfo() { return false; }
 string Admin::getsurveyId() {return ""; }
 string Admin::getUserName() { return ""; }
+void Admin::releaseRoom(DataBase db) {return ;}

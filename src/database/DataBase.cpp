@@ -220,7 +220,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
     }
     catch(const NotFoundedException& e)
     {
-        std::cout << "404 Not Founded" << std::endl;
+        //std::cout << "404 Not Founded" << std::endl;
     }
     catch(const std::exception& e)
     {
@@ -316,7 +316,7 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
                         newData.pop_back();
                         fout << newData << "\n";  // �����
                         updated = true;
-                        std::cout << "out" <<std::endl;
+                        //std::cout << "out" <<std::endl;
                     }
                     else
                     {
@@ -331,7 +331,6 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
 
                 if (updated)
                 {
-
                     std::remove(directory.c_str());
                     std::rename("temp.txt", directory.c_str());
                 }
@@ -344,7 +343,7 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
         }
         catch(const NotFoundedException& e)
         {
-            std::cout << "404 Not Founded" << std::endl;
+            //std::cout << "404 Not Founded" << std::endl;
         }
         catch(const std::exception& e)
         {
@@ -487,7 +486,7 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
 	}
 	catch(const NotFoundedDataBaseException& e)
 	{
-		cout << "404 Not Founded" <<endl;
+		//cout << "404 Not Founded" <<endl;
 	}
 
     return make_unique<Student>("",0,"","","","","",'a',"", "");
