@@ -14,6 +14,6 @@
 15s,20225123,Seiunsky,seiunsky,seiunsky,,Female,user,,,15su
 16s,20221234,Special,Week,week,,Male,user,,,16su
 17s,20222022,Rice,Rice,Shower,,Female,user,,,17su
-18s,20222023,Mayano,Mayano,Topgun,,Male,user,,19m,18su
-19s,20222024,Narita,Narita,Brain,,Male,user,,18m,19su
+18s,20222023,Mayano,Mayano,Topgun,,Male,user,11r,19m,18su
+19s,20222024,Narita,Narita,Brain,,Male,user,11r,18m,19su
 20s,20225159,Silence,Silence,Suzuka,,Male,user,,,20su

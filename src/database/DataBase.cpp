@@ -481,8 +481,7 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
 }
 
 
-
-void DataBase::insertSurvey(vector<std::string> data,string surveyID)
+void DataBase::insertSurvey(vector<std::string> data)
 {
     std::ofstream outFile;
     std::string load = "DB/survey.txt";
@@ -492,8 +491,15 @@ void DataBase::insertSurvey(vector<std::string> data,string surveyID)
         std::cout << "Failed to open the student file." << std::endl;
         return;
     }
-    
-    std::string add = ","+surveyID;
+    std::string val = roadLatestData("survey");
+    int latePk = stoi(val.substr(0, val.size() - 1));
+    if(latePk != 0)
+    {
+        count_survey = latePk;
+    }
+    count_survey++;
+    std::string index = "su,";
+    std::string add = to_string(count_survey) + index;
     std::string result = std::accumulate(data.begin(), data.end(), std::string());
     
     // Remove the trailing comma
@@ -501,21 +507,14 @@ void DataBase::insertSurvey(vector<std::string> data,string surveyID)
     {
         result.pop_back();
     }
+
+    
     // Add a newline character
     result += '\n';
     add += result;
-    if (findOne("survey",surveyID,0) == "404 Not Founded : out of range")
-    {
-        outFile << add;
-    }
-    else
-    {
-        //delete()
-        return;
-    }
+    outFile << add;
     // Close the file
     outFile.close();
-    return;
 }
 vector<vector<string>> DataBase::readSurvey()
 {
