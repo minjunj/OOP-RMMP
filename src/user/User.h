@@ -45,14 +45,13 @@ public:
     virtual void addDelRoom(DataBase db)=0;
     virtual void matchRoommates(DataBase db)=0;
     virtual void cleanRoom(DataBase db)=0;
-    virtual void logout()=0;
-	
+	virtual void releaseRoommate(DataBase db)=0;
 	virtual void printInfo()=0;
 
 	virtual bool isInfo()=0;
 	virtual void checkRoom(DataBase db)=0;
 	virtual void checkStudents(DataBase db)=0;
-
+	virtual string getsurveyId()=0;
 
 	virtual string getUserName()=0;
 };

@@ -7,7 +7,8 @@ using namespace std;
 
 User::User(string ID="", string PW="", string Name="")
 {
-	cout << "User Constructed" << endl;
+	//cout << "User Constructed" << endl;
+	cout << endl;
 	setuserID(ID);
 	setuserPW(PW);
 	setuserName(Name);

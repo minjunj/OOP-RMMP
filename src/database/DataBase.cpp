@@ -102,10 +102,12 @@ std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std
     
     std::vector<std::unique_ptr<Student>> studentData;
     std::string s = "s";
+    std::string su = "su";
     std::string studentId = std::to_string(count_student) + s;
-    studentData.push_back(std::make_unique<Student>(studentId, code, name, id, pw, class_, room, gender, mateID, surveyId));
+    studentData.push_back(std::make_unique<Student>(studentId, code, name, id, pw, class_, room, gender, mateID, std::to_string(count_student)+su));
     return studentData;
 }
+
 
 std::vector<std::unique_ptr<Admin>> DataBase::admin_JSON(const std::string& name, const std::string& id, const std::string& pw)
 {
@@ -250,12 +252,12 @@ std::string DataBase::findAll(const std::string type, std::string val)
         }
 
         fin.close();
-
+        
         for (const auto& line : lines)
         {
             std::cout << line << std::endl;
         }
-
+        
         return line;
     }
     catch(const std::exception& e)
@@ -273,7 +275,7 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
         std::string directory = findDB(type);
         std::ifstream fin(directory);
         std::ofstream fout("temp.txt");  // �Ͻ������
-        std::cout << directory << std::endl;
+        //std::cout << directory << std::endl;
 
         try
         {
@@ -428,7 +430,7 @@ vector<string> DataBase::getLineFromId(const string userType, const string userI
             while (getline(iss, str_buf, separator))
             {
                 lines.push_back(str_buf);
-                std::cout << str_buf << std::endl;
+                //std::cout << str_buf << std::endl;
             }
             if(lines.at(3) == userId && userType == "student")
             {
@@ -547,4 +549,3 @@ void DataBase::addingStudent(int code, string name, string id, string pw, string
     return;
 }
     
-

@@ -51,13 +51,13 @@ public:
     void findRoommate(DataBase db) ;
     void registerRoom(DataBase db) ;
     void insertInfo(DataBase db) ;
-    void logout() ;
+    void releaseRoommate(DataBase db) ;
     bool isInfo() ;
 
     string getUserName();
     void checkRoom(DataBase db) ;
 
-
+    string getsurveyId();
 
     void addDelStudents(DataBase db);
     void addDelRoom(DataBase db);
