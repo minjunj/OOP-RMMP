@@ -192,6 +192,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
                 std::stringstream result(line);
                 while (getline(result, word, ','))
                 words.push_back(word);
+                break;
             }
             
         }
@@ -243,6 +244,7 @@ std::string DataBase::findAll(const std::string type, std::string val)
             if(line.find(val) != std::string::npos)
             {
                 lines.push_back(line);
+                break;
             }
         }
 
