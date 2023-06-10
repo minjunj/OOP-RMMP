@@ -17,3 +17,5 @@
 18s,20222023,Mayano,Mayano,Topgun,,Male,user,11r,19m,18su
 19s,20222024,Narita,Narita,Brain,,Male,user,11r,18m,19su
 20s,20225159,Silence,Silence,Suzuka,,Male,user,,,20su
+21s,0,NULL,NULL,NULL,NULL,Male,user,NULL,NULL,21su
+22s,0,NULL,NULL,NULL,NULL,Male,user,NULL,NULL,NULL

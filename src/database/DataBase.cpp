@@ -102,9 +102,8 @@ std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std
     
     std::vector<std::unique_ptr<Student>> studentData;
     std::string s = "s";
-    std::string su = "su";
     std::string studentId = std::to_string(count_student) + s;
-    studentData.push_back(std::make_unique<Student>(studentId, code, name, id, pw, class_, room, gender, mateID, std::to_string(count_student)+su));
+    studentData.push_back(std::make_unique<Student>(studentId, code, name, id, pw, class_, room, gender, mateID, surveyId));
     return studentData;
 }
 
