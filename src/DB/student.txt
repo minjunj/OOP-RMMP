@@ -11,10 +11,9 @@
 11s,20225167,Rabo,Rabo,Rabo,,Male,user,,,11su
 12s,20225168,Rabo,Rabo1,Rabo2,,Female,user,,,12su
 13s,20225100,Seiun,Seiun,Seiun,,Female,user,,,13su
-
 15s,20225123,Seiunsky,seiunsky,seiunsky,,Female,user,,,15su
 16s,20221234,Special,Week,week,,Male,user,,,16su
 17s,20222022,Rice,Rice,Shower,,Female,user,,,17su
-18s,20222023,Mayano,Mayano,Topgun,,Male,user,,,18su
-19s,20222024,Narita,Narita,Brain,,Male,user,,,19su
+18s,20222023,Mayano,Mayano,Topgun,,Male,user,,19m,18su
+19s,20222024,Narita,Narita,Brain,,Male,user,,18m,19su
 20s,20225159,Silence,Silence,Suzuka,,Male,user,,,20su
