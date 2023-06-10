@@ -348,9 +348,10 @@ void Student::checkRoom(DataBase db) //방 상태 확인하기 방 번호와 상태 출력
     int number=0;
     string zone;
     int floor;
+    int count = 0;
 
     while (true) {
-        if (datamore == 0) {
+        if (count == 0) {
             cout << "Which zone do you want to see first.(g, i, s, t): "; //어느 구역인지
             cin >> zone;
             cout << "Which floor do you want to see(2~6): "; //몇층인지
@@ -358,46 +359,40 @@ void Student::checkRoom(DataBase db) //방 상태 확인하기 방 번호와 상태 출력
             cout << "check Room Data" << endl;
             cout << endl;
         }
-
-        for (int i = 0; i < 10; i++) {//10개씩 끊어서 출력.
-            numbers = zone+to_string(floor*100+i+1+10*datamore);
-            if (i + 1 + 10*datamore != 20) { //19호까지 출력
-                cout << "Room number " << db.findOne("room", numbers, 1);
-                if (db.findOne("room", numbers, 2) == "true") { //방이 비어있다면.
-                    cout << " is empty!" << endl;
-                }
-                else if (db.findOne("room", numbers, 2) == "false") { //방이 비어있지 않으면
-                    cout << " was applied." << endl;
-                }
-                numbers = "";
+        numbers = zone + to_string(floor * 100 +count);
+        if (db.findOne("room", numbers, 1) != numbers) {
+            cout << "no more room in here." << endl;
+            cout << endl;
+            cout << "Do you want information on another room? enter 1. to exist is 0: ";
+            cin >> datamore;
+            if (datamore == 1) {
+                count = 0;
+                continue;
             }
-            else {//20번째 일때 다른 호실에 대한 정보를 볼지 물음
-                cout << endl;
-                cout << "Do you want information on another room? enter 1. to exist is 0: ";
-                cin >> datamore;
-                if (datamore == 1) {
-                    datamore = 0;
-                }
-                else {
-                    return;
-                }
+            else {
+                return;
             }
-            
         }
-        cout << endl;
-        if (number == 0) { // 00~10호 까지 확인 후 더 볼것인가
+        cout << "Room number " << db.findOne("room", numbers, 1);
+        if (db.findOne("room", numbers, 2) == "true") { //방이 비어있다면.
+            cout << " is empty!" << endl;
+        }
+        else if (db.findOne("room", numbers, 2) == "false") { //방이 비어있지 않으면
+            cout << " was applied." << endl;
+        }
+        numbers = "";
+
+
+        count++;
+        if (count % 10 == 0) { //10개 단위로 끊어서 더 볼것인가
             cout << "if you want more data enter 1. to exist is 0: ";
             cin >> datamore;
+            cout << endl;
             if (datamore == 0) {
                 cout << "thank you." << endl;
                 return;
             }
-            number += 1;
         }
-        else {
-            number = 0;
-        }
-
 
 
     }
