@@ -50,7 +50,7 @@ public:
 
 
 
-
+    void releaseRoom(DataBase db) ;
     void releaseRoommate(DataBase db) ;
 	void registerRoommate(DataBase db);
     void findRoommate(DataBase db);

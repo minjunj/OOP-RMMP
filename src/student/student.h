@@ -53,7 +53,7 @@ public:
     void insertInfo(DataBase db) ;
     void releaseRoommate(DataBase db) ;
     bool isInfo() ;
-
+    void releaseRoom(DataBase db) ;
     string getUserName();
     void checkRoom(DataBase db) ;
 
