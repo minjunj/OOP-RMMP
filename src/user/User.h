@@ -55,6 +55,11 @@ public:
 	virtual string getsurveyId()=0;
 
 	virtual string getUserName()=0;
+
+
+	virtual void print() const {
+    // Default implementation or pure virtual, depending on your design
+	}
 };
 
 #endif

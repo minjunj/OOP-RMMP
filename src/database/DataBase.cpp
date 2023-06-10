@@ -6,6 +6,9 @@
 #include <typeinfo>
 #include <memory>
 #include <numeric>
+
+#include <algorithm>
+#include <sstream>
 int count_room = 0;
 int count_student = 0;
 int count_survey = 0;
@@ -102,9 +105,8 @@ std::vector<std::unique_ptr<Student>> DataBase::student_JSON(int code, const std
     
     std::vector<std::unique_ptr<Student>> studentData;
     std::string s = "s";
-    std::string su = "su";
     std::string studentId = std::to_string(count_student) + s;
-    studentData.push_back(std::make_unique<Student>(studentId, code, name, id, pw, class_, room, gender, mateID, std::to_string(count_student)+su));
+    studentData.push_back(std::make_unique<Student>(studentId, code, name, id, pw, class_, room, gender, mateID, surveyId));
     return studentData;
 }
 
@@ -192,6 +194,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
                 std::stringstream result(line);
                 while (getline(result, word, ','))
                 words.push_back(word);
+                break;
             }
             
         }
@@ -243,6 +246,7 @@ std::string DataBase::findAll(const std::string type, std::string val)
             if(line.find(val) != std::string::npos)
             {
                 lines.push_back(line);
+                break;
             }
         }
 
@@ -431,8 +435,14 @@ vector<string> DataBase::getLineFromId(const string userType, const string userI
                 lines.push_back(str_buf);
                 //std::cout << str_buf << std::endl;
             }
+            int ca = 0;
             if(lines.at(3) == userId && userType == "student")
             {
+                std::cout << "ingetlineformid \n" << std::endl;
+                for (const auto& str : lines) {
+                    std::cout << ca << " : "<< str << std::endl;
+                    ca++;
+                }
                 return lines;
             }
             if(lines.at(1) == userId && userType == "admin")
@@ -449,6 +459,7 @@ vector<string> DataBase::getLineFromId(const string userType, const string userI
 }
 
 
+
 unique_ptr<User> DataBase::getUser(const string userType, const string userId, const string userPw)
 {
     
@@ -463,7 +474,9 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
 			}
 			else if (userType == "student")
 			{
-                return make_unique<Student>(userInfo.at(0),stoi(userInfo.at(1)),userInfo.at(2), userInfo.at(3), userInfo.at(4), userInfo.at(5), userInfo.at(6),userInfo.at(7)[0],userInfo.at(8),userInfo.at(9));
+                bool setGern = true;
+                if(userInfo.at(6) != "Male") { setGern = false;}
+                return make_unique<Student>(userInfo.at(0),stoi(userInfo.at(1)),userInfo.at(2), userInfo.at(3), userInfo.at(4), userInfo.at(5),userInfo.at(8), setGern, userInfo.at(8),userInfo.at(10));
 			}
 		}
 		else

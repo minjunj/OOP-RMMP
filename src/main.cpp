@@ -136,7 +136,7 @@ unique_ptr<User> Login(DataBase db, string userType)
         cin >> userId;
         cout << ">> Enter the User Password : ";
         cin >> userPw;
-        if (userId =="0") return;
+        
         if (db.findUser(userType, userId, userPw))
         {
             return db.getUser(userType, userId, userPw);
@@ -149,8 +149,6 @@ unique_ptr<User> Login(DataBase db, string userType)
 }
 void studentMenu(unique_ptr<User>& student, DataBase db)
 {
-    cout << student->getsurveyId() <<endl;
-    cout << student->getFormattedData()<<endl;
 
     cout <<db.findOne("survey",student->getsurveyId() , 0) <<endl;
     if (db.findOne("survey",student->getsurveyId() , 0) != "404 Not Founded : out of range")
