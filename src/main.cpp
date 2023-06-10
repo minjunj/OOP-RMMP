@@ -149,8 +149,6 @@ unique_ptr<User> Login(DataBase db, string userType)
 }
 void studentMenu(unique_ptr<User>& student, DataBase db)
 {
-    cout << student->getsurveyId() <<endl;
-    student->print();
 
     cout <<db.findOne("survey",student->getsurveyId() , 0) <<endl;
     if (db.findOne("survey",student->getsurveyId() , 0) != "404 Not Founded : out of range")
