@@ -30,31 +30,33 @@ public:
 	void changePW();
 	void testfunc();
 	/*
-	ì´ í•¨ìˆ˜ëŠ” userType("student", "admin"), userId, userPwë¥¼ ë°›ì•„ ë°ì´í„° ë² ì´ìŠ¤ì— íŠ¹ì • ì •ë³´ë¥¼ ê°€ì§€ê³  ìˆëŠ”
-	ìœ ì €ê°€ ìˆëŠ”ì§€ í™•ì¸í•´ì„œ True, Falseë¥¼ ë¦¬í„´í•˜ëŠ” í•¨ìˆ˜ë‹¤.
+	?´ ?•¨?ˆ˜?Š” userType("student", "admin"), userId, userPwë¥? ë°›ì•„ ?°?´?„° ë² ì´?Š¤?— ?Š¹? • ? •ë³´ë?? ê°?ì§?ê³? ?ˆ?Š”
+	?œ ???ê°? ?ˆ?Š”ì§? ?™•?¸?•´?„œ True, Falseë¥? ë¦¬í„´?•˜?Š” ?•¨?ˆ˜?‹¤.
 	*/
 
 	virtual string getFormattedData() const =0;
 
-	virtual void registerRoommate(DataBase db)=0;
-    virtual void findRoommate(DataBase db)=0;
-    virtual void registerRoom(DataBase db)=0;
-    virtual void insertInfo(DataBase db)=0;
+	virtual void registerRoommate(DataBase db) = 0;
+	virtual void findRoommate(DataBase db) = 0;
+	virtual void releaseRoommate(DataBase db) = 0;
+	virtual void registerRoom(DataBase db) = 0;
+	virtual void releaseRoom(DataBase db) = 0;
+	virtual void insertInfo(DataBase db) = 0;
 
-    virtual void addDelStudents(DataBase db)=0;
-    virtual void addDelRoom(DataBase db)=0;
-    virtual void matchRoommates(DataBase db)=0;
-    virtual void cleanRoom(DataBase db)=0;
-    virtual void logout()=0;
-	
-	virtual void printInfo()=0;
+	virtual void addDelStudents(DataBase db) = 0;
+	virtual void addDelRoom(DataBase db) = 0;
+	virtual void matchRoommates(DataBase db) = 0;
+	virtual void cleanRoom(DataBase db) = 0;
+	virtual void logout() = 0;
 
-	virtual bool isInfo()=0;
-	virtual void checkRoom(DataBase db)=0;
-	virtual void checkStudents(DataBase db)=0;
+	virtual void printInfo() = 0;
+
+	virtual bool isInfo() = 0;
+	virtual void checkRoom(DataBase db) = 0;
+	virtual void checkStudents(DataBase db) = 0;
 
 
-	virtual string getUserName()=0;
+	virtual string getUserName() = 0;
 };
 
 #endif

@@ -84,11 +84,13 @@ void studentMenuTemplate1()
     cout << "|                                          |" << endl;
     cout << "|            1. Register Roommate          |" << endl;
     cout << "|            2. Find Roommate              |" << endl;
-    cout << "|            3. Check Rooms                |" << endl;
-    cout << "|            4. Register Room              |" << endl;
-    cout << "|            5. Check Info                 |" << endl;
-    cout << "|            6. Change Info                |" << endl;
-    cout << "|            7. Logout                     |" << endl;
+    cout << "|            3. Release Roommate           |" << endl;
+    cout << "|            4. Check Rooms                |" << endl;
+    cout << "|            5. Register Room              |" << endl;
+    cout << "|            6. Release Room               |" << endl;
+    cout << "|            7. Check Info                 |" << endl;
+    cout << "|            8. Change Info                |" << endl;
+    cout << "|            9. Logout                     |" << endl;
     cout << "|                                          |" << endl;
     cout << "|                                          |" << endl;
     cout << "|                                          |" << endl;
@@ -167,18 +169,24 @@ void studentMenu(unique_ptr<User>& student, DataBase db)
                 student->findRoommate(db);
                 break;
             case 3:
-                student->checkRoom(db); // DataBase에서 새로 들어줘야할 함수, 현재 기숙사의 전체적인 현황(비어있는지, 방에 몇명 있는지 등) 한 눈에 볼 수 있는 함수가 필요
+                student->releaseRoommate(db);
                 break;
             case 4:
-                student->registerRoom(db);
+                student->checkRoom(db); // DataBase에서 새로 들어줘야할 함수, 현재 기숙사의 전체적인 현황(비어있는지, 방에 몇명 있는지 등) 한 눈에 볼 수 있는 함수가 필요
                 break;
             case 5:
-                cout << student->getFormattedData() << endl;
+                student->registerRoom(db);
                 break;
             case 6:
-                student->insertInfo(db);
+                student->releaseRoom(db);
                 break;
             case 7:
+                cout << student->getFormattedData() << endl;
+                break;
+            case 8:
+                student->insertInfo(db);
+                break;
+            case 9:
                 cout << "Logging out" << student->getUserName() << endl;
                 student->logout();
                 return;

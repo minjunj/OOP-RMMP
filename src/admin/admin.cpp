@@ -6,7 +6,7 @@
 #include <memory>
 #include<algorithm>
 #include "admin.h"
-#include "room.h"
+#include "./room/room.h"
 
 using namespace std;
 
@@ -52,7 +52,7 @@ void Admin::checkRoom(DataBase db) //아직 안돌려봄 checkroom,student 마찬가지
 
         for (int i = 0; i < 10; i++) {//10개씩 끊어서 출력.
             numbers = zone + to_string(floor * 100 + i + 1 + 10 * datamore);
-            if (db.findOne("room", numbers, 1) == "") {
+            if (db.findOne("room", numbers, 1) == "404 Not Founded : out of range") {
                 cout << "Invalid information entered." << endl;
                 return;
             }
@@ -177,25 +177,27 @@ void Admin::addDelStudents(DataBase db)
             cout <<"student info: " << db.findAll("student", studentcode) << endl;;
             cout << "Are you sure you want to erase the student's information above? (Y/N): ";
             cin >> check;
+            string studentid= db.findOne("student", studentcode, 0);
             if (check == "y" || check == "Y") {
-                //지우는 과정. 업데이트로 다 null처리
-                for (int i = 0; i < 10; i++) {
-                    if (db.findOne("student", studentcode, 9) != "")//만약 룸메이트가 있다면
+
+                if (db.findOne("student", studentcode, 9) != "404 Not Founded : out of range")//만약 룸메이트가 있다면
+                {
+                    string mateid = db.findOne("student", studentcode, 9);
+                    string mateid2 = mateid.replace(mateid.find("m"), 1, "s");
+
+                    db.update("student", mateid, ",", 9);//공란으로 만든다.
+                    if (db.findOne("student", studentcode, 8) != "404 Not Founded : out of range")//방을 신청했다면
                     {
-                        string mateid = db.findOne("student", studentcode, 9);
-                        mateid=mateid.replace(mateid.find("m"), 1, "s");
-                        db.update("student",mateid,"",9);//공란으로 만든다.
-                        if (db.findOne("student", studentcode, 8) != "")//방을 신청했다면
-                        {
-                            db.update("student", studentcode, "", 8);//정보를 초기화시킨다.
-                            db.update("student", mateid, "", 8);
-                            db.update("room", db.findOne("student", studentcode, 8), "true", 2);
-                        }
+                        db.update("student", mateid, "", 8);
+                        db.update("room", db.findOne("student", studentcode, 8), "true", 2);
                     }
-                    db.update("student", studentcode, "", i);//원래 있던값에 을 넣는다.
-
-
                 }
+                db.Delete("student", studentid);
+
+                //for (int i = 0; i < 11; i++) {
+                //    //cout << db.findOne("student", surveyid, i)<<endl;
+                //    db.update("student", studentid, "", 10-i);//원래 있던값에 을 넣는다.
+                //}
                 cout << "The student's information has been cleared." << endl;
             }
             else {
@@ -261,10 +263,9 @@ void Admin::addDelRoom(DataBase db)
                 cout << "Do you want to erase " << roomnumber << "? (Y/N)"; //그 방의 정보를 정말로 지울것인가?
                 string check;
                 cin >> check;
+                string roomid = db.findOne("room", roomnumber, 0);
                 if (check == "Y" || check == "y") {
-                    for (int i = 0; i < 4; i++) {
-                        db.update("room", roomnumber, "", i);//원래 있던값에 공백을 넣는다.
-                    }
+                    db.Delete("room", roomid);
                     cout << "Room's information has been cleared about" <<roomnumber<< endl;
                 }
                 else {
@@ -334,6 +335,11 @@ void Admin::matchRoommates(DataBase db)
             string roommateid = db.findOne("student", roommate[0], 0);
             string studentid9= studentid.replace(studentid.find("s"), 1, "m");
             string roommateid9 = roommateid.replace(roommateid.find("s"), 1, "m");
+            studentid.replace(studentid.find("m"), 1, "s");
+            roommateid.replace(roommateid.find("m"), 1, "s");
+            
+            //cout << studentid << roommateid << studentid9 << roommateid9 << endl;
+
             db.update("student", studentid, roommateid9, 9); //db에 룸메이트의 룸메이트 업데이트
             db.update("student", roommateid, studentid9, 9); //db에 신청자 룸메이트 업데이트
             
@@ -342,11 +348,11 @@ void Admin::matchRoommates(DataBase db)
             int room = 11;
             string roomid = to_string(room) + "r";
             //비어있는 방을 아무거나 찾아서 넣어준다.
-            while (db.findOne("room", roomid, 0) != roomid) {//비어있는 방을 찾는다.
+            while (db.findOne("room", roomid, 2) !="true") {//비어있는 방을 찾는다.
                 room += 1;
                 roomid = to_string(room) + "r";
             }
-            cout << roomid << endl;
+            //cout << roomid << endl;
             db.update("room", db.findOne("room", roomid, 0), "false", 2); // 신청 방의 isEmpty를 false로 바꾼다
             db.update("student", db.findOne("student", studentid, 0), db.findOne("room", roomid, 0), 8); // 신청 학생의 기숙사 방을 바꾼다
             db.update("student", db.findOne("student", roommateid, 0), db.findOne("room", roomid, 0), 8); // 신청 학생의 룸메의 기숙사 방을 바꾼다.
@@ -380,12 +386,15 @@ void Admin::matchRoommates(DataBase db)
 void Admin::cleanRoom(DataBase db) //걍 room의 2번째 열을 다 true롤 초기화 +student의 신청 정보도 지워야함
 {
     int i = 11;
-    while (db.findOne("student", to_string(i)+"r", 0) != "") {
+    while (db.findOne("student", to_string(i)+"r", 0) != "404 Not Founded : out of range") {
         string s = to_string(i) + "r";
         if (db.findOne("room", s, 2) == "false") { //방에 누가 있을경우
             db.update("room", s, "true", 2); //방을 비우고
-            db.update("student", s, "", 8); //학생들의 방에 대한 정보도 비운다
-            db.update("student", s, "", 8);
+            string ss = db.findOne("student", s, 0);
+            db.update("student", ss, "", 8); //학생들의 방에 대한 정보도 비운다
+            string rs = db.findOne("student", s, 9);
+            rs.replace(rs.find("m"), 1, "s");
+            db.update("student", rs, "", 8);
         }
         i++;
 
@@ -415,7 +424,7 @@ void Admin::checkStudents(DataBase db) //checkroom같이 학생들 정보 출력
     if (choose == "1") {
         int i = 1;
         string check;
-        while (db.findOne("student", to_string(i) + "su", 2) != "") {
+        while (db.findOne("student", to_string(i) + "su", 2) != "404 Not Founded : out of range") {
             cout << "student" << db.findAll("student", to_string(i) + "su")<<endl;
             if (i % 5 == 0) {
                 cout << "Would you like to see more information? (Y/N) :";
@@ -441,18 +450,18 @@ void Admin::checkStudents(DataBase db) //checkroom같이 학생들 정보 출력
         cout << "Please enter the student's code: ";
         cin >> int_studentcode;
         string studentcode = to_string(int_studentcode);
-        if (db.findOne("student", studentcode, 0) == "") {
+        if (db.findOne("student", studentcode, 0) == "404 Not Founded : out of range") {
             cout << "This is a student who is not registered as a member." << endl;
             return;
         }
         cout << db.findAll("student", studentcode);
-        if (db.findOne("student", studentcode, 9) != "")//만약 룸메이트가 있다면
+        if (db.findOne("student", studentcode, 9) != "404 Not Founded : out of range")//만약 룸메이트가 있다면
         {
             string mateid = db.findOne("student", studentcode, 9);
             mateid = mateid.replace(mateid.find("m"), 1, "s");
             cout << "student has roommate."<<endl;
             cout << "roommate's code is " << db.findOne("student", mateid, 1)<<"."<<endl;
-            if (db.findOne("student", studentcode, 8) != "")//방을 신청했다면
+            if (db.findOne("student", studentcode, 8) != "404 Not Founded : out of range")//방을 신청했다면
             {
                 cout << "They applied for a room " 
                     << db.findOne("room", db.findOne("student", studentcode, 8), 1)<<". "<<endl;//방 위치
@@ -476,7 +485,9 @@ void Admin::checkStudents(DataBase db) //checkroom같이 학생들 정보 출력
 
 void Admin::registerRoommate(DataBase db) { return; }
 void Admin::findRoommate(DataBase db) { return; }
+void Admin::releaseRoommate(DataBase db) { return; }
 void Admin::registerRoom(DataBase db) { return; }
+void Admin::releaseRoom(DataBase db) { return; }
 void Admin::insertInfo(DataBase db) { return; }
 void Admin::printInfo() { return; }
 
