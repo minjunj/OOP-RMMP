@@ -23,11 +23,11 @@ std::string Admin::getFormattedData() const {
 }
 
 /*
-í˜„ì¬ ê¸°ìˆ™ì‚¬ ë°©ë“¤ì˜ í˜„í™©ì„ í™•ì¸í•  ìˆ˜ ìˆë‹¤
-í•™ìƒë“¤ë³´ë‹¤ ë” ìì„¸í•œ ì •ë³´ë“¤ì„ ë³¼ ìˆ˜ ìˆë‹¤
-íŠ¹ì • ë°©ì— ëˆ„ê°€ ì‚´ê³  ìˆëŠ”ì§€ ë“±
+?˜„?¬ ê¸°ìˆ™?‚¬ ë°©ë“¤?˜ ?˜„?™©?„ ?™•?¸?•  ?ˆ˜ ?ˆ?‹¤
+?•™?ƒ?“¤ë³´ë‹¤ ?” ??„¸?•œ ? •ë³´ë“¤?„ ë³? ?ˆ˜ ?ˆ?‹¤
+?Š¹? • ë°©ì— ?ˆ„ê°? ?‚´ê³? ?ˆ?Š”ì§? ?“±
 */
-void Admin::checkRoom(DataBase db) //ì•„ì§ ì•ˆëŒë ¤ë´„ checkroom,student ë§ˆì°¬ê°€ì§€
+void Admin::checkRoom(DataBase db) //?•„ì§? ?•ˆ?Œ? ¤ë´? checkroom,student ë§ˆì°¬ê°?ì§?
 {
     int datamore = 0;
     string numbers;
@@ -40,15 +40,15 @@ void Admin::checkRoom(DataBase db) //ì•„ì§ ì•ˆëŒë ¤ë´„ checkroom,student ë§ˆì°
 
     while (true) {
         if (count == 0) {
-            cout << ">> Which zone do you want to see first.(g, i, s, t): "; //ì–´ëŠ êµ¬ì—­ì¸ì§€
+            cout << ">> Which zone do you want to see first.(g, i, s, t): "; //?–´?Š êµ¬ì—­?¸ì§?
             cin >> zone;
-            cout << ">> Which floor do you want to see(2~6): "; //ëª‡ì¸µì¸ì§€
+            cout << ">> Which floor do you want to see(2~6): "; //ëª‡ì¸µ?¸ì§?
             cin >> floor;
             while(cin.fail()){
                 cout << "** Wrong input try again"<<endl;
                 cin.clear();
                 cin.ignore(100 ,'\n');
-                cout << ">> Which floor do you want to see(2~6): "; //ëª‡ì¸µì¸ì§€
+                cout << ">> Which floor do you want to see(2~6): "; //ëª‡ì¸µ?¸ì§?
                 cin >> floor;
             }
             cout << ">> check Room Data" << endl;
@@ -69,10 +69,10 @@ void Admin::checkRoom(DataBase db) //ì•„ì§ ì•ˆëŒë ¤ë´„ checkroom,student ë§ˆì°
             }
         }
         cout << ">> Room number " << db.findOne("room", numbers, 1);
-        if (db.findOne("room", numbers, 2) == "true") { //ë°©ì´ ë¹„ì–´ìˆë‹¤ë©´.
+        if (db.findOne("room", numbers, 2) == "true") { //ë°©ì´ ë¹„ì–´?ˆ?‹¤ë©?.
             cout << " is empty!" << endl;
         }
-        else if (db.findOne("room", numbers, 2) == "false") { //ë°©ì´ ë¹„ì–´ìˆì§€ ì•Šìœ¼ë©´
+        else if (db.findOne("room", numbers, 2) == "false") { //ë°©ì´ ë¹„ì–´?ˆì§? ?•Š?œ¼ë©?
             roommate = db.findOne("student", db.findOne("room", numbers, 0), 9);
             roommateid = roommate.replace(roommate.find("m"), 1, "s");
             cout << " was applied by " << db.findOne("student", db.findOne("room", numbers, 0), 1)
@@ -82,7 +82,7 @@ void Admin::checkRoom(DataBase db) //ì•„ì§ ì•ˆëŒë ¤ë´„ checkroom,student ë§ˆì°
 
 
         count++;
-        if (count % 10 == 0) { //10ê°œ ë‹¨ìœ„ë¡œ ëŠì–´ì„œ ë” ë³¼ê²ƒì¸ê°€
+        if (count % 10 == 0) { //10ê°? ?‹¨?œ„ë¡? ?Š?–´?„œ ?” ë³¼ê²ƒ?¸ê°?
             cout << ">> if you want more data enter 1. to exist is 0: ";
             cin >> datamore;
             cout << endl;
@@ -98,7 +98,7 @@ void Admin::checkRoom(DataBase db) //ì•„ì§ ì•ˆëŒë ¤ë´„ checkroom,student ë§ˆì°
     return;
 }
 /*
-ï¿½ï¿½ï¿½Ğ»ï¿½ï¿½ï¿½ Æ¯ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
+ï¿½ï¿½ï¿½Ğ»ï¿½ï¿½ï¿½ Æ¯ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿? ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
 */
 void Admin::addDelStudents(DataBase db)
 {
@@ -169,13 +169,13 @@ void Admin::addDelStudents(DataBase db)
             cout << ">> Are you sure you want to erase the student's information above? (Y/N): ";
             cin >> check;
             if (check == "y" || check == "Y") {
-                //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ nullÃ³ï¿½ï¿½
+                //ï¿½ï¿½ï¿½ï¿½ï¿? ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ nullÃ³ï¿½ï¿½
                 for (int i = 0; i < 10; i++) {
-                    if (db.findOne("student", studentcode, 9) != "404 Not Founded : out of range")//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½
+                    if (db.findOne("student", studentcode, 9) != "404 Not Founded : out of range")//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Æ?ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½
                     {
                         string mateid = db.findOne("student", studentcode, 9);
                         mateid=mateid.replace(mateid.find("m"), 1, "s");
-                        db.update("student",mateid,"",9);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
+                        db.update("student",mateid,"",9);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿?.
                         if (db.findOne("student", studentcode, 8) != "404 Not Founded : out of range")//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ß´Ù¸ï¿½
                         {
                             db.update("student", studentcode, "", 8);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½Å²ï¿½ï¿½.
@@ -193,7 +193,7 @@ void Admin::addDelStudents(DataBase db)
                 return;
             }
             //ï¿½ß°ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
-            //ï¿½Ğ»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            //ï¿½Ğ»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿? ï¿½ï¿½ï¿½ï¿½
             return;
         }
         else
@@ -204,7 +204,7 @@ void Admin::addDelStudents(DataBase db)
     return;
 }
 /*
-ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È²ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½Ô¼ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿? È®ï¿½ï¿½ ï¿½ï¿½ï¿? ï¿½ï¿½ ï¿½ï¿½È²ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿? ï¿½Ã¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½Ô¼ï¿½
 */
 void Admin::addDelRoom(DataBase db)
 {
@@ -215,21 +215,21 @@ void Admin::addDelRoom(DataBase db)
         if (selection == "1") {
             string zone;
             int floor;
-            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½
+            //¸îÃş ¾î´À ±¸¿ª¿¡ Ãß°¡ÇÒ °ÍÀÎ°¡
             cout << ">> Which zone do you want to add first.(g, i, s, t): ";
             cin>> zone;
-            cout << ">> Which floor do you want to add (2~6): "; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            cout << ">> Which floor do you want to add (2~6): "; //¸îÃşÀÎÁö
             cin >> floor;
             int i = 1;
             string roomnumber = zone + to_string(floor * 100 + i);
             while (db.findOne("room", roomnumber, 1) == roomnumber) {
                  roomnumber = zone + to_string(floor * 100 + i);
 
-                if (db.findOne("room", roomnumber, 1) != roomnumber) {//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½
+                if (db.findOne("room", roomnumber, 1) != roomnumber) {//¹æ Á¤º¸°¡ ¾ø´Ù¸é
                     cout << db.findOne("room", roomnumber, 1) << endl;
                     cout << "The addition room is " << roomnumber<<endl;
                     vector<unique_ptr<Room>> roomdata = db.room_JSON(roomnumber, true);
-                    db.insert(roomdata, "room"); // ï¿½ï¿½ï¿½ï¿½ï¿½ß°ï¿½
+                    db.insert(roomdata, "room"); // Á¤º¸Ãß°¡
                     return;
                 }
                 i++;
@@ -239,44 +239,31 @@ void Admin::addDelRoom(DataBase db)
             return;
 
         }
-        else if (selection == "2")
-        {
-            string studentcode;
-            string check;
-            cout << "Enter student information to delete (ex:20225000): ";
-            cin >> studentcode;
-            cout <<"student info: " << db.findAll("student", studentcode) << endl;;
-            cout << "Are you sure you want to erase the student's information above? (Y/N): ";
-            cin >> check;
-            string studentid= db.findOne("student", studentcode, 0);
-            if (check == "y" || check == "Y") {
-
-                if (db.findOne("student", studentcode, 9) != "404 Not Founded : out of range")//ë§Œì•½ ë£¸ë©”ì´íŠ¸ê°€ ìˆë‹¤ë©´
-                {
-                    string mateid = db.findOne("student", studentcode, 9);
-                    mateid = mateid.replace(mateid.find("m"), 1, "s");
-
-                    db.update("student", mateid, "", 9);//ê³µë€ìœ¼ë¡œ ë§Œë“ ë‹¤.
-                    if (db.findOne("student", studentcode, 8) != "404 Not Founded : out of range")//ë°©ì„ ì‹ ì²­í–ˆë‹¤ë©´
-                    {
-                        db.update("student", mateid, "", 8);
-                        db.update("room", db.findOne("student", studentcode, 8), "true", 2);
-                    }
-                }
-                for (int i = 0; i < 11; i++) {
-                    //cout << db.findOne("student", surveyid, i)<<endl;
-                    db.update("student", studentid, "", 10-i);//ì›ë˜ ìˆë˜ê°’ì— ì„ ë„£ëŠ”ë‹¤.
-
-
-                }
-                cout << ">> The student's information has been cleared." << endl;
-            }
-            else {
-                cout << "** Quiting..." << endl;
+        else if (selection == "2") {
+            //¸îÃş ¾îµğ¸¦ ¸ø ¾²°Ô ¸¸µé°ÍÀÎÁö(»èÁ¦ÇÒ°ÍÀÎÁö)
+            string roomnumber;
+            cout << "Which room do you want to delete (ex: g200): ";
+            cin >> roomnumber;
+            if (db.findOne("room", roomnumber, 1) != roomnumber) {
+                cout << "Invalid input." << endl;
                 return;
             }
-            return;
-        }
+            else{
+                cout << "Do you want to erase " << roomnumber << "? (Y/N)"; //±× ¹æÀÇ Á¤º¸¸¦ Á¤¸»·Î Áö¿ï°ÍÀÎ°¡?
+                string check;
+                cin >> check;
+                string roomid = db.findOne("room", roomnumber, 0);
+                if (check == "Y" || check == "y") {
+                    db.Delete("room", roomid);
+                    cout << "Room's information has been cleared about" <<roomnumber<< endl;
+                }
+                else {
+                    cout << "** Quiting..." << endl;
+                    return;
+                }
+                return;
+            }
+        }   
         else if (selection == "0")
         {
             cout << "** Quitting Add/Del students "<< endl;
@@ -293,27 +280,27 @@ void Admin::addDelRoom(DataBase db)
 }
 /*
 /*
-ë£¸ë©”ì´íŠ¸ê°€ ì—†ëŠ” ì‚¬ëŒë“¤ì„ ë£¸ë©”ì´íŠ¸ë¥¼ ë§Œë“¤ì–´ì£¼ê³  ë°©ì— ì§‘ì–´ë„£ì–´ì£¼ëŠ” í•¨ìˆ˜
+ë£¸ë©”?´?Š¸ê°? ?—†?Š” ?‚¬?Œ?“¤?„ ë£¸ë©”?´?Š¸ë¥? ë§Œë“¤?–´ì£¼ê³  ë°©ì— ì§‘ì–´?„£?–´ì£¼ëŠ” ?•¨?ˆ˜
 */
 void Admin::matchRoommates(DataBase db)
 {
     vector<string> main_survey;
-    vector<vector<string>> roommate_survey = db.readSurvey();//surveyì˜ ì •ë³´ë¥¼ ì „ë¶€ ë‹´ì€ ë²¡í„°
+    vector<vector<string>> roommate_survey = db.readSurvey();//survey?˜ ? •ë³´ë?? ? „ë¶? ?‹´??? ë²¡í„°
     vector<vector<string>> matchedRoommates;
     vector<vector<string>> noRoommate;
     vector<string> rmmate;
 
-    //ë£¸ë©”ì´íŠ¸ ë§¤ì¹­ 
+    //ë£¸ë©”?´?Š¸ ë§¤ì¹­ 
     vector<pair<int, vector<string>>> scores;
 
     for (size_t i = 0; i < roommate_survey.size(); i++) {
         int score = 0;
         for (size_t j = 1; j < roommate_survey[i].size(); j++) {
-            score += pow(stoi(roommate_survey[i][j]), 2)*j;//jëŠ” ê°€ì¤‘ì¹˜ ë¬¸í•­ì´ ë’¤ë¡œ ê°ˆìˆ˜ë¡ í˜¸ë¶ˆí˜¸ ê°ˆë¦¬ëŠ”ê²ƒ
+            score += pow(stoi(roommate_survey[i][j]), 2)*j;//j?Š” ê°?ì¤‘ì¹˜ ë¬¸í•­?´ ?’¤ë¡? ê°ˆìˆ˜ë¡? ?˜¸ë¶ˆí˜¸ ê°ˆë¦¬?Š”ê²?
         }
         scores.push_back(make_pair(score, roommate_survey[i]));
     }
-    //ì ìˆ˜ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì •ë ¬ (ì ìˆ˜ëŠ” ê° ë¬¸í•­ë³„ ì œê³±ì˜ í•©ì‚°) ì´ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ë¹„ìŠ·í•œ ì ìˆ˜ëŒ€ê¸°ë¦¬ í¬ì§„
+    //? ?ˆ˜ë¥? ê¸°ì???œ¼ë¡? ? •? ¬ (? ?ˆ˜?Š” ê°? ë¬¸í•­ë³? ? œê³±ì˜ ?•©?‚°) ?´ë¥? ê¸°ì???œ¼ë¡? ë¹„ìŠ·?•œ ? ?ˆ˜???ê¸°ë¦¬ ?¬ì§?
     sort(scores.begin(), scores.end());
     for (const auto& score : scores) {
         matchedRoommates.push_back(score.second);
@@ -324,10 +311,10 @@ void Admin::matchRoommates(DataBase db)
     cout << ">> Matched roommates:" << endl;
     int i = 0;
     int index = 0;
-    bool check = 0; //ë£¸ë©”ì´íŠ¸ ìˆëŠ”ì§€ í™•ì¸ìš© 
-    for (const auto& roommate : matchedRoommates) {//ì •ë ¬ëœ ë°ì´í„° ì¤‘ ë£¸ë©”ì´íŠ¸ ì—†ëŠ” ì‚¬ëŒë§Œ ë”°ë¡œ ì €ì¥
+    bool check = 0; //ë£¸ë©”?´?Š¸ ?ˆ?Š”ì§? ?™•?¸?š© 
+    for (const auto& roommate : matchedRoommates) {//? •? ¬?œ ?°?´?„° ì¤? ë£¸ë©”?´?Š¸ ?—†?Š” ?‚¬?Œë§? ?”°ë¡? ????¥
         if (db.findOne("student",  roommate[0], 8) == "404 Not Founded : out of range"
-            || db.findOne("student", roommate[0], 8) == "") { //ê·¸ ì‚¬ëŒì´ ë£¸ë©”ì´íŠ¸ê°€ ì—†ëŠ” ê²½ìš°ë§Œ ë²¡í„°ì— ë‹´ëŠ”ë‹¤.
+            || db.findOne("student", roommate[0], 8) == "") { //ê·? ?‚¬?Œ?´ ë£¸ë©”?´?Š¸ê°? ?—†?Š” ê²½ìš°ë§? ë²¡í„°?— ?‹´?Š”?‹¤.
             noRoommate.push_back(roommate);
         }
         //for (const auto& answer : roommate) {
@@ -336,7 +323,7 @@ void Admin::matchRoommates(DataBase db)
         //cout << endl;
 
     }
-    for (const auto& roommate : noRoommate) {//ì •ë ¬ëœ ë°ì´í„° ì¤‘ ë£¸ë©”ì´íŠ¸ ì—†ëŠ” ì‚¬ëŒë§Œ ë”°ë¡œ ì €ì¥
+    for (const auto& roommate : noRoommate) {//? •? ¬?œ ?°?´?„° ì¤? ë£¸ë©”?´?Š¸ ?—†?Š” ?‚¬?Œë§? ?”°ë¡? ????¥
         if (i == 0) {
             rmmate = roommate;
             i = 1;
@@ -353,25 +340,25 @@ void Admin::matchRoommates(DataBase db)
             
             //cout << studentid << roommateid << studentid9 << roommateid9 << endl;
 
-            db.update("student", studentid, roommateid9, 9); //dbì— ë£¸ë©”ì´íŠ¸ì˜ ë£¸ë©”ì´íŠ¸ ì—…ë°ì´íŠ¸
-            db.update("student", roommateid, studentid9, 9); //dbì— ì‹ ì²­ì ë£¸ë©”ì´íŠ¸ ì—…ë°ì´íŠ¸
+            db.update("student", studentid, roommateid9, 9); //db?— ë£¸ë©”?´?Š¸?˜ ë£¸ë©”?´?Š¸ ?—…?°?´?Š¸
+            db.update("student", roommateid, studentid9, 9); //db?— ?‹ ì²?? ë£¸ë©”?´?Š¸ ?—…?°?´?Š¸
             
-            //ë°©ë„ ëœë¤ìœ¼ë¡œ ì—¬ê¸°ì„œ ë„£ì–´ì¤˜ì•¼í•´?
+            //ë°©ë„ ?œ?¤?œ¼ë¡? ?—¬ê¸°ì„œ ?„£?–´ì¤˜ì•¼?•´?
             i = 0;
             int room = 11;
             string roomid = to_string(room) + "r";
-            //ë¹„ì–´ìˆëŠ” ë°©ì„ ì•„ë¬´ê±°ë‚˜ ì°¾ì•„ì„œ ë„£ì–´ì¤€ë‹¤.
-            while (db.findOne("room", roomid, 2) !="true") {//ë¹„ì–´ìˆëŠ” ë°©ì„ ì°¾ëŠ”ë‹¤.
+            //ë¹„ì–´?ˆ?Š” ë°©ì„ ?•„ë¬´ê±°?‚˜ ì°¾ì•„?„œ ?„£?–´ì¤??‹¤.
+            while (db.findOne("room", roomid, 2) !="true") {//ë¹„ì–´?ˆ?Š” ë°©ì„ ì°¾ëŠ”?‹¤.
                 room += 1;
                 roomid = to_string(room) + "r";
             }
             //cout << roomid << endl;
-            db.update("room", db.findOne("room", roomid, 0), "false", 2); // ì‹ ì²­ ë°©ì˜ isEmptyë¥¼ falseë¡œ ë°”ê¾¼ë‹¤
-            db.update("student", db.findOne("student", studentid, 0), db.findOne("room", roomid, 0), 8); // ì‹ ì²­ í•™ìƒì˜ ê¸°ìˆ™ì‚¬ ë°©ì„ ë°”ê¾¼ë‹¤
-            db.update("student", db.findOne("student", roommateid, 0), db.findOne("room", roomid, 0), 8); // ì‹ ì²­ í•™ìƒì˜ ë£¸ë©”ì˜ ê¸°ìˆ™ì‚¬ ë°©ì„ ë°”ê¾¼ë‹¤.
+            db.update("room", db.findOne("room", roomid, 0), "false", 2); // ?‹ ì²? ë°©ì˜ isEmptyë¥? falseë¡? ë°”ê¾¼?‹¤
+            db.update("student", db.findOne("student", studentid, 0), db.findOne("room", roomid, 0), 8); // ?‹ ì²? ?•™?ƒ?˜ ê¸°ìˆ™?‚¬ ë°©ì„ ë°”ê¾¼?‹¤
+            db.update("student", db.findOne("student", roommateid, 0), db.findOne("room", roomid, 0), 8); // ?‹ ì²? ?•™?ƒ?˜ ë£¸ë©”?˜ ê¸°ìˆ™?‚¬ ë°©ì„ ë°”ê¾¼?‹¤.
             cout << ">> Room successfully registered to (" << db.findOne("student",rmmate[0],1) 
                 << ") with roommate (" << db.findOne("student",roommate[0],1) << ") in " 
-                <<db.findOne("room",roomid,1) <<". " << endl; // ì •ë³´ ê³µì§€
+                <<db.findOne("room",roomid,1) <<". " << endl; // ? •ë³? ê³µì??
 
             
         }
@@ -382,21 +369,21 @@ void Admin::matchRoommates(DataBase db)
 
     }
 
-    //ë£¸ë©”ì´íŠ¸ ì‹ ì²­í•¨ìˆ˜ì²˜ëŸ¼ ìœ„ ë°ì´í„°ë¥¼ í•˜ë‚˜í•˜ë‚˜ ë„£ê¸°
+    //ë£¸ë©”?´?Š¸ ?‹ ì²??•¨?ˆ˜ì²˜ëŸ¼ ?œ„ ?°?´?„°ë¥? ?•˜?‚˜?•˜?‚˜ ?„£ê¸?
     return;
-    //vector<vector<string>> noroomate_student;//ë£¸ë©”ì´íŠ¸ê°€ ì—†ëŠ” í•™ìƒë“¤ì„ ë‹´ì„ ë²¡í„°
-    //vector<vector<string>>noroommate_survey;//ë£¸ë©”ì´íŠ¸ê°€ ì—†ëŠ” í•™ìƒë“¤ì˜ info
+    //vector<vector<string>> noroomate_student;//ë£¸ë©”?´?Š¸ê°? ?—†?Š” ?•™?ƒ?“¤?„ ?‹´?„ ë²¡í„°
+    //vector<vector<string>>noroommate_survey;//ë£¸ë©”?´?Š¸ê°? ?—†?Š” ?•™?ƒ?“¤?˜ info
 
-    //ë£¸ë©”ì´íŠ¸ ì—†ëŠ” ì‚¬ëŒë“¤ì˜ ì •ë³´ë¥¼ ë”°ë¡œ ë²¡í„°ë¡œ ì €ì¥
-    //ë‹¤ ë¹„ìŠ·í•˜ê²Œ ì„œë¡œì˜ ì°¨ì´ê°€ ë¹„ìŠ·í•œë†ˆë¼ë¦¬ ë§¤ì¹­
-    //ìœ„ì—ì„œ ê± ìˆœì„œëŒ€ë¡œ ì •ë ¬í•´ì„œ ë‘ê°œì”© ëŠì–´ì„œ ë§¤ì¹­
+    //ë£¸ë©”?´?Š¸ ?—†?Š” ?‚¬?Œ?“¤?˜ ? •ë³´ë?? ?”°ë¡? ë²¡í„°ë¡? ????¥
+    //?‹¤ ë¹„ìŠ·?•˜ê²? ?„œë¡œì˜ ì°¨ì´ê°? ë¹„ìŠ·?•œ?†ˆ?¼ë¦? ë§¤ì¹­
+    //?œ„?—?„œ ê±? ?ˆœ?„œ???ë¡? ? •? ¬?•´?„œ ?‘ê°œì”© ?Š?–´?„œ ë§¤ì¹­
         
     return;
 }
 /*
-ê¸°ìˆ™ì‚¬ ì „ì²´ë¥¼ ë¹„ì›Œë²„ë ¤ ì´ˆê¸°í™” í•´ì£¼ëŠ” í•¨ìˆ˜
+ê¸°ìˆ™?‚¬ ? „ì²´ë?? ë¹„ì›Œë²„ë ¤ ì´ˆê¸°?™” ?•´ì£¼ëŠ” ?•¨?ˆ˜
 */
-void Admin::cleanRoom(DataBase db) //ê± roomì˜ 2ë²ˆì§¸ ì—´ì„ ë‹¤ trueë¡¤ ì´ˆê¸°í™” +studentì˜ ì‹ ì²­ ì •ë³´ë„ ì§€ì›Œì•¼í•¨
+void Admin::cleanRoom(DataBase db) //ê±? room?˜ 2ë²ˆì§¸ ?—´?„ ?‹¤ trueë¡? ì´ˆê¸°?™” +student?˜ ?‹ ì²? ? •ë³´ë„ ì§??›Œ?•¼?•¨
 {
     int i = 11;
     int count = 0;
@@ -405,14 +392,14 @@ void Admin::cleanRoom(DataBase db) //ê± roomì˜ 2ë²ˆì§¸ ì—´ì„ ë‹¤ trueë¡¤ ì´ˆê
     while (db.findOne("room", to_string(i)+"r", 0) == to_string(i) + "r") {
         string s = to_string(i) + "r";
         //cout << s << db.findOne("room", to_string(i) + "r", 1) << endl;
-        if (db.findOne("room", s, 2) == "false") { //ë°©ì— ëˆ„ê°€ ìˆì„ê²½ìš°
+        if (db.findOne("room", s, 2) == "false") { //ë°©ì— ?ˆ„ê°? ?ˆ?„ê²½ìš°
             if (count == 0) {
                 cout << ">> The rooms have been vacated." << endl;
             }
 
-            db.update("room", s, "true", 2); //ë°©ì„ ë¹„ìš°ê³ 
+            db.update("room", s, "true", 2); //ë°©ì„ ë¹„ìš°ê³?
             string ss = db.findOne("student", s, 0);
-            db.update("student", ss, "", 8); //í•™ìƒë“¤ì˜ ë°©ì— ëŒ€í•œ ì •ë³´ë„ ë¹„ìš´ë‹¤
+            db.update("student", ss, "", 8); //?•™?ƒ?“¤?˜ ë°©ì— ????•œ ? •ë³´ë„ ë¹„ìš´?‹¤
             string rs = db.findOne("student", s, 0);
             //cout << s<<ss << rs << endl;
             db.update("student", rs, "", 8);
@@ -423,7 +410,7 @@ void Admin::cleanRoom(DataBase db) //ê± roomì˜ 2ë²ˆì§¸ ì—´ì„ ë‹¤ trueë¡¤ ì´ˆê
         i++;
 
     }
-    if (count == 0) { // ë¹„ìš¸ ë°©ì´ ì—†ì„ë•Œ
+    if (count == 0) { // ë¹„ìš¸ ë°©ì´ ?—†?„?•Œ
         cout << ">> All rooms are empty." << endl;
     }
     return;
@@ -432,25 +419,28 @@ void Admin::cleanRoom(DataBase db) //ê± roomì˜ 2ë²ˆì§¸ ì—´ì„ ë‹¤ trueë¡¤ ì´ˆê
 void Admin::checkStudents(DataBase db) 
 {
     string choose;
-        cout << ">> Choose the case you want" << endl;
+    vector<vector<string>>student_data = db.readtxt("student");
+    cout << ">> Choose the case you want" << endl;
     cout << ">>   1. Overall student information" << endl;
     cout << ">>   2. Information about specific students" << endl;
     cout << ">> Please enter a number. (exit 0): ";
-    cin  >> choose;
+    cin >> choose;
     cout << endl;
+
     if (choose == "1") {
         int i = 1;
         string check;
-        cout <<endl;
-        while (db.findOne("student", to_string(i) + "su", 2) != "") {
+        for (const auto& student : student_data) {
             cout << ">> student ";
-            db.findAll("student", to_string(i) + "su");
-            cout <<endl;
+            for (const auto& data : student) {
+                cout << data << ", ";
+            }
+            cout<<endl;
             if (i % 5 == 0) {
                 cout << endl;
                 cout << ">> Would you like to see more information? (Y/N) : ";
                 cin >> check;
-                cout <<endl;
+                cout << endl;
                 if (check == "y" || check == "Y") {
                     i++;
                     continue;
@@ -458,13 +448,11 @@ void Admin::checkStudents(DataBase db)
                 else {
                     return;
                 }
-
             }
             i++;
-
         }
+        cout << "no more student in here." << endl<<endl;
         return;
-
     }
     else if (choose == "2") {
         int int_studentcode;
