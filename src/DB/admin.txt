@@ -1,3 +1,0 @@
-1a,Jo,mw412,pww12,admin
-1a,Min,mw412,pww12,admin
-2a,Junmmw,mw412,pww12,admin
