@@ -12,19 +12,6 @@
 
 class DataBase; // Forward declaration of DataBase class
 
-/*
-string userID; // user ���
-string userPW; // user ���
-string userName; // user ���
-string role = "admin" //fixed
-
-[1] adminId : auto increased
-[2] userName
-[3] userId
-[4] userPw
-[5] role
-[6] isLogin
-*/
 class Admin : public User {
 private:
 
@@ -58,7 +45,6 @@ public:
     void insertInfo(DataBase db);
 	void printInfo();
     string getsurveyId();
-	bool isInfo();
 	string getUserName();
 };
 

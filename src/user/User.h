@@ -49,7 +49,6 @@ public:
 	virtual void releaseRoom(DataBase db)=0;
 	virtual void printInfo()=0;
 
-	virtual bool isInfo()=0;
 	virtual void checkRoom(DataBase db)=0;
 	virtual void checkStudents(DataBase db)=0;
 	virtual string getsurveyId()=0;

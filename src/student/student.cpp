@@ -345,19 +345,6 @@ void Student::insertInfo(DataBase db)
 }
 
 
-
-
-bool Student::isInfo()
-{
-    //***보완필요***
-    //정보가 입력되었는지 확인이 필요함. survey를 입력했을때 있는 'su'가 있는지 확인
-    if (studentId=="0") {//surveyid가 들어있는지 확인해야함 수정이 필요
-        return false;
-    }
-    return true;
- 
-}
-
 void Student::checkRoom(DataBase db) //방 상태 확인하기 방 번호와 상태 출력
 {
     int datamore = 0;

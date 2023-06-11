@@ -510,7 +510,6 @@ void Admin::registerRoom(DataBase db) { return; }
 void Admin::insertInfo(DataBase db) { return; }
 void Admin::printInfo() { return; }
 void Admin::releaseRoommate(DataBase db) {return;}
-bool Admin::isInfo() { return false; }
 string Admin::getsurveyId() {return ""; }
 string Admin::getUserName() { return ""; }
 void Admin::releaseRoom(DataBase db) {return ;}
