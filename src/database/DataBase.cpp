@@ -278,7 +278,7 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
     {
         std::string directory = findDB(type);
         std::ifstream fin(directory);
-        std::ofstream fout("temp.txt");  // ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        std::ofstream fout("temp.txt");  // ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
         //std::cout << directory << std::endl;
 
         try
@@ -400,18 +400,18 @@ std::string DataBase::findDB(const std::string type)
 
 bool DataBase::findUser(const string userType, const string userId, const string userPw)
 {
-	if (findOne(userType, userId, 3) == userId && findOne(userType, userPw, 4) == userPw)
-	{
-		return true;
-	}
-    else if (findOne(userType, userId, 2) == userId && findOne(userType, userPw, 3) == userPw)
+    if (findOne(userType, userId, 3) == userId && findOne(userType, userPw, 4) == userPw && userType=="student")
     {
         return true;
-    }    
-	else
-	{
-		return false;
-	}
+    }
+    else if (findOne(userType, userId, 2) == userId && findOne(userType, userPw, 3) == userPw&& userType=="admin")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 vector<string> DataBase::getLineFromId(const string userType, const string userId)
@@ -551,6 +551,33 @@ vector<vector<string>> DataBase::readSurvey()
     return readsurvey;
 }
 
+vector<vector<string>>DataBase::readtxt(const string type)
+{
+    vector<vector<string>>readtxt;
+    string txt = type + ".txt";
+    std::ifstream file(txt);
+    if (file.is_open()) {
+        std::string line;
+        while (std::getline(file, line)) {
+            std::istringstream iss(line);
+            std::vector<std::string> answers;
+            std::string answer;
+            while (std::getline(iss, answer, ',')) {
+                answers.push_back(answer);
+            }
+            readtxt.push_back(answers);
+        }
+        file.close();
+    }
+    else {
+        std::cout << "Failed to open the file." << std::endl;
+    }
+
+
+    return readtxt;
+
+}
+
 void DataBase::addingStudent(int code, string name, string id, string pw, string class_, string room, bool gender, string mateID)
 {
     vector<unique_ptr<Student>> stu = student_JSON(code, name, id, pw, class_, room, gender, mateID);
@@ -575,7 +602,7 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
 
     if(findOne(type, lineToDelete, 0) != lineToDelete) { return; }
 
-    // ì›ë³¸ íŒŒì¼ ì—´ê¸°
+    // ?›ë³? ?ŒŒ?¼ ?—´ê¸?
     std::string filename = findDB(type);
     std::ifstream inputFile(filename);
     if (!inputFile) {
@@ -583,7 +610,7 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
         return;
     }
 
-    // ì„ì‹œ íŒŒì¼ ìƒì„±
+    // ?„?‹œ ?ŒŒ?¼ ?ƒ?„±
     std::string tempFilename = filename + ".tmp";
     std::ofstream tempFile(tempFilename);
     if (!tempFile) {
@@ -594,7 +621,7 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
 
     
 
-    // ì›ë³¸ íŒŒì¼ì˜ ê° ì¤„ì„ ì„ì‹œ íŒŒì¼ë¡œ ë³µì‚¬ (ì‚­ì œí•  ì¤„ì€ ì œì™¸) // ì‚­ì œí•  ê²ƒë§Œ ë“¤ì—¬ë³´ë‚¸ë‹¤.
+    // ?›ë³? ?ŒŒ?¼?˜ ê°? ì¤„ì„ ?„?‹œ ?ŒŒ?¼ë¡? ë³µì‚¬ (?‚­? œ?•  ì¤„ì?? ? œ?™¸) // ?‚­? œ?•  ê²ƒë§Œ ?“¤?—¬ë³´ë‚¸?‹¤.
     while (std::getline(inputFile, line)) {
         if (getPkNum(line) != lineToDelete) {
             tempFile << line << std::endl;
@@ -602,17 +629,17 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
     }
     
 
-    // íŒŒì¼ ë‹«ê¸°
+    // ?ŒŒ?¼ ?‹«ê¸?
     inputFile.close();
     tempFile.close();
 
-    // ì›ë³¸ íŒŒì¼ ì‚­ì œ
+    // ?›ë³? ?ŒŒ?¼ ?‚­? œ
     if (std::remove(filename.c_str()) != 0) {
         std::cout << "** Failed to delete the original file." << std::endl;
         return;
     }
 
-    // ì„ì‹œ íŒŒì¼ ì´ë¦„ ë³€ê²½
+    // ?„?‹œ ?ŒŒ?¼ ?´ë¦? ë³?ê²?
     if (std::rename(tempFilename.c_str(), filename.c_str()) != 0) {
         std::cout << "** Failed to rename the temporary file." << std::endl;
         return;
