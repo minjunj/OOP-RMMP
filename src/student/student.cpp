@@ -309,9 +309,12 @@ void Student::insertInfo(DataBase db)
     vector<string> stuInfo; //학생정보가 담길 벡터
     vector<string> questions{ ">> Enter your sleeping time (1: earlier than 10p.m. 2: 10p.m ~ 12a.m. 3: 12a.m. ~ 2a.m. 4. later than 2a.m) : ",
                                 ">> Enter your awaking time (1: earlier that 6a.m. 2: 6a.m. ~ 8a.m. 3: 8a.m. ~ 10a.m. 4: later than 10a.m.) : ",
-                                ">> Enter your prefering airconditioning temperature (1: under 18'C 2: 18~22'C  3: 22~26'C 4: over 26'C) : " ,
+                                ">> Enter cleaning frequency (1: at least once a day 2: 3-4 times a week 3: once a week 4: once a month) : ",
+                                ">> Enter how often you want to deliveries (1: at least once a day 2: 3-4 times a week 3: once a week 4: once a month) : ",
+                                ">> Enter your studnet number (1: 23 2: 22 3: 21 4: 20 or less) : ",
+                                ">> Enter your frequency of drinking (1: Always 2: Often 3: Sometimes 4: Never) : ",
                                 ">> Enter your frequency of smoking (1: Always 2: Often 3: Sometimes 4: Never) : ",
-                                ">> Enter if you snore (1: Every night 2: Sometimes 3: Never 4: Never ever) : "
+                                ">> Enter if you snore (1: Every night 2: Sometimes 3: Only when I'm stressed 4: Never) : "
     }; // 편의상 만든 질문지 벡터 취침시간,기상시간,더위를 잘타는가?,술,담배,코골이 유무
     int checkNum; // 입력 정수
     int idx = 0; // 0부터 질문지의 크기 만큼 커질 커서 역할
