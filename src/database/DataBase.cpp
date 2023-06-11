@@ -570,7 +570,7 @@ vector<vector<string>>DataBase::readtxt(const string type)
             readtxt.push_back(answers);
         }
         file.close();
-    }
+    } 
     else {
         std::cout << "Failed to open the file." << std::endl;
     }
