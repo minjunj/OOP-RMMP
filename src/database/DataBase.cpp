@@ -32,7 +32,7 @@ void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const string 
             outFile.open(stuFile, std::ios_base::app); // Append mode
             if (!outFile)
             {
-                std::cout << "Failed to open the student file." << std::endl;
+                std::cout << "** Failed to open the student file." << std::endl;
                 return;
             }
 
@@ -46,7 +46,7 @@ void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const string 
             outFile.open(adminFile, std::ios_base::app); // Append mode
             if (!outFile)
             {
-                std::cout << "Failed to open the admin file." << std::endl;
+                std::cout << "** Failed to open the admin file." << std::endl;
                 return;
             }
 
@@ -60,7 +60,7 @@ void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const string 
             outFile.open(roomFile, std::ios_base::app); // Append mode
             if (!outFile)
             {
-                std::cout << "Failed to open the admin file." << std::endl;
+                std::cout << "** Failed to open the admin file." << std::endl;
                 return;
             }
 
@@ -74,7 +74,7 @@ void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const string 
             outFile.open(roomFile, std::ios_base::app); // Append mode
             if (!outFile)
             {
-                std::cout << "Failed to open the admin file." << std::endl;
+                std::cout << "** Failed to open the admin file." << std::endl;
                 return;
             }
 
@@ -154,7 +154,7 @@ std::string DataBase::roadLatestData(const std::string type)
     outFile.open(load, std::ios_base::app); // Append mode
     if (!outFile)
     {
-        std::cout << "Failed to open the student file." << std::endl;
+        std::cout << "** Failed to open the student file." << std::endl;
         return "";
     }
 
@@ -438,9 +438,9 @@ vector<string> DataBase::getLineFromId(const string userType, const string userI
             int ca = 0;
             if(lines.at(3) == userId && userType == "student")
             {
-                std::cout << "ingetlineformid \n" << std::endl;
+                std::cout << ">> ingetlineformid \n" << std::endl;
                 for (const auto& str : lines) {
-                    std::cout << ca << " : "<< str << std::endl;
+                    std::cout << ">> "<< ca << " : "<< str << std::endl;
                     ca++;
                 }
                 return lines;
@@ -476,7 +476,7 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
 			{
                 bool setGern = true;
                 if(userInfo.at(6) != "Male") { setGern = false;}
-                return make_unique<Student>(userInfo.at(0),stoi(userInfo.at(1)),userInfo.at(2), userInfo.at(3), userInfo.at(4), userInfo.at(5),userInfo.at(8), setGern, userInfo.at(8),userInfo.at(10));
+                return make_unique<Student>(userInfo.at(0),stoi(userInfo.at(1)),userInfo.at(2), userInfo.at(3), userInfo.at(4), userInfo.at(5),userInfo.at(8), setGern, userInfo.at(9),userInfo.at(10));
 			}
 		}
 		else
@@ -501,7 +501,7 @@ std::string DataBase::insertSurvey(vector<std::string> data)
     outFile.open(load, std::ios_base::app); // Append mode
     if (!outFile)
     {
-        std::cout << "Failed to open the student file." << std::endl;
+        std::cout << "** Failed to open the student file." << std::endl;
         return"";
     }
     std::string val = roadLatestData("survey");
@@ -517,17 +517,10 @@ std::string DataBase::insertSurvey(vector<std::string> data)
     returnAdd = add;
     std::string result = std::accumulate(data.begin(), data.end(), std::string());
     
-    // Remove the trailing comma
-    if (!result.empty())
-    {
-        result.pop_back();
-    }
-
-    
     // Add a newline character
-    result += '\n';
     add += result;
     outFile << add;
+    outFile << endl;
     // Close the file
     outFile.close();
     returnAdd.pop_back();
@@ -551,7 +544,7 @@ vector<vector<string>> DataBase::readSurvey()
         file.close();
     }
     else {
-        std::cout << "Failed to open the file." << std::endl;
+        std::cout << "** Failed to open the file." << std::endl;
     }
 
 
@@ -586,7 +579,7 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
     std::string filename = findDB(type);
     std::ifstream inputFile(filename);
     if (!inputFile) {
-        std::cout << "Failed to open the file." << std::endl;
+        std::cout << "** Failed to open the file." << std::endl;
         return;
     }
 
@@ -594,7 +587,7 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
     std::string tempFilename = filename + ".tmp";
     std::ofstream tempFile(tempFilename);
     if (!tempFile) {
-        std::cout << "Failed to create the temporary file." << std::endl;
+        std::cout << "** Failed to create the temporary file." << std::endl;
         inputFile.close();
         return;
     }
@@ -615,15 +608,15 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
 
     // 원본 파일 삭제
     if (std::remove(filename.c_str()) != 0) {
-        std::cout << "Failed to delete the original file." << std::endl;
+        std::cout << "** Failed to delete the original file." << std::endl;
         return;
     }
 
     // 임시 파일 이름 변경
     if (std::rename(tempFilename.c_str(), filename.c_str()) != 0) {
-        std::cout << "Failed to rename the temporary file." << std::endl;
+        std::cout << "** Failed to rename the temporary file." << std::endl;
         return;
     }
 
-    std::cout << "Line " << lineToDelete << " deleted successfully." << std::endl;
+    std::cout << ">> Line " << lineToDelete << " deleted successfully." << std::endl;
 }
