@@ -46,6 +46,7 @@ public:
     virtual void matchRoommates(DataBase db)=0;
     virtual void cleanRoom(DataBase db)=0;
 	virtual void releaseRoommate(DataBase db)=0;
+	virtual void releaseRoom(DataBase db)=0;
 	virtual void printInfo()=0;
 
 	virtual bool isInfo()=0;

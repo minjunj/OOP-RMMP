@@ -32,7 +32,7 @@ void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const string 
             outFile.open(stuFile, std::ios_base::app); // Append mode
             if (!outFile)
             {
-                std::cout << "Failed to open the student file." << std::endl;
+                std::cout << "** Failed to open the student file." << std::endl;
                 return;
             }
 
@@ -46,7 +46,7 @@ void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const string 
             outFile.open(adminFile, std::ios_base::app); // Append mode
             if (!outFile)
             {
-                std::cout << "Failed to open the admin file." << std::endl;
+                std::cout << "** Failed to open the admin file." << std::endl;
                 return;
             }
 
@@ -60,7 +60,7 @@ void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const string 
             outFile.open(roomFile, std::ios_base::app); // Append mode
             if (!outFile)
             {
-                std::cout << "Failed to open the admin file." << std::endl;
+                std::cout << "** Failed to open the admin file." << std::endl;
                 return;
             }
 
@@ -74,7 +74,7 @@ void DataBase::insert(const std::vector<std::unique_ptr<T>>& data, const string 
             outFile.open(roomFile, std::ios_base::app); // Append mode
             if (!outFile)
             {
-                std::cout << "Failed to open the admin file." << std::endl;
+                std::cout << "** Failed to open the admin file." << std::endl;
                 return;
             }
 
@@ -154,7 +154,7 @@ std::string DataBase::roadLatestData(const std::string type)
     outFile.open(load, std::ios_base::app); // Append mode
     if (!outFile)
     {
-        std::cout << "Failed to open the student file." << std::endl;
+        std::cout << "** Failed to open the student file." << std::endl;
         return "";
     }
 
@@ -189,7 +189,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
 
         while (std::getline(fin, line))
         {
-            if(line.find(val) != std::string::npos) // ���ϴ� row ã��
+            if(line.find(val) != std::string::npos) // ï¿½ï¿½ï¿½Ï´ï¿½ row Ã£ï¿½ï¿½
             {
                 std::stringstream result(line);
                 while (getline(result, word, ','))
@@ -220,7 +220,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
     }
     catch(const NotFoundedException& e)
     {
-        std::cout << "404 Not Founded" << std::endl;
+        //std::cout << "404 Not Founded" << std::endl;
     }
     catch(const std::exception& e)
     {
@@ -229,7 +229,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
 
     return "";
 }
-// �� ���࿡ ���� �α��ؼ� id pw �� id �ִ��� �� �� ���ɷ� db.FindOne("student", "exid2", 2) �� ���̵� ��ġ�ϰ�, db.FindOne("student", "expass", 3) �޾Ƽ� Ȯ��.
+// ï¿½ï¿½ ï¿½ï¿½ï¿½à¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½Ø¼ï¿½ id pw ï¿½ï¿½ id ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½É·ï¿½ db.FindOne("student", "exid2", 2) ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½Ä¡ï¿½Ï°ï¿½, db.FindOne("student", "expass", 3) ï¿½Þ¾Æ¼ï¿½ È®ï¿½ï¿½.
 
 std::string DataBase::findAll(const std::string type, std::string val)
 {
@@ -278,7 +278,7 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
     {
         std::string directory = findDB(type);
         std::ifstream fin(directory);
-        std::ofstream fout("temp.txt");  // �Ͻ������
+        std::ofstream fout("temp.txt");  // ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
         //std::cout << directory << std::endl;
 
         try
@@ -299,9 +299,9 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
                         words.push_back(word);
                     }
             
-                    if (words[0] == primaryKey) // �̰ɷ� ���̺� & row ����
+                    if (words[0] == primaryKey) // ï¿½Ì°É·ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ & row ï¿½ï¿½ï¿½ï¿½
                     {
-                        // string ����
+                        // string ï¿½ï¿½ï¿½ï¿½
                         int i;
                         std::string newData = "";
                         for(i = 0; i < index; i++)
@@ -314,13 +314,13 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
                             newData = newData + words[i] + ',';
                         }
                         newData.pop_back();
-                        fout << newData << "\n";  // �����
+                        fout << newData << "\n";  // ï¿½ï¿½ï¿½î¾²ï¿½ï¿½
                         updated = true;
-                        std::cout << "out" <<std::endl;
+                        //std::cout << "out" <<std::endl;
                     }
                     else
                     {
-                        fout << line << "\n";  // ���н� ���� ���� �ֱ�
+                        fout << line << "\n";  // ï¿½ï¿½ï¿½Ð½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
                     }
 
                     words.clear();
@@ -331,7 +331,6 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
 
                 if (updated)
                 {
-
                     std::remove(directory.c_str());
                     std::rename("temp.txt", directory.c_str());
                 }
@@ -344,7 +343,7 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
         }
         catch(const NotFoundedException& e)
         {
-            std::cout << "404 Not Founded" << std::endl;
+            //std::cout << "404 Not Founded" << std::endl;
         }
         catch(const std::exception& e)
         {
@@ -401,18 +400,18 @@ std::string DataBase::findDB(const std::string type)
 
 bool DataBase::findUser(const string userType, const string userId, const string userPw)
 {
-	if (findOne(userType, userId, 3) == userId && findOne(userType, userPw, 4) == userPw)
-	{
-		return true;
-	}
-    else if (findOne(userType, userId, 2) == userId && findOne(userType, userPw, 3) == userPw)
+    if (findOne(userType, userId, 3) == userId && findOne(userType, userPw, 4) == userPw && userType=="student")
     {
         return true;
-    }    
-	else
-	{
-		return false;
-	}
+    }
+    else if (findOne(userType, userId, 2) == userId && findOne(userType, userPw, 3) == userPw&& userType=="admin")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 vector<string> DataBase::getLineFromId(const string userType, const string userId)
@@ -439,9 +438,9 @@ vector<string> DataBase::getLineFromId(const string userType, const string userI
             int ca = 0;
             if(lines.at(3) == userId && userType == "student")
             {
-                std::cout << "ingetlineformid \n" << std::endl;
+                std::cout << ">> ingetlineformid \n" << std::endl;
                 for (const auto& str : lines) {
-                    std::cout << ca << " : "<< str << std::endl;
+                    std::cout << ">> "<< ca << " : "<< str << std::endl;
                     ca++;
                 }
                 return lines;
@@ -477,7 +476,7 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
 			{
                 bool setGern = true;
                 if(userInfo.at(6) != "Male") { setGern = false;}
-                return make_unique<Student>(userInfo.at(0),stoi(userInfo.at(1)),userInfo.at(2), userInfo.at(3), userInfo.at(4), userInfo.at(5),userInfo.at(8), setGern, userInfo.at(8),userInfo.at(10));
+                return make_unique<Student>(userInfo.at(0),stoi(userInfo.at(1)),userInfo.at(2), userInfo.at(3), userInfo.at(4), userInfo.at(5),userInfo.at(8), setGern, userInfo.at(9),userInfo.at(10));
 			}
 		}
 		else
@@ -487,7 +486,7 @@ unique_ptr<User> DataBase::getUser(const string userType, const string userId, c
 	}
 	catch(const NotFoundedDataBaseException& e)
 	{
-		cout << "404 Not Founded" <<endl;
+		//cout << "404 Not Founded" <<endl;
 	}
 
     return make_unique<Student>("",0,"","","","","",'a',"", "");
@@ -502,7 +501,7 @@ std::string DataBase::insertSurvey(vector<std::string> data)
     outFile.open(load, std::ios_base::app); // Append mode
     if (!outFile)
     {
-        std::cout << "Failed to open the student file." << std::endl;
+        std::cout << "** Failed to open the student file." << std::endl;
         return"";
     }
     std::string val = roadLatestData("survey");
@@ -518,17 +517,10 @@ std::string DataBase::insertSurvey(vector<std::string> data)
     returnAdd = add;
     std::string result = std::accumulate(data.begin(), data.end(), std::string());
     
-    // Remove the trailing comma
-    if (!result.empty())
-    {
-        result.pop_back();
-    }
-
-    
     // Add a newline character
-    result += '\n';
     add += result;
     outFile << add;
+    outFile << endl;
     // Close the file
     outFile.close();
     returnAdd.pop_back();
@@ -552,11 +544,38 @@ vector<vector<string>> DataBase::readSurvey()
         file.close();
     }
     else {
-        std::cout << "Failed to open the file." << std::endl;
+        std::cout << "** Failed to open the file." << std::endl;
     }
 
 
     return readsurvey;
+}
+
+vector<vector<string>>DataBase::readtxt(const string type)
+{
+    vector<vector<string>>readtxt;
+    string txt = "DB/"+type + ".txt";
+    std::ifstream file(txt);
+    if (file.is_open()) {
+        std::string line;
+        while (std::getline(file, line)) {
+            std::istringstream iss(line);
+            std::vector<std::string> answers;
+            std::string answer;
+            while (std::getline(iss, answer, ',')) {
+                answers.push_back(answer);
+            }
+            readtxt.push_back(answers);
+        }
+        file.close();
+    }
+    else {
+        std::cout << "Failed to open the file." << std::endl;
+    }
+
+
+    return readtxt;
+
 }
 
 void DataBase::addingStudent(int code, string name, string id, string pw, string class_, string room, bool gender, string mateID)
@@ -583,26 +602,26 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
 
     if(findOne(type, lineToDelete, 0) != lineToDelete) { return; }
 
-    // 원본 파일 열기
+    // ?ë³? ??¼ ?´ê¸?
     std::string filename = findDB(type);
     std::ifstream inputFile(filename);
     if (!inputFile) {
-        std::cout << "Failed to open the file." << std::endl;
+        std::cout << "** Failed to open the file." << std::endl;
         return;
     }
 
-    // 임시 파일 생성
+    // ?? ??¼ ??±
     std::string tempFilename = filename + ".tmp";
     std::ofstream tempFile(tempFilename);
     if (!tempFile) {
-        std::cout << "Failed to create the temporary file." << std::endl;
+        std::cout << "** Failed to create the temporary file." << std::endl;
         inputFile.close();
         return;
     }
 
     
 
-    // 원본 파일의 각 줄을 임시 파일로 복사 (삭제할 줄은 제외) // 삭제할 것만 들여보낸다.
+    // ?ë³? ??¼? ê°? ì¤ì ?? ??¼ë¡? ë³µì¬ (?­? ?  ì¤ì?? ? ?¸) // ?­? ?  ê²ë§ ?¤?¬ë³´ë¸?¤.
     while (std::getline(inputFile, line)) {
         if (getPkNum(line) != lineToDelete) {
             tempFile << line << std::endl;
@@ -610,21 +629,21 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
     }
     
 
-    // 파일 닫기
+    // ??¼ ?«ê¸?
     inputFile.close();
     tempFile.close();
 
-    // 원본 파일 삭제
+    // ?ë³? ??¼ ?­? 
     if (std::remove(filename.c_str()) != 0) {
-        std::cout << "Failed to delete the original file." << std::endl;
+        std::cout << "** Failed to delete the original file." << std::endl;
         return;
     }
 
-    // 임시 파일 이름 변경
+    // ?? ??¼ ?´ë¦? ë³?ê²?
     if (std::rename(tempFilename.c_str(), filename.c_str()) != 0) {
-        std::cout << "Failed to rename the temporary file." << std::endl;
+        std::cout << "** Failed to rename the temporary file." << std::endl;
         return;
     }
 
-    std::cout << "Line " << lineToDelete << " deleted successfully." << std::endl;
+    std::cout << ">> Line " << lineToDelete << " deleted successfully." << std::endl;
 }
