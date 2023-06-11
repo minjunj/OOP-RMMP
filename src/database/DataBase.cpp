@@ -189,7 +189,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
 
         while (std::getline(fin, line))
         {
-            if(line.find(val) != std::string::npos) // ���ϴ� row ã��
+            if(line.find(val) != std::string::npos) // ï¿½ï¿½ï¿½Ï´ï¿½ row Ã£ï¿½ï¿½
             {
                 std::stringstream result(line);
                 while (getline(result, word, ','))
@@ -229,7 +229,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
 
     return "";
 }
-// �� ���࿡ ���� �α��ؼ� id pw �� id �ִ��� �� �� ���ɷ� db.FindOne("student", "exid2", 2) �� ���̵� ��ġ�ϰ�, db.FindOne("student", "expass", 3) �޾Ƽ� Ȯ��.
+// ï¿½ï¿½ ï¿½ï¿½ï¿½à¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½Ø¼ï¿½ id pw ï¿½ï¿½ id ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½É·ï¿½ db.FindOne("student", "exid2", 2) ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½Ä¡ï¿½Ï°ï¿½, db.FindOne("student", "expass", 3) ï¿½Þ¾Æ¼ï¿½ È®ï¿½ï¿½.
 
 std::string DataBase::findAll(const std::string type, std::string val)
 {
@@ -278,7 +278,7 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
     {
         std::string directory = findDB(type);
         std::ifstream fin(directory);
-        std::ofstream fout("temp.txt");  // �Ͻ������?
+        std::ofstream fout("temp.txt");  // ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
         //std::cout << directory << std::endl;
 
         try
@@ -299,9 +299,9 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
                         words.push_back(word);
                     }
             
-                    if (words[0] == primaryKey) // �̰ɷ� ���̺� & row ����
+                    if (words[0] == primaryKey) // ï¿½Ì°É·ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ & row ï¿½ï¿½ï¿½ï¿½
                     {
-                        // string ����
+                        // string ï¿½ï¿½ï¿½ï¿½
                         int i;
                         std::string newData = "";
                         for(i = 0; i < index; i++)
@@ -314,13 +314,13 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
                             newData = newData + words[i] + ',';
                         }
                         newData.pop_back();
-                        fout << newData << "\n";  // �����
+                        fout << newData << "\n";  // ï¿½ï¿½ï¿½î¾²ï¿½ï¿½
                         updated = true;
                         //std::cout << "out" <<std::endl;
                     }
                     else
                     {
-                        fout << line << "\n";  // ���н� ���� ���� �ֱ�
+                        fout << line << "\n";  // ï¿½ï¿½ï¿½Ð½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
                     }
 
                     words.clear();
@@ -554,7 +554,7 @@ vector<vector<string>> DataBase::readSurvey()
 vector<vector<string>>DataBase::readtxt(const string type)
 {
     vector<vector<string>>readtxt;
-    string txt = type + ".txt";
+    string txt = "DB/"+type + ".txt";
     std::ifstream file(txt);
     if (file.is_open()) {
         std::string line;
@@ -602,7 +602,7 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
 
     if(findOne(type, lineToDelete, 0) != lineToDelete) { return; }
 
-    // ?���? ?��?�� ?���?
+    // ?ë³? ??¼ ?´ê¸?
     std::string filename = findDB(type);
     std::ifstream inputFile(filename);
     if (!inputFile) {
@@ -610,7 +610,7 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
         return;
     }
 
-    // ?��?�� ?��?�� ?��?��
+    // ?? ??¼ ??±
     std::string tempFilename = filename + ".tmp";
     std::ofstream tempFile(tempFilename);
     if (!tempFile) {
@@ -621,7 +621,7 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
 
     
 
-    // ?���? ?��?��?�� �? 줄을 ?��?�� ?��?���? 복사 (?��?��?�� 줄�?? ?��?��) // ?��?��?�� 것만 ?��?��보낸?��.
+    // ?ë³? ??¼? ê°? ì¤ì ?? ??¼ë¡? ë³µì¬ (?­? ?  ì¤ì?? ? ?¸) // ?­? ?  ê²ë§ ?¤?¬ë³´ë¸?¤.
     while (std::getline(inputFile, line)) {
         if (getPkNum(line) != lineToDelete) {
             tempFile << line << std::endl;
@@ -629,17 +629,17 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
     }
     
 
-    // ?��?�� ?���?
+    // ??¼ ?«ê¸?
     inputFile.close();
     tempFile.close();
 
-    // ?���? ?��?�� ?��?��
+    // ?ë³? ??¼ ?­? 
     if (std::remove(filename.c_str()) != 0) {
         std::cout << "** Failed to delete the original file." << std::endl;
         return;
     }
 
-    // ?��?�� ?��?�� ?���? �?�?
+    // ?? ??¼ ?´ë¦? ë³?ê²?
     if (std::rename(tempFilename.c_str(), filename.c_str()) != 0) {
         std::cout << "** Failed to rename the temporary file." << std::endl;
         return;
