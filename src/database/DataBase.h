@@ -24,7 +24,7 @@ private:
 public:
     std::string findDB(const string type);
     std::string roadLatestData(const string type);
-
+    std::string getPkNum(std::string line);
     std::string insertSurvey(vector<std::string> data);
     vector<vector<string>> readSurvey();
      vector<vector<string>> readtxt(const string type);
@@ -142,7 +142,7 @@ public:
         ��Ʃ��Ʈ ������ �Է��ϴ� �Լ�
     */
     std::vector<std::unique_ptr<Student>> student_JSON(int code = 0, const std::string& name = "NULL", const std::string& id = "NULL", const std::string& pw = "NULL",
-            const std::string& class_ = "NULL", const std::string& room = "NULL", const bool gender = true, const std::string& mateID = "NULL", const std::string& surveyId = "NULL"); // ?���? 기본 값�?? ture
+            const std::string& class_ = "NULL", const std::string& room = "NULL", const bool gender = true, const std::string& mateID = "NULL", const std::string& surveyId = "NULL"); // ?���? 기본 값�?? ture
 
 
     // Admin(std::string adminID, string userName, string userID, string userPW);

@@ -185,7 +185,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
         std::string line;
         std::vector<std::string> words;
         std::string word;
-
+        int same;
 
         while (std::getline(fin, line))
         {
@@ -193,12 +193,22 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
             {
                 std::stringstream result(line);
                 while (getline(result, word, ','))
-                words.push_back(word);
-                break;
+                {
+                    words.push_back(word);
+                }
+                if(words[0].compare(val) == 0 || words[1].compare(val) == 0 || words[2].compare(val) == 0 || words[3].compare(val) == 0 || words[4].compare(val) == 0 || words[5].compare(val) == 0 || words[6].compare(val) == 0 || words[7].compare(val) == 0 || words[8].compare(val) == 0 || words[9].compare(val) == 0 || words[10].compare(val) == 0)
+                {
+                    // 같으면 0 반환하니까 하나라도 완전히 같으면 내가 찾는거
+                    if(words[index].size())
+                    {
+                        return words[index];
+                    }
+                }
+                
+                words.clear();
+                words.shrink_to_fit();
             }
-            
         }
-
         if(words.empty())
         {
             throw NotFoundedException();
@@ -239,15 +249,32 @@ std::string DataBase::findAll(const std::string type, std::string val)
         std::ifstream fin(directory);
         std::vector<std::string> lines;
         std::string line;
-
+        std::string word;
 
         while (std::getline(fin, line))
         {
+
             if(line.find(val) != std::string::npos)
             {
-                lines.push_back(line);
-                break;
+                std::stringstream result(line);
+                while (getline(result, word, ','))
+                {
+                    lines.push_back(word);
+                }
+                if(lines[0].compare(val) == 0 || lines[1].compare(val) == 0 || lines[2].compare(val) == 0 || lines[3].compare(val) == 0 || lines[4].compare(val) == 0 || lines[5].compare(val) == 0 || lines[6].compare(val) == 0 || lines[7].compare(val) == 0 || lines[8].compare(val) == 0 || lines[9].compare(val) == 0 || lines[10].compare(val) == 0)
+                {
+                    // 같으면 0 반환하니까 하나라도 완전히 같으면 내가 찾는거
+                    if(lines.size())
+                    {
+                        
+                        return line;
+                    }
+                }
+                lines.clear();
+                lines.shrink_to_fit();
             }
+            
+            
         }
 
         if(lines.empty())
@@ -256,11 +283,6 @@ std::string DataBase::findAll(const std::string type, std::string val)
         }
 
         fin.close();
-        
-        for (const auto& line : lines)
-        {
-            std::cout << line << std::endl;
-        }
         
         return line;
     }
@@ -415,40 +437,20 @@ bool DataBase::findUser(const string userType, const string userId, const string
 }
 
 vector<string> DataBase::getLineFromId(const string userType, const string userId)
-{
+{   
+    
     std::vector<std::string> lines;
     try
-    {
-        std::string directory = findDB(userType);
-        std::ifstream fin(directory);        
-        std::string line;
+    {      
 
-        while (std::getline(fin, line))
+        std::istringstream iss(findAll(userType, userId));
+        std::string str_buf;
+        char separator = ',';
+
+        lines.clear();
+        while (getline(iss, str_buf, separator))
         {
-            std::istringstream iss(line);
-            std::string str_buf;
-            char separator = ',';
-            
-            lines.clear();
-            while (getline(iss, str_buf, separator))
-            {
-                lines.push_back(str_buf);
-                //std::cout << str_buf << std::endl;
-            }
-            int ca = 0;
-            if(lines.at(3) == userId && userType == "student")
-            {
-                std::cout << ">> ingetlineformid \n" << std::endl;
-                for (const auto& str : lines) {
-                    std::cout << ">> "<< ca << " : "<< str << std::endl;
-                    ca++;
-                }
-                return lines;
-            }
-            if(lines.at(1) == userId && userType == "admin")
-            {
-                return lines;
-            }
+            lines.push_back(str_buf);
         }
     }
     catch(const NotFoundedDataBaseException& e)
@@ -580,12 +582,13 @@ vector<vector<string>>DataBase::readtxt(const string type)
 
 void DataBase::addingStudent(int code, string name, string id, string pw, string class_, string room, bool gender, string mateID)
 {
+    std::cout << "in" << std::endl;
     vector<unique_ptr<Student>> stu = student_JSON(code, name, id, pw, class_, room, gender, mateID);
     insert(stu, "student");
     return;
 }
     
-std::string getPkNum(std::string line)
+std::string DataBase::getPkNum(std::string line)
 {
     std::vector<std::string> words;
     std::string word;

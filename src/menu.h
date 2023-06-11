@@ -18,7 +18,6 @@ unique_ptr<User> Login(DataBase db, string userType)
 {
     string file;
     string userId, userPw;
-
     while (1)
     {
         cout << ">> Enter User ID : ";
@@ -38,7 +37,6 @@ unique_ptr<User> Login(DataBase db, string userType)
 }
 void studentMenu(unique_ptr<User>& student, DataBase db)
 {
-    cout << db.findOne("survey", student->getsurveyId(), 0) << endl;
     if (student->getsurveyId() !="NULL")
     {
         int menuNum;

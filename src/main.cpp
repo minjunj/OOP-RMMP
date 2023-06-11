@@ -25,13 +25,12 @@ void versionCheck()
     std::cout << " ##   ##  ##     ##  ##     ##  #####   "<<endl<<endl;
     std::cout << "========================================"<<endl;
     std::cout << " V1.0 Roommate Matching System for GIST"<<endl;
-    std::cout << " Built By Hyunwoo Lee, Minjun Jo, Minjae Jo"<<endl<<endl;
+    std::cout << " Built By Hyunwoo Lee, Minjun Cho, Minjae Cho"<<endl<<endl;
 }
 
 int main()
 {
     DataBase db;
-
     versionCheck();
     start_menu(db);    
 
