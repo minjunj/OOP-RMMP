@@ -176,7 +176,7 @@ void Student::findRoommate(DataBase db)
         }
 
     }
-    for (const auto& roommate : noRoommate) {
+    for (const auto& roommate : noRoommate) {//Print out the best roommate candidates
         if (i == 0) {
             cout << endl;
             cout << ">> your info : ";
@@ -185,15 +185,16 @@ void Student::findRoommate(DataBase db)
             cout << ">> Answer " << i << ": ";
             cout << db.findOne("student", roommate[0], 1); 
             cout << " has no roommate" << endl; 
+            cout << ">> roommate candidate info: ";
         }    
 
         for (const auto& answer : roommate) {
-            //if (index % 5 != 0) {
-            //    cout << answer << " ";
-            //}
-            //index += 1;
-            cout << answer << " ";
+            if (index != 0) {
+                cout << answer << " ";
+            }
+            index += 1;
         }
+        index = 0;
         cout << endl<<endl;
         if (i == 0) {
             cout << endl;
