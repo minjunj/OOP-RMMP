@@ -49,5 +49,6 @@
 48s,20225178,IsabellaTaylor,itaylor,securepwd,,Female,user,,,NULL
 49s,20225133,NoahClark,nclark,noahcl,,Male,user,,,NULL
 50s,20225018,MiaThomas,mthomas,psswrd,,Female,user,,,NULL
-51s,20223232,Monster,Monster,Energy,,Female,user,,,28su
+51s,20223232,Monster,Monster,Energy,,Female,user,,53m,28su
 52s,202252929,Suman,Suman,Pandey,,Female,user,,,29su
+53s,20226554,Pekora,Pekora,Usada,,Female,user,,51m,30su

@@ -189,7 +189,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
 
         while (std::getline(fin, line))
         {
-            if(line.find(val) != std::string::npos) // ï¿½ï¿½ï¿½Ï´ï¿½ row Ã£ï¿½ï¿½
+            if(line.find(val) != std::string::npos) 
             {
                 std::stringstream result(line);
                 while (getline(result, word, ','))
@@ -229,7 +229,6 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
 
     return "";
 }
-// ï¿½ï¿½ ï¿½ï¿½ï¿½à¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½Ø¼ï¿½ id pw ï¿½ï¿½ id ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½É·ï¿½ db.FindOne("student", "exid2", 2) ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½Ä¡ï¿½Ï°ï¿½, db.FindOne("student", "expass", 3) ï¿½Þ¾Æ¼ï¿½ È®ï¿½ï¿½.
 
 std::string DataBase::findAll(const std::string type, std::string val)
 {
@@ -602,7 +601,6 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
 
     if(findOne(type, lineToDelete, 0) != lineToDelete) { return; }
 
-    // ?ë³? ??¼ ?´ê¸?
     std::string filename = findDB(type);
     std::ifstream inputFile(filename);
     if (!inputFile) {
@@ -610,7 +608,6 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
         return;
     }
 
-    // ?? ??¼ ??±
     std::string tempFilename = filename + ".tmp";
     std::ofstream tempFile(tempFilename);
     if (!tempFile) {
@@ -620,8 +617,6 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
     }
 
     
-
-    // ?ë³? ??¼? ê°? ì¤ì ?? ??¼ë¡? ë³µì¬ (?­? ?  ì¤ì?? ? ?¸) // ?­? ?  ê²ë§ ?¤?¬ë³´ë¸?¤.
     while (std::getline(inputFile, line)) {
         if (getPkNum(line) != lineToDelete) {
             tempFile << line << std::endl;
@@ -629,17 +624,15 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
     }
     
 
-    // ??¼ ?«ê¸?
     inputFile.close();
     tempFile.close();
 
-    // ?ë³? ??¼ ?­? 
+
     if (std::remove(filename.c_str()) != 0) {
         std::cout << "** Failed to delete the original file." << std::endl;
         return;
     }
 
-    // ?? ??¼ ?´ë¦? ë³?ê²?
     if (std::rename(tempFilename.c_str(), filename.c_str()) != 0) {
         std::cout << "** Failed to rename the temporary file." << std::endl;
         return;

@@ -23,11 +23,11 @@ std::string Admin::getFormattedData() const {
 }
 
 /*
-?��?�� 기숙?�� 방들?�� ?��?��?�� ?��?��?�� ?�� ?��?��
-?��?��?��보다 ?�� ?��?��?�� ?��보들?�� �? ?�� ?��?��
-?��?�� 방에 ?���? ?���? ?��?���? ?��
+You can check the information of the current dormitory rooms
+You can see more detailed information than students
+Who lives in a particular room, etc
 */
-void Admin::checkRoom(DataBase db) //?���? ?��?��?���? checkroom,student 마찬�?�?
+void Admin::checkRoom(DataBase db) 
 {
     int datamore = 0;
     string numbers;
@@ -40,15 +40,15 @@ void Admin::checkRoom(DataBase db) //?���? ?��?��?���? check
 
     while (true) {
         if (count == 0) {
-            cout << ">> Which zone do you want to see first.(g, i, s, t): "; //?��?�� 구역?���?
+            cout << ">> Which zone do you want to see first.(g, i, s, t): "; //which area
             cin >> zone;
-            cout << ">> Which floor do you want to see(2~6): "; //몇층?���?
+            cout << ">> Which floor do you want to see(2~6): "; //what floor
             cin >> floor;
             while(cin.fail()){
                 cout << "** Wrong input try again"<<endl;
                 cin.clear();
                 cin.ignore(100 ,'\n');
-                cout << ">> Which floor do you want to see(2~6): "; //몇층?���?
+                cout << ">> Which floor do you want to see(2~6): "; 
                 cin >> floor;
             }
             cout << ">> check Room Data" << endl;
@@ -69,20 +69,21 @@ void Admin::checkRoom(DataBase db) //?���? ?��?��?���? check
             }
         }
         cout << ">> Room number " << db.findOne("room", numbers, 1);
-        if (db.findOne("room", numbers, 2) == "true") { //방이 비어?��?���?.
+        if (db.findOne("room", numbers, 2) == "true") { //room is empty
             cout << " is empty!" << endl;
         }
-        else if (db.findOne("room", numbers, 2) == "false") { //방이 비어?���? ?��?���?
+        else if (db.findOne("room", numbers, 2) == "false") { //room isn't empty
             roommate = db.findOne("student", db.findOne("room", numbers, 0), 9);
             roommateid = roommate.replace(roommate.find("m"), 1, "s");
             cout << " was applied by " << db.findOne("student", db.findOne("room", numbers, 0), 1)
-                << "," << db.findOne("student", roommateid, 1) << endl;
+                << "," << db.findOne("student", roommateid, 1) << endl; // check who use room
         }
         numbers = "";
 
 
         count++;
-        if (count % 10 == 0) { //10�? ?��?���? ?��?��?�� ?�� 볼것?���?
+
+        if (count % 10 == 0) { //Check the information of the room by 10 pieces.
             cout << ">> if you want more data enter 1. to exist is 0: ";
             cin >> datamore;
             cout << endl;
@@ -98,7 +99,8 @@ void Admin::checkRoom(DataBase db) //?���? ?��?��?���? check
     return;
 }
 /*
-���л��� Ư�� ȸ�������� ���� �������? ������ �̸� �����ͺ��̽��� �Է��ϴ� �Լ�
+Function to enter information on people who are unable to register as members, such as transfer students, into the database in advance 
+or delete data
 */
 void Admin::addDelStudents(DataBase db)
 {
@@ -171,13 +173,12 @@ void Admin::addDelStudents(DataBase db)
             if (check == "y" || check == "Y") {
                 //�����? ����. ������Ʈ�� �� nulló��
                 db.Delete("student", db.findOne("student", studentcode, 0));
+
                 cout << endl <<">> The student's information has been cleared." << endl <<endl;
             }
             else {
                 return;
             }
-            //�߰��ؾ���
-            //�л� ������ �����? ����
             return;
         }
         else
@@ -188,7 +189,7 @@ void Admin::addDelStudents(DataBase db)
     return;
 }
 /*
-�����? Ȯ�� ���? �� ��Ȳ���� �߻��Ҷ� �����? �ø��� ���̴� �Լ�
+function of increasing and decreasing rooms when situations occur, such as expanding and decreasing dormitories
 */
 void Admin::addDelRoom(DataBase db)
 {
@@ -199,21 +200,19 @@ void Admin::addDelRoom(DataBase db)
         if (selection == "1") {
             string zone;
             int floor;
-            //���� ��� ������ �߰��� ���ΰ�
-            cout << ">> Which zone do you want to add first.(g, i, s, t): ";
+            cout << ">> Which zone do you want to add first.(g, i, s, t): ";//which area
             cin>> zone;
-            cout << ">> Which floor do you want to add (2~6): "; //��������
+            cout << ">> Which floor do you want to add (2~6): "; //what floor
             cin >> floor;
             int i = 1;
             string roomnumber = zone + to_string(floor * 100 + i);
             while (db.findOne("room", roomnumber, 1) == roomnumber) {
                  roomnumber = zone + to_string(floor * 100 + i);
-
-                if (db.findOne("room", roomnumber, 1) != roomnumber) {//�� ������ ���ٸ�
+                if (db.findOne("room", roomnumber, 1) != roomnumber) {//if room data is empty
                     cout << db.findOne("room", roomnumber, 1) << endl;
                     cout << "The addition room is " << roomnumber<<endl;
                     vector<unique_ptr<Room>> roomdata = db.room_JSON(roomnumber, true);
-                    db.insert(roomdata, "room"); // �����߰�
+                    db.insert(roomdata, "room"); 
                     return;
                 }
                 i++;
@@ -224,7 +223,7 @@ void Admin::addDelRoom(DataBase db)
 
         }
         else if (selection == "2") {
-            //���� ��� �� ���� ���������(�����Ұ�����)
+            //delete room data
             string roomnumber;
             cout << "Which room do you want to delete (ex: g200): ";
             cin >> roomnumber;
@@ -233,7 +232,7 @@ void Admin::addDelRoom(DataBase db)
                 return;
             }
             else{
-                cout << "Do you want to erase " << roomnumber << "? (Y/N)"; //�� ���� ������ ������ ������ΰ�?
+                cout << "Do you want to erase " << roomnumber << "? (Y/N)"; //are you sure? delete room data?
                 string check;
                 cin >> check;
                 string roomid = db.findOne("room", roomnumber, 0);
@@ -263,42 +262,41 @@ void Admin::addDelRoom(DataBase db)
     return;
 }
 /*
-/*
-룸메?��?���? ?��?�� ?��?��?��?�� 룸메?��?���? 만들?��주고 방에 집어?��?��주는 ?��?��
+function that makes roommates and puts those who don't have roommates in the room
 */
 void Admin::matchRoommates(DataBase db)
 {
     vector<string> main_survey;
-    vector<vector<string>> roommate_survey = db.readSurvey();//survey?�� ?��보�?? ?���? ?��??? 벡터
+    vector<vector<string>> roommate_survey = db.readSurvey();//survey's data in here
     vector<vector<string>> matchedRoommates;
     vector<vector<string>> noRoommate;
     vector<string> rmmate;
 
-    //룸메?��?�� 매칭 
+    //matching roommate 
     vector<pair<int, vector<string>>> scores;
 
     for (size_t i = 0; i < roommate_survey.size(); i++) {
         int score = 0;
         for (size_t j = 1; j < roommate_survey[i].size(); j++) {
-            score += pow(stoi(roommate_survey[i][j]), 2)*j;//j?�� �?중치 문항?�� ?���? 갈수�? ?��불호 갈리?���?
+            score += pow(stoi(roommate_survey[i][j]), 2)*(10+j);//j is weight
         }
         scores.push_back(make_pair(score, roommate_survey[i]));
     }
-    //?��?���? 기�???���? ?��?�� (?��?��?�� �? 문항�? ?��곱의 ?��?��) ?���? 기�???���? 비슷?�� ?��?��???기리 ?���?
+    // Sort based on scores (scores are the sum of squares and weights for each question) A similar score waiting list based on this
     sort(scores.begin(), scores.end());
     for (const auto& score : scores) {
         matchedRoommates.push_back(score.second);
         //cout << score.first << " ";
     }
     cout << endl;
-    //출력
+    //output
     cout << ">> Matched roommates:" << endl;
     int i = 0;
     int index = 0;
-    bool check = 0; //룸메?��?�� ?��?���? ?��?��?�� 
-    for (const auto& roommate : matchedRoommates) {//?��?��?�� ?��?��?�� �? 룸메?��?�� ?��?�� ?��?���? ?���? ????��
+    bool check = 0; //check has roommate
+    for (const auto& roommate : matchedRoommates) {//Store sorted data separately for those who do not have a roommate
         if (db.findOne("student",  roommate[0], 8) == "404 Not Founded : out of range"
-            || db.findOne("student", roommate[0], 8) == "") { //�? ?��?��?�� 룸메?��?���? ?��?�� 경우�? 벡터?�� ?��?��?��.
+            || db.findOne("student", roommate[0], 8) == "") { // only if you don't have a roommate.
             noRoommate.push_back(roommate);
         }
         //for (const auto& answer : roommate) {
@@ -307,7 +305,7 @@ void Admin::matchRoommates(DataBase db)
         //cout << endl;
 
     }
-    for (const auto& roommate : noRoommate) {//?��?��?�� ?��?��?�� �? 룸메?��?�� ?��?�� ?��?���? ?���? ????��
+    for (const auto& roommate : noRoommate) {//students who haven't roommate & Match based on aligned students' information
         if (i == 0) {
             rmmate = roommate;
             i = 1;
@@ -324,26 +322,26 @@ void Admin::matchRoommates(DataBase db)
             
             //cout << studentid << roommateid << studentid9 << roommateid9 << endl;
 
-            db.update("student", studentid, roommateid9, 9); //db?�� 룸메?��?��?�� 룸메?��?�� ?��?��?��?��
-            db.update("student", roommateid, studentid9, 9); //db?�� ?���??�� 룸메?��?�� ?��?��?��?��
+            db.update("student", studentid, roommateid9, 9); //update roommate data
+            db.update("student", roommateid, studentid9, 9); 
             
-            //방도 ?��?��?���? ?��기서 ?��?��줘야?��?
+            //The room is also automatically applied.
             i = 0;
             int room = 11;
             string roomid = to_string(room) + "r";
-            //비어?��?�� 방을 ?��무거?�� 찾아?�� ?��?���??��.
-            while (db.findOne("room", roomid, 2) !="true") {//비어?��?�� 방을 찾는?��.
+            //check where room is empty anything
+            while (db.findOne("room", roomid, 2) !="true") {
                 room += 1;
                 roomid = to_string(room) + "r";
             }
             //cout << roomid << endl;
-            db.update("room", db.findOne("room", roomid, 0), "false", 2); // ?���? 방의 isEmpty�? false�? 바꾼?��
-            db.update("student", db.findOne("student", studentid, 0), db.findOne("room", roomid, 0), 8); // ?���? ?��?��?�� 기숙?�� 방을 바꾼?��
-            db.update("student", db.findOne("student", roommateid, 0), db.findOne("room", roomid, 0), 8); // ?���? ?��?��?�� 룸메?�� 기숙?�� 방을 바꾼?��.
+
+            db.update("room", db.findOne("room", roomid, 0), "false", 2);  //update room register
+            db.update("student", db.findOne("student", studentid, 0), db.findOne("room", roomid, 0), 8); 
+            db.update("student", db.findOne("student", roommateid, 0), db.findOne("room", roomid, 0), 8); 
             cout << ">> Room successfully registered to (" << db.findOne("student",rmmate[0],1) 
                 << ") with roommate (" << db.findOne("student",roommate[0],1) << ") in " 
-                <<db.findOne("room",roomid,1) <<". " << endl; // ?���? 공�??
-
+                <<db.findOne("room",roomid,1) <<". " << endl; // Information Description
             
         }
         //for (const auto& answer : roommate) {
@@ -352,22 +350,12 @@ void Admin::matchRoommates(DataBase db)
         //cout << endl;
 
     }
-
-    //룸메?��?�� ?���??��?��처럼 ?�� ?��?��?���? ?��?��?��?�� ?���?
-    return;
-    //vector<vector<string>> noroomate_student;//룸메?��?���? ?��?�� ?��?��?��?�� ?��?�� 벡터
-    //vector<vector<string>>noroommate_survey;//룸메?��?���? ?��?�� ?��?��?��?�� info
-
-    //룸메?��?�� ?��?�� ?��?��?��?�� ?��보�?? ?���? 벡터�? ????��
-    //?�� 비슷?���? ?��로의 차이�? 비슷?��?��?���? 매칭
-    //?��?��?�� �? ?��?��???�? ?��?��?��?�� ?��개씩 ?��?��?�� 매칭
-        
     return;
 }
 /*
-기숙?�� ?��체�?? 비워버려 초기?�� ?��주는 ?��?��
+function that initializes the entire dormitory by emptying it
 */
-void Admin::cleanRoom(DataBase db) //�? room?�� 2번째 ?��?�� ?�� true�? 초기?�� +student?�� ?���? ?��보도 �??��?��?��
+void Admin::cleanRoom(DataBase db) //Initialize the second column of room.txt to all true
 {
     int i = 11;
     int count = 0;
@@ -376,14 +364,15 @@ void Admin::cleanRoom(DataBase db) //�? room?�� 2번째 ?��?�� ?�
     while (db.findOne("room", to_string(i)+"r", 0) == to_string(i) + "r") {
         string s = to_string(i) + "r";
         //cout << s << db.findOne("room", to_string(i) + "r", 1) << endl;
-        if (db.findOne("room", s, 2) == "false") { //방에 ?���? ?��?��경우
+        if (db.findOne("room", s, 2) == "false") { //who register room
             if (count == 0) {
                 cout << ">> The rooms have been vacated." << endl;
             }
 
-            db.update("room", s, "true", 2); //방을 비우�?
+
+            db.update("room", s, "true", 2); //clear room
             string ss = db.findOne("student", s, 0);
-            db.update("student", ss, "", 8); //?��?��?��?�� 방에 ????�� ?��보도 비운?��
+            db.update("student", ss, "", 8); //clear student's room data
             string rs = db.findOne("student", s, 0);
             //cout << s<<ss << rs << endl;
             db.update("student", rs, "", 8);
@@ -394,7 +383,9 @@ void Admin::cleanRoom(DataBase db) //�? room?�� 2번째 ?��?�� ?�
         i++;
 
     }
-    if (count == 0) { // 비울 방이 ?��?��?��
+
+    if (count == 0) { //When there's no room to empty
+
         cout << ">> All rooms are empty." << endl;
     }
     return;

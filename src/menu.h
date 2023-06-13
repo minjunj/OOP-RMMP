@@ -18,7 +18,6 @@ unique_ptr<User> Login(DataBase db, string userType)
 {
     string file;
     string userId, userPw;
-
     while (1)
     {
         cout << ">> Enter User ID ( 0 to exit ): ";
@@ -43,7 +42,6 @@ unique_ptr<User> Login(DataBase db, string userType)
 }
 void studentMenu(unique_ptr<User>& student, DataBase db)
 {
-    cout << db.findOne("survey", student->getsurveyId(), 0) << endl;
     if (student->getsurveyId() !="NULL")
     {
         int menuNum;
@@ -71,7 +69,7 @@ void studentMenu(unique_ptr<User>& student, DataBase db)
                 student->releaseRoommate(db);
                 break;
             case 4:
-                student->checkRoom(db); // DataBase에서 새로 들어줘야할 함수, 현재 기숙사의 전체적인 현황(비어있는지, 방에 몇명 있는지 등) 한 눈에 볼 수 있는 함수가 필요
+                student->checkRoom(db); 
                 break;
             case 5:
                 student->registerRoom(db);
@@ -152,7 +150,7 @@ void adminMenu(unique_ptr<User>& admin, DataBase db)
             admin->checkRoom(db);
             break;
         case 3:
-            admin->addDelStudents(db); // DataBase에서 새로 들어줘야할 함수, 현재 기숙사의 전체적인 현황(비어있는지, 방에 몇명 있는지 등) 한 눈에 볼 수 있는 함수가 필요
+            admin->addDelStudents(db); 
             break;
         case 4:
             admin->addDelRoom(db);
