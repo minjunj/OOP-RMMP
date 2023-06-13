@@ -218,7 +218,6 @@ function that allows you to request a room only when you have a roommate
 void Student::registerRoom(DataBase db)
 {
     //cout << roommateID  <<endl;
-                  
     //if you don't have roommate. apply for a roommate first
     if (roommateID.length() == 0)
     {
@@ -230,7 +229,7 @@ void Student::registerRoom(DataBase db)
 
     while (true)
     {
-        cout << ">> Enter a Room to Register (Enter 0 to quit): ";
+        cout << ">> Enter a Room to Register (Enter 0 to quit, ex: g200): ";
         cin >> regroomId; //like g200
         // if enter 0. cancel
         string roommateId = roommateID;
@@ -254,7 +253,7 @@ void Student::registerRoom(DataBase db)
             db.update("room", db.findOne("room", regroomId, 0), "false", 2); // change the isEmpty in the application room to false
             db.update("student", studentId, roomId, 8); // change the dormitory room of the applicant
             db.update("student", roommateId, roomId, 8); // change the room of the applicant's roommate.
-            cout << ">> Room successfully registered to (" << roomId << ") with roommate (" << roommateID << ") " << endl; 
+            cout << ">> Room successfully registered to (" << db.findOne("room", roomId, 1) << ") with roommate (" << roommateID << ") " << endl; 
             return;
         }
     // If the room is already full, it will allow you to turn the loop back and select again        
@@ -279,7 +278,7 @@ void Student::releaseRoom(DataBase db)
     mateid = roommateID;
     mateid = mateid.replace(mateid.find("m"), 1, "s");
     cout << "Your roomm is " << roomId << endl;
-    cout << "Are you sure you want to release your room (" << roomId <<") ? (Y / N) : ";
+    cout << "Are you sure you want to release your room (" << db.findOne("room", roomId, 1) << ") ? (Y / N) : ";
     string answer;
     cin >> answer;
     if (answer == "y" || answer == "Y") {

@@ -437,7 +437,7 @@ vector<string> DataBase::getLineFromId(const string userType, const string userI
             int ca = 0;
             if(lines.at(3) == userId && userType == "student")
             {
-                std::cout << ">> ingetlineformid \n" << std::endl;
+                //std::cout << ">> ingetlineformid \n" << std::endl;
                 for (const auto& str : lines) {
                     std::cout << ">> "<< ca << " : "<< str << std::endl;
                     ca++;
@@ -638,5 +638,5 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
         return;
     }
 
-    std::cout << ">> Line " << lineToDelete << " deleted successfully." << std::endl;
+    //std::cout << ">> Line " << lineToDelete << " deleted successfully." << std::endl;
 }
