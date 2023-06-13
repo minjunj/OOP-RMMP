@@ -29,10 +29,6 @@ public:
     vector<vector<string>> readSurvey();
      vector<vector<string>> readtxt(const string type);
    
-    /*
-        ������ ���̽��� �����ϴ� �Լ�
-        insert( _JSON���� ������ data, ������ġ : admin, student, room)
-    */
     template <typename T>
     void insert(const std::vector<std::unique_ptr<T>>& data, const string type); // Use std::shared_ptr
 
@@ -139,14 +135,12 @@ public:
      /*
         std::vector<std::unique_ptr<Student>> student_JSON(int code, const std::string& name, const std::string& id, const std::string& pw,
             const std::string& class_, int roomId)
-        ��Ʃ��Ʈ ������ �Է��ϴ� �Լ�
     */
     std::vector<std::unique_ptr<Student>> student_JSON(int code = 0, const std::string& name = "NULL", const std::string& id = "NULL", const std::string& pw = "NULL",
-            const std::string& class_ = "NULL", const std::string& room = "NULL", const bool gender = true, const std::string& mateID = "NULL", const std::string& surveyId = "NULL"); // ?���? 기본 값�?? ture
+            const std::string& class_ = "NULL", const std::string& room = "NULL", const bool gender = true, const std::string& mateID = "NULL", const std::string& surveyId = "NULL"); 
 
 
     // Admin(std::string adminID, string userName, string userID, string userPW);
-    /* ���� ������ �Է��ϴ� �Լ�*/
     std::vector<std::unique_ptr<Admin>> admin_JSON(const std::string& name = "NULL", const std::string& id = "NULL", const std::string& pw = "NULL");
 
 

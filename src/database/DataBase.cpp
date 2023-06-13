@@ -189,7 +189,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
 
         while (std::getline(fin, line))
         {
-            if(line.find(val) != std::string::npos) // ï¿½ï¿½ï¿½Ï´ï¿½ row Ã£ï¿½ï¿½
+            if(line.find(val) != std::string::npos)
             {
                 std::stringstream result(line);
                 while (getline(result, word, ','))
@@ -198,7 +198,7 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
                 }
                 if(words[0].compare(val) == 0 || words[1].compare(val) == 0 || words[2].compare(val) == 0 || words[3].compare(val) == 0 || words[4].compare(val) == 0 || words[5].compare(val) == 0 || words[6].compare(val) == 0 || words[7].compare(val) == 0 || words[8].compare(val) == 0 || words[9].compare(val) == 0 || words[10].compare(val) == 0)
                 {
-                    // 같으면 0 반환하니까 하나라도 완전히 같으면 내가 찾는거
+                    // only one thing is same, this line is true
                     if(words[index].size())
                     {
                         return words[index];
@@ -239,7 +239,6 @@ std::string DataBase::findOne(const std::string type, std::string val, int index
 
     return "";
 }
-// ï¿½ï¿½ ï¿½ï¿½ï¿½à¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½Ø¼ï¿½ id pw ï¿½ï¿½ id ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½É·ï¿½ db.FindOne("student", "exid2", 2) ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½Ä¡ï¿½Ï°ï¿½, db.FindOne("student", "expass", 3) ï¿½Þ¾Æ¼ï¿½ È®ï¿½ï¿½.
 
 std::string DataBase::findAll(const std::string type, std::string val)
 {
@@ -263,7 +262,7 @@ std::string DataBase::findAll(const std::string type, std::string val)
                 }
                 if(lines[0].compare(val) == 0 || lines[1].compare(val) == 0 || lines[2].compare(val) == 0 || lines[3].compare(val) == 0 || lines[4].compare(val) == 0 || lines[5].compare(val) == 0 || lines[6].compare(val) == 0 || lines[7].compare(val) == 0 || lines[8].compare(val) == 0 || lines[9].compare(val) == 0 || lines[10].compare(val) == 0)
                 {
-                    // 같으면 0 반환하니까 하나라도 완전히 같으면 내가 찾는거
+                    // only one thing is same, this line is true
                     if(lines.size())
                     {
                         
@@ -300,7 +299,7 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
     {
         std::string directory = findDB(type);
         std::ifstream fin(directory);
-        std::ofstream fout("temp.txt");  // ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
+        std::ofstream fout("temp.txt");  // to save tomporary
         //std::cout << directory << std::endl;
 
         try
@@ -321,9 +320,9 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
                         words.push_back(word);
                     }
             
-                    if (words[0] == primaryKey) // ï¿½Ì°É·ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ & row ï¿½ï¿½ï¿½ï¿½
+                    if (words[0] == primaryKey) // compare PK
                     {
-                        // string ï¿½ï¿½ï¿½ï¿½
+                        // to string
                         int i;
                         std::string newData = "";
                         for(i = 0; i < index; i++)
@@ -336,13 +335,13 @@ void DataBase::update(const std::string type, std::string primaryKey, std::strin
                             newData = newData + words[i] + ',';
                         }
                         newData.pop_back();
-                        fout << newData << "\n";  // ï¿½ï¿½ï¿½î¾²ï¿½ï¿½
+                        fout << newData << "\n";  // remove last ","
                         updated = true;
                         //std::cout << "out" <<std::endl;
                     }
                     else
                     {
-                        fout << line << "\n";  // ï¿½ï¿½ï¿½Ð½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
+                        fout << line << "\n";  // for save one line one data
                     }
 
                     words.clear();
@@ -622,27 +621,20 @@ void DataBase::Delete(const std::string type, std::string lineToDelete) {
         return;
     }
 
-    
-
-    // ?ë³? ??¼? ê°? ì¤ì ?? ??¼ë¡? ë³µì¬ (?­? ?  ì¤ì?? ? ?¸) // ?­? ?  ê²ë§ ?¤?¬ë³´ë¸?¤.
     while (std::getline(inputFile, line)) {
         if (getPkNum(line) != lineToDelete) {
             tempFile << line << std::endl;
         }
     }
-    
 
-    // ??¼ ?«ê¸?
     inputFile.close();
     tempFile.close();
 
-    // ?ë³? ??¼ ?­? 
     if (std::remove(filename.c_str()) != 0) {
         std::cout << "** Failed to delete the original file." << std::endl;
         return;
     }
 
-    // ?? ??¼ ?´ë¦? ë³?ê²?
     if (std::rename(tempFilename.c_str(), filename.c_str()) != 0) {
         std::cout << "** Failed to rename the temporary file." << std::endl;
         return;
