@@ -82,6 +82,7 @@ void Admin::checkRoom(DataBase db)
 
 
         count++;
+
         if (count % 10 == 0) { //Check the information of the room by 10 pieces.
             cout << ">> if you want more data enter 1. to exist is 0: ";
             cin >> datamore;
@@ -170,29 +171,14 @@ void Admin::addDelStudents(DataBase db)
             cout << ">> Are you sure you want to erase the student's information above? (Y/N): ";
             cin >> check;
             if (check == "y" || check == "Y") {
-                for (int i = 0; i < 10; i++) {
-                    if (db.findOne("student", studentcode, 9) != "404 Not Founded : out of range")//if have roommate
-                    {
-                        string mateid = db.findOne("student", studentcode, 9);
-                        mateid=mateid.replace(mateid.find("m"), 1, "s");
-                        db.update("student",mateid,"",9);//delete roommate data
-                        if (db.findOne("student", studentcode, 8) != "404 Not Founded : out of range")//if regiseter room
-                        {
-                            db.update("student", studentcode, "", 8);//delete room data
-                            db.update("student", mateid, "", 8);
-                            db.update("room", db.findOne("student", studentcode, 8), "true", 2);
-                        }
-                    }
-                    db.update("student", studentcode, "", i);
+                //ÔøΩÔøΩÔøΩÔøΩÔøΩ? ÔøΩÔøΩÔøΩÔøΩ. ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ∆ÆÔøΩÔøΩ ÔøΩÔøΩ null√≥ÔøΩÔøΩ
+                db.Delete("student", db.findOne("student", studentcode, 0));
 
-
-                }
                 cout << endl <<">> The student's information has been cleared." << endl <<endl;
             }
             else {
                 return;
             }
-
             return;
         }
         else
@@ -222,7 +208,6 @@ void Admin::addDelRoom(DataBase db)
             string roomnumber = zone + to_string(floor * 100 + i);
             while (db.findOne("room", roomnumber, 1) == roomnumber) {
                  roomnumber = zone + to_string(floor * 100 + i);
-
                 if (db.findOne("room", roomnumber, 1) != roomnumber) {//if room data is empty
                     cout << db.findOne("room", roomnumber, 1) << endl;
                     cout << "The addition room is " << roomnumber<<endl;
@@ -350,13 +335,13 @@ void Admin::matchRoommates(DataBase db)
                 roomid = to_string(room) + "r";
             }
             //cout << roomid << endl;
+
             db.update("room", db.findOne("room", roomid, 0), "false", 2);  //update room register
             db.update("student", db.findOne("student", studentid, 0), db.findOne("room", roomid, 0), 8); 
             db.update("student", db.findOne("student", roommateid, 0), db.findOne("room", roomid, 0), 8); 
             cout << ">> Room successfully registered to (" << db.findOne("student",rmmate[0],1) 
                 << ") with roommate (" << db.findOne("student",roommate[0],1) << ") in " 
                 <<db.findOne("room",roomid,1) <<". " << endl; // Information Description
-
             
         }
         //for (const auto& answer : roommate) {
@@ -365,13 +350,6 @@ void Admin::matchRoommates(DataBase db)
         //cout << endl;
 
     }
-
-    return;
-    //vector<vector<string>> noroomate_student;//Î£∏Î©î?ù¥?ä∏Í∞? ?óÜ?äî ?ïô?Éù?ì§?ùÑ ?ã¥?ùÑ Î≤°ÌÑ∞
-    //vector<vector<string>>noroommate_survey;//Î£∏Î©î?ù¥?ä∏Í∞? ?óÜ?äî ?ïô?Éù?ì§?ùò info
-
-
-        
     return;
 }
 /*
@@ -391,6 +369,7 @@ void Admin::cleanRoom(DataBase db) //Initialize the second column of room.txt to
                 cout << ">> The rooms have been vacated." << endl;
             }
 
+
             db.update("room", s, "true", 2); //clear room
             string ss = db.findOne("student", s, 0);
             db.update("student", ss, "", 8); //clear student's room data
@@ -404,7 +383,9 @@ void Admin::cleanRoom(DataBase db) //Initialize the second column of room.txt to
         i++;
 
     }
+
     if (count == 0) { //When there's no room to empty
+
         cout << ">> All rooms are empty." << endl;
     }
     return;
@@ -492,7 +473,6 @@ void Admin::registerRoom(DataBase db) { return; }
 void Admin::insertInfo(DataBase db) { return; }
 void Admin::printInfo() { return; }
 void Admin::releaseRoommate(DataBase db) {return;}
-bool Admin::isInfo() { return false; }
 string Admin::getsurveyId() {return ""; }
 string Admin::getUserName() { return ""; }
 void Admin::releaseRoom(DataBase db) {return ;}

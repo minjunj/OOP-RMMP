@@ -25,10 +25,6 @@ public:
 	void setuserPW(string PW);
 	void setuserName(string Name);
 
-
-	void doLogout();
-	void changePW();
-	void testfunc();
 	/*
 	이 함수는 userType("student", "admin"), userId, userPw를 받아 데이터 베이스에 특정 정보를 가지고 있는
 	유저가 있는지 확인해서 True, False를 리턴하는 함수다.
@@ -49,7 +45,6 @@ public:
 	virtual void releaseRoom(DataBase db)=0;
 	virtual void printInfo()=0;
 
-	virtual bool isInfo()=0;
 	virtual void checkRoom(DataBase db)=0;
 	virtual void checkStudents(DataBase db)=0;
 	virtual string getsurveyId()=0;

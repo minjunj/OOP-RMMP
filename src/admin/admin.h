@@ -12,6 +12,7 @@
 
 class DataBase; // Forward declaration of DataBase class
 
+
 /*
 string userID; // user Inherit 
 string userPW; // user Inherit 
@@ -58,7 +59,6 @@ public:
     void insertInfo(DataBase db);
 	void printInfo();
     string getsurveyId();
-	bool isInfo();
 	string getUserName();
 };
 

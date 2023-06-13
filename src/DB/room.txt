@@ -1,13 +1,3 @@
-1r,NULL,true,true
-2r,NULL,true,true
-3r,NULL,true,true
-4r,NULL,true,true
-5r,NULL,true,true
-6r,NULL,true,true
-7r,NULL,true,true
-8r,NULL,true,true
-9r,NULL,true,true
-10r,NULL,true,true
 11r,g200,true,true
 12r,g201,true,true
 13r,g202,true,true

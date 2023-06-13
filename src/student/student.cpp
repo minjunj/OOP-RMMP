@@ -189,7 +189,7 @@ void Student::findRoommate(DataBase db)
         }    
 
         for (const auto& answer : roommate) {
-            if (index != 0) {
+            if (index % 5 != 0) {
                 cout << answer << " ";
             }
             index += 1;
@@ -330,6 +330,7 @@ void Student::insertInfo(DataBase db)
         }
     }
 
+
     //***save stuInfo to survey.txt
     if (surveyId != "NULL")
         db.Delete("survey",surveyId);
@@ -340,16 +341,6 @@ void Student::insertInfo(DataBase db)
 }
 
 
-
-
-bool Student::isInfo()
-{
-    if (studentId=="0") {
-        return false;
-    }
-    return true;
- 
-}
 
 void Student::checkRoom(DataBase db) //Function to check the room status of the room
 {
