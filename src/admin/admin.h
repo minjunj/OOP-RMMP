@@ -13,9 +13,9 @@
 class DataBase; // Forward declaration of DataBase class
 
 /*
-string userID; // user ���
-string userPW; // user ���
-string userName; // user ���
+string userID; // user Inherit 
+string userPW; // user Inherit 
+string userName; // user Inherit 
 string role = "admin" //fixed
 
 [1] adminId : auto increased
