@@ -136,14 +136,17 @@ void Admin::addDelStudents(DataBase db)
                     if (ans == "0") return;
                     userInfo.push_back(ans);
                 }
-                cout << " Name  Code  ID  PW  Gender " << endl;
-                cout << "=============================" <<endl;
+
+                cout << " Name    "<<" Code   "<<"   ID   "<< "    PW    "<< "chPW  " << "    Gender   " << endl;
+                cout << "==================================================="<<endl;
+                cout << "|";
                 for (const auto& info : userInfo)
                 {
-                    cout << info << ", ";
+                    cout << info << " | ";
                 }cout << endl;
                 cout << ">> Will you add this new student? Yes(Y) NO(N) : ";
                 cin >> ans;
+
                 if (ans == "Y" || ans == "y")
                 {
                     bool gender;
@@ -210,14 +213,12 @@ void Admin::addDelRoom(DataBase db)
                  roomnumber = zone + to_string(floor * 100 + i);
                 if (db.findOne("room", roomnumber, 1) != roomnumber) {//if room data is empty
                     cout << db.findOne("room", roomnumber, 1) << endl;
-                    cout << "The addition room is " << roomnumber<<endl;
+                    cout << ">> The addition room is " << roomnumber<<endl;
                     vector<unique_ptr<Room>> roomdata = db.room_JSON(roomnumber, true);
                     db.insert(roomdata, "room"); 
                     return;
                 }
                 i++;
-
-
             }
             return;
 
@@ -225,20 +226,20 @@ void Admin::addDelRoom(DataBase db)
         else if (selection == "2") {
             //delete room data
             string roomnumber;
-            cout << "Which room do you want to delete (ex: g200): ";
+            cout << ">> Which room do you want to delete (ex: g200): ";
             cin >> roomnumber;
             if (db.findOne("room", roomnumber, 1) != roomnumber) {
-                cout << "Invalid input." << endl;
+                cout << "** Invalid input." << endl;
                 return;
             }
             else{
-                cout << "Do you want to erase " << roomnumber << "? (Y/N)"; //are you sure? delete room data?
+                cout << ">> Do you want to erase " << roomnumber << "? (Y/N) : "; //are you sure? delete room data?
                 string check;
                 cin >> check;
                 string roomid = db.findOne("room", roomnumber, 0);
                 if (check == "Y" || check == "y") {
                     db.Delete("room", roomid);
-                    cout << "Room's information has been cleared about" <<roomnumber<< endl;
+                    cout << ">> Room's information has been cleared about " <<roomnumber<< endl;
                 }
                 else {
                     cout << "** Quiting..." << endl;
