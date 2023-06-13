@@ -37,8 +37,6 @@ void studentMenuTemplate1()
     cout << "|                                          |" << endl;
     cout << "|              Student Menu                |" << endl;
     cout << "|                                          |" << endl;
-    cout << "|              Studnet Name:               |" << endl;
-    cout << "|                  Name                    |" << endl;
     cout << "|                                          |" << endl;
     cout << "|              Info : Okay                 |" << endl;
     cout << "|                                          |" << endl;
@@ -68,8 +66,8 @@ void studentMenuTemplate2()
     cout << "|                                          |" << endl;
     cout << "|              Student Menu                |" << endl;
     cout << "|                                          |" << endl;
-    cout << "|              Studnet Name:               |" << endl;
-    cout << "|                  Name                    |" << endl;
+    cout << "|                                          |" << endl;
+    cout << "|                                          |" << endl;
     cout << "|                                          |" << endl;
     cout << "|              No User Info                |" << endl;
     cout << "|              Need to Enter               |" << endl;
@@ -93,8 +91,6 @@ void adminMenuTemplate1()
     cout << "|                                          |" << endl;
     cout << "|            Administrator Menu            |" << endl;
     cout << "|                                          |" << endl;
-    cout << "|               Admin Name:                |" << endl;
-    cout << "|                  Name                    |" << endl;
     cout << "|                                          |" << endl;
     cout << "|                                          |" << endl;
     cout << "|                                          |" << endl;

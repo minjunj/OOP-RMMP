@@ -21,10 +21,15 @@ unique_ptr<User> Login(DataBase db, string userType)
 
     while (1)
     {
-        cout << ">> Enter User ID : ";
+        cout << ">> Enter User ID ( 0 to exit ): ";
         cin >> userId;
-        cout << ">> Enter the User Password : ";
+        cout << ">> Enter the User Password ( 0 to exit ): ";
         cin >> userPw;
+
+        if (userId == "0" || userPw =="0")
+        {
+            return db.getUser(userType,"Escape","Code");
+        }
         
         if (db.findUser(userType, userId, userPw))
         {
@@ -108,8 +113,10 @@ void studentMenu(unique_ptr<User>& student, DataBase db)
             {
             case 1:
                 student->insertInfo(db);
-                cout << ">> Logout and Login again to continue" <<endl;
-                break;
+                cout << ">> Info should be updated" <<endl;
+                cout << ">> Logging out"<<endl;
+                cout << ">> Please Login again to continue" <<endl;
+                return;
             case 2:
                 cout << ">> Logging out" << student->getUserName() << endl;
                 return;
@@ -283,6 +290,7 @@ void start_menu(DataBase db)
             else if (st_num == 3)
             {
                 curUser = Login(db, "student");
+                if (curUser->getuserName()=="Exit") continue;
                 cout << ">> Welcome " << curUser->getuserName() << ", Logged into Student\n" << endl;
                 studentMenu(curUser, db);
             }

@@ -193,11 +193,10 @@ void Student::findRoommate(DataBase db)
         }    
 
         for (const auto& answer : roommate) {
-            //if (index % 5 != 0) {
-            //    cout << answer << " ";
-            //}
-            //index += 1;
-            cout << answer << " ";
+            if (index % 5 != 0) {
+                cout << answer << " ";
+            }
+            index += 1;
         }
         cout << endl<<endl;
         if (i == 0) {
@@ -336,7 +335,7 @@ void Student::insertInfo(DataBase db)
 
     //***stuInfo를 오브젝트에 저장하는 과정이 필요*** 
     // stuInfo가 저장될 떈 "1, 2, 3, 4" 처럼 ,가 들가면서 string형태로 저장되기에 저장은 string으로함.
-    cout << surveyId <<endl;
+    // cout << surveyId <<endl;
     stuInfo.pop_back();// 맨뒤 , 제거
     if (surveyId != "NULL")
         db.Delete("survey",surveyId);
